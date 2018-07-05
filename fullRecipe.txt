@@ -11,17 +11,12 @@ git checkout v7.0.9
 
 # Get combine harvester
 cd $CMSSW_BASE/src
-git clone https://github.com/cms-analysis/CombineHarvester.git CombineHarvester
-
-# Get svFit & MELA
-git clone -b CMSSW_9_4_4_classic_svFit_v0 https://github.com/maravin/SubmitSVFit.git
-cd SubmitSVFit
-source recipe.sh
+git clone https://github.com/maravin/CombineHarvester.git CombineHarvester
+cd CombineHarvester/HTTSM2017
+mkdir -p shapes/USCMS
 
 cd $CMSSW_BASE/src
-git clone https://github.com/maravin/SubmitMELA.git
-cd SubmitMELA
-source recipe.sh
+git clone https://github.com/maravin/SMHTT.git
 
 # Compile everything
 scramv1 b clean; scramv1 b -j8
