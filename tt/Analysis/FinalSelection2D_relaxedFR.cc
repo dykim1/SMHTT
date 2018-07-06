@@ -258,6 +258,8 @@ int main(int argc, char** argv) {
     arbre->SetBranchAddress("pt_sv", &pt_sv);
     arbre->SetBranchAddress("pt_sv_DOWN", &pt_sv_DOWN);
     arbre->SetBranchAddress("pt_sv_UP", &pt_sv_UP);
+    //KK: Replace following lines
+    /*
     arbre->SetBranchAddress("m_sv_UESDown", &m_sv_UESDown);
     arbre->SetBranchAddress("m_sv_UESUp", &m_sv_UESUp);
     arbre->SetBranchAddress("m_sv_JESDown", &m_sv_JESDown);
@@ -266,10 +268,18 @@ int main(int argc, char** argv) {
     arbre->SetBranchAddress("pt_sv_UESUp", &pt_sv_UESUp);
     arbre->SetBranchAddress("pt_sv_JESDown", &pt_sv_JESDown);
     arbre->SetBranchAddress("pt_sv_JESUp", &pt_sv_JESUp);
-    
-    
-    
-    
+    */
+    //KK: with:
+    arbre->SetBranchAddress("m_sv_UncMet_DOWN", &m_sv_UncMet_DOWN);
+    arbre->SetBranchAddress("m_sv_UncMet_UP", &m_sv_UncMet_UP);
+    arbre->SetBranchAddress("m_sv_ClusteredMet_DOWN", &m_sv_ClusteredMet_DOWN);
+    arbre->SetBranchAddress("m_sv_ClusteredMet_UP", &m_sv_ClusteredMet_UP);
+    arbre->SetBranchAddress("pt_sv_UncMet_DOWN", &pt_sv_UncMet_DOWN);
+    arbre->SetBranchAddress("pt_sv_UncMet_UP", &pt_sv_UncMet_UP);
+    arbre->SetBranchAddress("pt_sv_ClusteredMet_DOWN", &pt_sv_ClusteredMet_DOWN);
+    arbre->SetBranchAddress("pt_sv_ClusteredMet_UP", &pt_sv_ClusteredMet_UP);
+
+
     //float bins0[] = {0, 40, 60, 70, 80, 90, 100, 110, 120, 130, 150, 200, 250}; //VBF
     //float bins1[] = {0, 40, 60, 70, 80, 90, 100, 110, 120, 130, 150, 200, 250}; //VBF
     //float bins0[] = {0,10,20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240, 250, 260, 270, 280, 290, 300}; //VBF
@@ -325,7 +335,11 @@ int main(int argc, char** argv) {
     TString postfix="";
     //For shape systematics
     int nbhist=1;
-    if (tes==100) nbhist=56;
+    if (tes==100) {
+      //KK For now use combined JES
+      nbhist=2;
+      //nbhist=56;
+    }
     if (tes==1) nbhist=12;
     if (tes==16) nbhist=6;
     if (tes==17) nbhist=12;
@@ -559,100 +573,110 @@ int main(int argc, char** argv) {
         if ((sample=="ZL") && (gen_match_1>5 || gen_match_2>5 || (gen_match_1==5 && gen_match_2==5))) continue;
         if ((sample=="ZJ") && (gen_match_1!=6 || gen_match_2!=6)) continue;
         
-        
-        
-        
-        
+
+	//KK Added for future. For now we need only first two variables
+	int nombrejets[56]={njets_JESDown,njets_JESUp,njets_JetAbsoluteFlavMapDown,njets_JetAbsoluteFlavMapUp,njets_JetAbsoluteMPFBiasDown,njets_JetAbsoluteMPFBiasUp,njets_JetAbsoluteScaleDown,njets_JetAbsoluteScaleUp,njets_JetAbsoluteStatDown,njets_JetAbsoluteStatUp,njets_JetFlavorQCDDown,njets_JetFlavorQCDUp,njets_JetFragmentationDown,njets_JetFragmentationUp,njets_JetPileUpDataMCDown,njets_JetPileUpDataMCUp,njets_JetPileUpPtBBDown,njets_JetPileUpPtBBUp,njets_JetPileUpPtEC1Down,njets_JetPileUpPtEC1Up,njets_JetPileUpPtEC2Down,njets_JetPileUpPtEC2Up,njets_JetPileUpPtHFDown,njets_JetPileUpPtHFUp,njets_JetPileUpPtRefDown,njets_JetPileUpPtRefUp,njets_JetRelativeBalDown,njets_JetRelativeBalUp,njets_JetRelativeFSRDown,njets_JetRelativeFSRUp,njets_JetRelativeJEREC1Down,njets_JetRelativeJEREC1Up,njets_JetRelativeJEREC2Down,njets_JetRelativeJEREC2Up,njets_JetRelativeJERHFDown,njets_JetRelativeJERHFUp,njets_JetRelativePtBBDown,njets_JetRelativePtBBUp,njets_JetRelativePtEC1Down,njets_JetRelativePtEC1Up,njets_JetRelativePtEC2Down,njets_JetRelativePtEC2Up,njets_JetRelativePtHFDown,njets_JetRelativePtHFUp,njets_JetRelativeStatECDown,njets_JetRelativeStatECUp,njets_JetRelativeStatFSRDown,njets_JetRelativeStatFSRUp,njets_JetRelativeStatHFDown,njets_JetRelativeStatHFUp,njets_JetSinglePionECALDown,njets_JetSinglePionECALUp,njets_JetSinglePionHCALDown,njets_JetSinglePionHCALUp,njets_JetTimePtEtaDown,njets_JetTimePtEtaUp};
+
+	float massejets[56]={mjj_JESDown,mjj_JESUp,mjj_JetAbsoluteFlavMapDown,mjj_JetAbsoluteFlavMapUp,mjj_JetAbsoluteMPFBiasDown,mjj_JetAbsoluteMPFBiasUp,mjj_JetAbsoluteScaleDown,mjj_JetAbsoluteScaleUp,mjj_JetAbsoluteStatDown,mjj_JetAbsoluteStatUp,mjj_JetFlavorQCDDown,mjj_JetFlavorQCDUp,mjj_JetFragmentationDown,mjj_JetFragmentationUp,mjj_JetPileUpDataMCDown,mjj_JetPileUpDataMCUp,mjj_JetPileUpPtBBDown,mjj_JetPileUpPtBBUp,mjj_JetPileUpPtEC1Down,mjj_JetPileUpPtEC1Up,mjj_JetPileUpPtEC2Down,mjj_JetPileUpPtEC2Up,mjj_JetPileUpPtHFDown,mjj_JetPileUpPtHFUp,mjj_JetPileUpPtRefDown,mjj_JetPileUpPtRefUp,mjj_JetRelativeBalDown,mjj_JetRelativeBalUp,mjj_JetRelativeFSRDown,mjj_JetRelativeFSRUp,mjj_JetRelativeJEREC1Down,mjj_JetRelativeJEREC1Up,mjj_JetRelativeJEREC2Down,mjj_JetRelativeJEREC2Up,mjj_JetRelativeJERHFDown,mjj_JetRelativeJERHFUp,mjj_JetRelativePtBBDown,mjj_JetRelativePtBBUp,mjj_JetRelativePtEC1Down,mjj_JetRelativePtEC1Up,mjj_JetRelativePtEC2Down,mjj_JetRelativePtEC2Up,mjj_JetRelativePtHFDown,mjj_JetRelativePtHFUp,mjj_JetRelativeStatECDown,mjj_JetRelativeStatECUp,mjj_JetRelativeStatFSRDown,mjj_JetRelativeStatFSRUp,mjj_JetRelativeStatHFDown,mjj_JetRelativeStatHFUp,mjj_JetSinglePionECALDown,mjj_JetSinglePionECALUp,mjj_JetSinglePionHCALDown,mjj_JetSinglePionHCALUp,mjj_JetTimePtEtaDown,mjj_JetTimePtEtaUp};
+
+	for (int k=0; k<nbhist; ++k){
+          
+	  float var2=m_sv; 
+	  float var1_1=pt_sv;
+	  //	  float var1_2=massJets;
+         
+	  TLorentzVector myrawmet;
+	  myrawmet.SetPtEtaPhiM(met,0,metphi,0);
+	  TLorentzVector mymet=myrawmet;
+	  //cout << mymet.M() << endl;
+	  // Apply uncertainty shifts ( NOT ADDED YET )	  
+
+	  
+	  //AM
+	  //This is for tau ES uncertainty up and down
+	  //KK: added "&& gen_match_1==5"
+	  if (tes==1 && gen_match_2==5 && gen_match_1==5){	    
             
-            for (int k=0; k<nbhist; ++k){
-                
-                
-                float var2=m_sv;
-                
-                TLorentzVector mymet;
-                //            mytau=myrawtau;
-                float var1_1=pt_sv;
-                var2=m_sv;
-                //            float var1_2=massJets;
-        
-                //AM
-                //This is for tau ES uncertainty up and down
-                if (tes==1 && gen_match_2==5){
-                
-                
-                if (k==0){ var1_1=pt_sv_DOWN; var2=m_sv_DOWN; mytau1*=0.988; mytau2*=0.988;  mymet=mymet+(0.012/0.988)*mytau1+(0.012/0.988)*mytau2;}
-                if (k==1){ var1_1=pt_sv_UP;   var2=m_sv_UP;   mytau1*=1.012; mytau2*=1.012;  mymet=mymet-(0.012/1.012)*mytau1-(0.012/1.012)*mytau2;}
-                
-                
-                
-                if (k==2 && t2_decayMode==0){ var1_1=pt_sv_DOWN; var2=m_sv_DOWN; mytau2*=0.988; mymet=mymet+(0.012/0.988)*mytau2;}
-                if (k==3 && t2_decayMode==0){ var1_1=pt_sv_UP; var2=m_sv_UP; mytau2*=1.012; mymet=mymet-(0.012/1.012)*mytau2;}
-                if (k==4 && t2_decayMode==1){ var1_1=pt_sv_DOWN; var2=m_sv_DOWN; mytau2*=0.988; mymet=mymet+(0.012/0.988)*mytau2;}
-                if (k==5 && t2_decayMode==1){ var1_1=pt_sv_UP; var2=m_sv_UP; mytau2*=1.012; mymet=mymet-(0.012/1.012)*mytau2;}
-                if (k==6 && t2_decayMode==10){ var1_1=pt_sv_DOWN; var2=m_sv_DOWN; mytau2*=0.988; mymet=mymet+(0.012/0.988)*mytau2;}
-                if (k==7 && t2_decayMode==10){ var1_1=pt_sv_UP; var2=m_sv_UP; mytau2*=1.012; mymet=mymet-(0.012/1.012)*mytau2;}
-                
-                if (k==2 && t1_decayMode==0){ var1_1=pt_sv_DOWN; var2=m_sv_DOWN; mytau1*=0.988; mymet=mymet+(0.012/0.988)*mytau1;}
-                if (k==3 && t1_decayMode==0){ var1_1=pt_sv_UP; var2=m_sv_UP; mytau1*=1.012; mymet=mymet-(0.012/1.012)*mytau1;}
-                if (k==4 && t1_decayMode==1){ var1_1=pt_sv_DOWN; var2=m_sv_DOWN; mytau1*=0.988; mymet=mymet+(0.012/0.988)*mytau1;}
-                if (k==5 && t1_decayMode==1){ var1_1=pt_sv_UP; var2=m_sv_UP; mytau1*=1.012; mymet=mymet-(0.012/1.012)*mytau1;}
-                if (k==6 && t1_decayMode==10){ var1_1=pt_sv_DOWN; var2=m_sv_DOWN; mytau1*=0.988; mymet=mymet+(0.012/0.988)*mytau1;}
-                if (k==7 && t1_decayMode==10){ var1_1=pt_sv_UP; var2=m_sv_UP; mytau1*=1.012; mymet=mymet-(0.012/1.012)*mytau1;}
-                
-            }
+	    if (k==0){ var1_1=pt_sv_DOWN; var2=m_sv_DOWN; mytau1*=0.988; mytau2*=0.988;  mymet=mymet+(0.012/0.988)*mytau1+(0.012/0.988)*mytau2;}
+	    if (k==1){ var1_1=pt_sv_UP;   var2=m_sv_UP;   mytau1*=1.012; mytau2*=1.012;  mymet=mymet-(0.012/1.012)*mytau1-(0.012/1.012)*mytau2;}
+                        
             
-            if (tes==1){
-                if (k==8){ var2=m_sv_UESDown; var1_1=pt_sv_UESDown; mymet.SetPtEtaPhiM(met_UESDown,0,metphi_UESDown,0);}
-                else if (k==9){ var2=m_sv_UESUp; var1_1=pt_sv_UESUp; mymet.SetPtEtaPhiM(met_UESUp,0,metphi_UESUp,0);}
-                else if (k==10){ var2=m_sv_JESDown; var1_1=pt_sv_JESDown; mymet.SetPtEtaPhiM(met_JESDown,0,metphi_JESDown,0);}
-                else if (k==11){ var2=m_sv_JESUp; var1_1=pt_sv_JESUp; mymet.SetPtEtaPhiM(met_JESUp,0,metphi_JESUp,0);}
-            }
+	    if (k==2 && t2_decayMode==0){ var1_1=pt_sv_DOWN; var2=m_sv_DOWN; mytau2*=0.988; mymet=mymet+(0.012/0.988)*mytau2;}
+	    if (k==3 && t2_decayMode==0){ var1_1=pt_sv_UP; var2=m_sv_UP; mytau2*=1.012; mymet=mymet-(0.012/1.012)*mytau2;}
+	    if (k==4 && t2_decayMode==1){ var1_1=pt_sv_DOWN; var2=m_sv_DOWN; mytau2*=0.988; mymet=mymet+(0.012/0.988)*mytau2;}
+	    if (k==5 && t2_decayMode==1){ var1_1=pt_sv_UP; var2=m_sv_UP; mytau2*=1.012; mymet=mymet-(0.012/1.012)*mytau2;}
+	    if (k==6 && t2_decayMode==10){ var1_1=pt_sv_DOWN; var2=m_sv_DOWN; mytau2*=0.988; mymet=mymet+(0.012/0.988)*mytau2;}
+	    if (k==7 && t2_decayMode==10){ var1_1=pt_sv_UP; var2=m_sv_UP; mytau2*=1.012; mymet=mymet-(0.012/1.012)*mytau2;}
             
+	    if (k==2 && t1_decayMode==0){ var1_1=pt_sv_DOWN; var2=m_sv_DOWN; mytau1*=0.988; mymet=mymet+(0.012/0.988)*mytau1;}
+	    if (k==3 && t1_decayMode==0){ var1_1=pt_sv_UP; var2=m_sv_UP; mytau1*=1.012; mymet=mymet-(0.012/1.012)*mytau1;}
+	    if (k==4 && t1_decayMode==1){ var1_1=pt_sv_DOWN; var2=m_sv_DOWN; mytau1*=0.988; mymet=mymet+(0.012/0.988)*mytau1;}
+	    if (k==5 && t1_decayMode==1){ var1_1=pt_sv_UP; var2=m_sv_UP; mytau1*=1.012; mymet=mymet-(0.012/1.012)*mytau1;}
+	    if (k==6 && t1_decayMode==10){ var1_1=pt_sv_DOWN; var2=m_sv_DOWN; mytau1*=0.988; mymet=mymet+(0.012/0.988)*mytau1;}
+	    if (k==7 && t1_decayMode==10){ var1_1=pt_sv_UP; var2=m_sv_UP; mytau1*=1.012; mymet=mymet-(0.012/1.012)*mytau1;}
             
+	  }
+	  
+	  if (tes==1){
+	    //KK: Modified lines below from
+	    //	    if (k==8){ var2=m_sv_UESDown; var1_1=pt_sv_UESDown; mymet.SetPtEtaPhiM(met_UESDown,0,metphi_UESDown,0);}
+	    //	    else if (k==9){ var2=m_sv_UESUp; var1_1=pt_sv_UESUp; mymet.SetPtEtaPhiM(met_UESUp,0,metphi_UESUp,0);}
+	    //	    else if (k==10){ var2=m_sv_JESDown; var1_1=pt_sv_JESDown; mymet.SetPtEtaPhiM(met_JESDown,0,metphi_JESDown,0);}
+	    //	    else if (k==11){ var2=m_sv_JESUp; var1_1=pt_sv_JESUp; mymet.SetPtEtaPhiM(met_JESUp,0,metphi_JESUp,0);}
+	    //KK: to
+	    if (k==8){ var2=m_sv_UncMet_DOWN; var1_1=pt_sv_UncMet_DOWN; mymet.SetPtEtaPhiM(met_UESDown,0,metphi_UESDown,0);}
+	    else if (k==9){ var2=m_sv_UncMet_UP; var1_1=pt_sv_UncMet_UP; mymet.SetPtEtaPhiM(met_UESUp,0,metphi_UESUp,0);}
+	    else if (k==10){ var2=m_sv_ClusteredMet_DOWN; var1_1=pt_sv_ClusteredMet_DOWN; mymet.SetPtEtaPhiM(met_JESDown,0,metphi_JESDown,0);}
+	    else if (k==11){ var2=m_sv_ClusteredMet_UP; var1_1=pt_sv_ClusteredMet_UP; mymet.SetPtEtaPhiM(met_JESUp,0,metphi_JESUp,0);}
+	  }
+
+	  //KK: Added njet and mjj variables affected by JES
+	  if (tes==100){
+	    njets = nombrejets[k];
+	    //	    mjj = massejets[k]; //KK for now not available in trees
+	  }
+	    
+
+	//KK: Combine two loops over nbhist
+	/*
         }
-        
-        
+	
         // #################################
         // # Loop over uncertainty sources #
         // #################################
-        TLorentzVector myrawmet;
-        myrawmet.SetPtEtaPhiM(met,0,metphi,0);
-        
         for (int k=0; k<nbhist; ++k){
-            // for each iteration start from the nominal objets
-            float weight2=1.0;
-            TLorentzVector mymet=myrawmet;
-            //cout << mymet.M() << endl;
-            // Apply uncertainty shifts ( NOT ADDED YET )
-            
-            // pT, Eta cuts for the leptons
-            if (mytau1.Pt()<50 || mytau2.Pt()<40) continue; // L770
-            if (mytau1.Pt()<40 && mytau2.Pt()<40) continue;//if (mytau1.Pt()<20 and mytau2.Pt()<20) continue;
-            if ((std::abs(mytau1.Eta()))>2.1 || (std::abs(mytau2.Eta())>2.1)) continue; // L770
-            
-            weight2=weight2*sf_trg;
-            if (sample=="data_obs") {aweight=1.0; weight2=1.0;}
-            
-            // Additional selections
-            bool selection =true;
-            TLorentzVector myjet1;
-            myjet1.SetPtEtaPhiM(jpt_1,jeta_1,jphi_1,0);
-            TLorentzVector myjet2;
-            myjet2.SetPtEtaPhiM(jpt_2,jeta_2,jphi_2,0);
-            TLorentzVector Higgs = mytau1+mytau2+mymet;
-            TLorentzVector jets=myjet2+myjet1;
-            
-            // Categories
-            bool is_0jet = false;
-            bool is_boosted = false;
-            bool is_VBF = false;
-            bool is_VH = false;
-            
-            if(njets==0) is_0jet=true;
-            if(njets>=2 && Higgs.Pt()>100 && jets.M() > 300) is_VBF=true;
-            if(njets>=2 && jets.M() < 300) is_VH=true;
-            if(njets==1 || (njets>=2 && jets.M() > 300 && Higgs.Pt()<100)) is_boosted=true;
-            
+	*/
+	// for each iteration start from the nominal objets
+	  
+	  // pT, Eta cuts for the leptons
+	  if (mytau1.Pt()<50 || mytau2.Pt()<40) continue; // L770
+	  if (mytau1.Pt()<40 && mytau2.Pt()<40) continue;//if (mytau1.Pt()<20 and mytau2.Pt()<20) continue;
+	  if ((std::abs(mytau1.Eta()))>2.1 || (std::abs(mytau2.Eta())>2.1)) continue; // L770
+	  
+	  float weight2=1.0;	  
+	  weight2=weight2*sf_trg;
+	  if (sample=="data_obs") {aweight=1.0; weight2=1.0;}
+          
+	  // Additional selections
+	  bool selection =true;
+	  TLorentzVector myjet1;
+	  myjet1.SetPtEtaPhiM(jpt_1,jeta_1,jphi_1,0);
+	  TLorentzVector myjet2;
+	  myjet2.SetPtEtaPhiM(jpt_2,jeta_2,jphi_2,0);
+	  TLorentzVector Higgs = mytau1+mytau2+mymet;
+	  TLorentzVector jets=myjet2+myjet1;
+          
+	  // Categories
+	  bool is_0jet = false;
+	  bool is_boosted = false;
+	  bool is_VBF = false;
+	  bool is_VH = false;
+          
+	  if(njets==0) is_0jet=true;
+	  if(njets>=2 && Higgs.Pt()>100 && mjj > 300) is_VBF=true;
+	  if(njets>=2 && mjj < 300) is_VH=true;
+	  if(njets==1 || (njets>=2 && mjj > 300 && Higgs.Pt()<100)) is_boosted=true;
+          
             //else if(njets>=2 && Higgs.Pt()>100 && std::abs(myjet1.Eta()-myjet2.Eta())>2.5) is_VBF=true;
             //if(njets==1 || !(njets>=2 && Higgs.Pt()>100 && std::abs(myjet1.Eta()-myjet2.Eta())>2.5)) is_boosted=true;
             //else cout << "AN's category is not complete." << endl;
@@ -669,19 +693,7 @@ int main(int argc, char** argv) {
             }
             
             //************************* Fill histograms **********************
-            
-            
-            /*if(njets<2) continue;
-             
-             
-             cout << "jpt_1  : " << myjet1.Pt() << endl;
-             cout << "jeta_1  : " << myjet1.Eta() << endl;
-             cout << "jpt_2  : " << myjet2.Pt() << endl;
-             cout << "jeta_2  : " << myjet2.Eta() << endl;
-             cout << endl;*/
-            //cout << "mjj   : " << jets.M() << endl;
-            //cout << "weight: " << weight2*aweight << endl;
-            
+                                   
             //            float var = Higgs.Pt(); //Variable to plot
             float var = (mytau2+mytau1).M(); //Variable to plot
             if (selection){
