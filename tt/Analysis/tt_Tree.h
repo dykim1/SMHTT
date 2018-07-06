@@ -29,7 +29,7 @@ float byTightIsolationMVArun2v1DBnewDMwLT_2,  byTightIsolationMVArun2v1DBoldDMwL
 float byVTightIsolationMVArun2v1DBnewDMwLT_2,  byVTightIsolationMVArun2v1DBoldDMwLT_2,  byVTightIsolationMVArun2v1DBdR03oldDMwLT_2;
 float byVVTightIsolationMVArun2v1DBnewDMwLT_2,  byVVTightIsolationMVArun2v1DBoldDMwLT_2,  byVVTightIsolationMVArun2v1DBdR03oldDMwLT_2;
 float mjj, jdeta, jdphi, dijetpt, dijetphi, hdijetphi, visjeteta, ptvis;
-float mjj_JESDown, jdeta_JESDown,mjj_JESUp,jdeta_JESUp;
+float mjj_JESDown, jdeta_JESDown, mjj_JESUp,jdeta_JESUp;
 int njetingap, njetingap20, nbtag, njets, njetspt20, nbtagL;
 int njetingap_JESDown, njetingap20_JESDown, njets_JESDown, njetspt20_JESDown;
 int njetingap_JESUp, njetingap20_JESUp, njets_JESUp, njetspt20_JESUp;
@@ -79,6 +79,8 @@ float pt_sv_UESUp;
 float pt_sv_JESDown;
 float pt_sv_JESUp;
 
+float m_sv_UncMet_DOWN, m_sv_UncMet_UP, m_sv_ClusteredMet_DOWN, m_sv_ClusteredMet_UP;
+float pt_sv_UncMet_DOWN, pt_sv_UncMet_UP, pt_sv_ClusteredMet_DOWN, pt_sv_ClusteredMet_UP;
 
 
 void fillTreeMVA(TTree* BG_Tree, float PT1, float PT2, float ETA1, float ETA2, float PHI1, float PHI2, float M1, float M2, float MET, float METPHI, float METCOV00, float METCOV01, float METCOV11, float MVIS, float TARGET, float WEIGHT) {
