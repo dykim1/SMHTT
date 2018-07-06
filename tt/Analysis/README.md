@@ -18,3 +18,5 @@ As of 05.Jul.2018, this datacard is stored in
 /hdfs/store/user/ymaravin/2016/tt/DatacardReady/
 ```
 so you can just fish it out from myntuples/Jun27
+The next step is to run the limits: see $CMSSW_BASE/src/CombineHarvester/HTTSM2017/README.md for
+instructions on how to do this.
