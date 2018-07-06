@@ -251,8 +251,6 @@ int main(int argc, char** argv) {
     
     arbre->SetBranchAddress("m_sv",&m_sv);
     
-    //    These branches are missing
-    
     arbre->SetBranchAddress("m_sv_DOWN", &m_sv_DOWN);
     arbre->SetBranchAddress("m_sv_UP", &m_sv_UP);
     arbre->SetBranchAddress("pt_sv", &pt_sv);
@@ -429,22 +427,22 @@ int main(int argc, char** argv) {
         fflush(stdout);
         
         // DoubleTau trigger
-        if (sample=="data_obs" && ((input=="myntuples/data_H_v2.root") || (input=="myntuples/data_H_v3.root"))) {
-            if(!passDoubleTauCmbIso35) continue;
-            if(!matchDoubleTauCmbIso35_1 || !matchDoubleTauCmbIso35_2) continue;
-            if(filterDoubleTauCmbIso35_1<0.5 || filterDoubleTauCmbIso35_2<0.5) continue;
+        if (sample=="data_obs" && input=="myntuples/data_H.root") {
+	  if(!passDoubleTauCmbIso35) continue;
+	  if(!matchDoubleTauCmbIso35_1 || !matchDoubleTauCmbIso35_2) continue;
+	  if(filterDoubleTauCmbIso35_1<0.5 || filterDoubleTauCmbIso35_2<0.5) continue;
         }
-        if (sample=="data_obs" && !(input=="myntuples/data_H_v2.root") && !(input=="myntuples/data_H_v3.root")) {
-            if (!passDoubleTau35) continue;
-            if (!matchDoubleTau35_1 || !matchDoubleTau35_2) continue;
-            if (filterDoubleTau35_1<0.5 || filterDoubleTau35_2<0.5) continue;
+        if (sample=="data_obs" && input=="myntuples/data_H.root") {
+	  if (!passDoubleTau35) continue;
+	  if (!matchDoubleTau35_1 || !matchDoubleTau35_2) continue;
+	  if (filterDoubleTau35_1<0.5 || filterDoubleTau35_2<0.5) continue;
         }
         if (sample!="data_obs") {
-            if(!passDoubleTauCmbIso35 || !passDoubleTau35) continue;
-            if(passDoubleTauCmbIso35 && (filterDoubleTauCmbIso35_1<0.5 || filterDoubleTauCmbIso35_2<0.5)) continue;
-            if(passDoubleTauCmbIso35 && (!matchDoubleTauCmbIso35_1 || !matchDoubleTauCmbIso35_2)) continue;
-            if(passDoubleTau35 && (filterDoubleTau35_1<0.5 || filterDoubleTau35_2<0.5)) continue;
-            if(passDoubleTau35 && (!matchDoubleTau35_1 || !matchDoubleTau35_2)) continue;
+	  if(!passDoubleTauCmbIso35 || !passDoubleTau35) continue;
+	  if(passDoubleTauCmbIso35 && (filterDoubleTauCmbIso35_1<0.5 || filterDoubleTauCmbIso35_2<0.5)) continue;
+	  if(passDoubleTauCmbIso35 && (!matchDoubleTauCmbIso35_1 || !matchDoubleTauCmbIso35_2)) continue;
+	  if(passDoubleTau35 && (filterDoubleTau35_1<0.5 || filterDoubleTau35_2<0.5)) continue;
+	  if(passDoubleTau35 && (!matchDoubleTau35_1 || !matchDoubleTau35_2)) continue;
         }
         
         // mytau1 is the highest pT tau
@@ -455,10 +453,10 @@ int main(int argc, char** argv) {
         TLorentzVector mytau2;
         mytau2.SetPtEtaPhiM(pt_2,eta_2,phi_2,m_2);
         if (pt_1<pt_2){
-            charge2=q_1;
-            charge1=q_2;
-            mytau2.SetPtEtaPhiM(pt_1,eta_1,phi_1,m_1);
-            mytau1.SetPtEtaPhiM(pt_2,eta_2,phi_2,m_2);
+	  charge2=q_1;
+	  charge1=q_2;
+	  mytau2.SetPtEtaPhiM(pt_1,eta_1,phi_1,m_1);
+	  mytau1.SetPtEtaPhiM(pt_2,eta_2,phi_2,m_2);
         }
         
         if (againstElectronVLooseMVA6_1 < 0.5) continue; // L773
@@ -474,15 +472,15 @@ int main(int argc, char** argv) {
         float eff_tau=1.0;
         
         /*
-         if (sample!="data_obs"){
-         //sf_id=myScaleFactor_idMu->get_ScaleFactor(mytau1.Pt(),mytau1.Eta())*myScaleFactor_idMu->get_ScaleFactor(mytau2.Pt(),mytau2.Eta());
-         w->var("m_pt")->setVal(mytau1.Pt());
-         w->var("m_eta")->setVal(mytau1.Eta());
-         sf_id=sf_id*w->function("m_trk_ratio")->getVal();
-         w->var("m_pt")->setVal(mytau2.Pt());
-         w->var("m_eta")->setVal(mytau2.Eta());
-         sf_id=sf_id*w->function("m_trk_ratio")->getVal();
-         }*/
+	  if (sample!="data_obs"){
+	  //sf_id=myScaleFactor_idMu->get_ScaleFactor(mytau1.Pt(),mytau1.Eta())*myScaleFactor_idMu->get_ScaleFactor(mytau2.Pt(),mytau2.Eta());
+	  w->var("m_pt")->setVal(mytau1.Pt());
+	  w->var("m_eta")->setVal(mytau1.Eta());
+	  sf_id=sf_id*w->function("m_trk_ratio")->getVal();
+	  w->var("m_pt")->setVal(mytau2.Pt());
+	  w->var("m_eta")->setVal(mytau2.Eta());
+	  sf_id=sf_id*w->function("m_trk_ratio")->getVal();
+	  }*/
         
         // Regions
         float signalRegion = byTightIsolationMVArun2v1DBoldDMwLT_1 && byTightIsolationMVArun2v1DBoldDMwLT_2;
@@ -490,23 +488,23 @@ int main(int argc, char** argv) {
         
         // Weights depending in the generated jet multiplicity
         if (sample=="W"){
-            weight=25.446;
-            if (numGenJets==1) weight=6.8176;
-            else if (numGenJets==2) weight=2.1038;
-            else if (numGenJets==3) weight=0.6889;
-            else if (numGenJets==4) weight=0.6900;
-            //cout << weight << endl;
+	  weight=25.446;
+	  if (numGenJets==1) weight=6.8176;
+	  else if (numGenJets==2) weight=2.1038;
+	  else if (numGenJets==3) weight=0.6889;
+	  else if (numGenJets==4) weight=0.6900;
+	  //cout << weight << endl;
         }
         
         if (sample=="DY" or sample=="ZTT" or sample=="ZLL" or sample=="ZL" or sample=="ZJ"){
-            weight=1.41957039;
-            if (numGenJets==1 || input=="myntuples/DY1.root")
+	  weight=1.41957039;
+	  if (numGenJets==1 || input=="myntuples/DY1.root")
             weight=0.457675455;
-            else if (numGenJets==2 || input=="myntuples/DY2.root")
+	  else if (numGenJets==2 || input=="myntuples/DY2.root")
             weight=0.467159142;
-            else if (numGenJets==3 || input=="myntuples/DY3.root")
+	  else if (numGenJets==3 || input=="myntuples/DY3.root")
             weight=0.480349711;
-            else if (numGenJets==4 || input=="myntuples/DY4.root")
+	  else if (numGenJets==4 || input=="myntuples/DY4.root")
             weight=0.3938184351;
         }
         
@@ -516,44 +514,44 @@ int main(int argc, char** argv) {
         if (sample!="data_obs") correction=correction*LumiWeights_12->weight(npu);
         float aweight=amcatNLO_weight*weight*correction;
         if (sample!="data_obs"){
-            //Tau ID SF (Tight WP)
-            if (gen_match_1==5) aweight=aweight*0.95;
-            if (gen_match_2==5) aweight=aweight*0.95;
-            //e->tau fakes VLoose
-            if (gen_match_1==1 or gen_match_1==3){
-                if (std::abs(mytau1.Eta())<1.460) aweight=aweight*1.213;
-                else if (std::abs(mytau1.Eta())>1.558) aweight=aweight*1.375;
-            }
-            if (gen_match_2==1 or gen_match_2==3){
-                if (std::abs(mytau2.Eta())<1.460) aweight=aweight*1.213;
-                else if (std::abs(mytau2.Eta())>1.558) aweight=aweight*1.375;
-            }
-            // mu->tau fakes Loose
-            else if (gen_match_1==2 or gen_match_1==4){
-                if (std::abs(mytau1.Eta())<0.4) aweight=aweight*1.010;
-                else if (std::abs(mytau1.Eta())<0.8) aweight=aweight*1.007;
-                else if (std::abs(mytau1.Eta())<1.2) aweight=aweight*0.870;
-                else if (std::abs(mytau1.Eta())<1.7) aweight=aweight*1.154;
-                else aweight=aweight*2.281;
-            }
-            else if (gen_match_2==2 or gen_match_2==4){
-                if (std::abs(mytau2.Eta())<0.4) aweight=aweight*1.010;
-                else if (std::abs(mytau2.Eta())<0.8) aweight=aweight*1.007;
-                else if (std::abs(mytau2.Eta())<1.2) aweight=aweight*0.870;
-                else if (std::abs(mytau2.Eta())<1.7) aweight=aweight*1.154;
-                else aweight=aweight*2.281;
-            }
-            //aweight=aweight*h_Trk->Eval(eta_1);
+	  //Tau ID SF (Tight WP)
+	  if (gen_match_1==5) aweight=aweight*0.95;
+	  if (gen_match_2==5) aweight=aweight*0.95;
+	  //e->tau fakes VLoose
+	  if (gen_match_1==1 or gen_match_1==3){
+	    if (std::abs(mytau1.Eta())<1.460) aweight=aweight*1.213;
+	    else if (std::abs(mytau1.Eta())>1.558) aweight=aweight*1.375;
+	  }
+	  if (gen_match_2==1 or gen_match_2==3){
+	    if (std::abs(mytau2.Eta())<1.460) aweight=aweight*1.213;
+	    else if (std::abs(mytau2.Eta())>1.558) aweight=aweight*1.375;
+	  }
+	  // mu->tau fakes Loose
+	  else if (gen_match_1==2 or gen_match_1==4){
+	    if (std::abs(mytau1.Eta())<0.4) aweight=aweight*1.010;
+	    else if (std::abs(mytau1.Eta())<0.8) aweight=aweight*1.007;
+	    else if (std::abs(mytau1.Eta())<1.2) aweight=aweight*0.870;
+	    else if (std::abs(mytau1.Eta())<1.7) aweight=aweight*1.154;
+	    else aweight=aweight*2.281;
+	  }
+	  else if (gen_match_2==2 or gen_match_2==4){
+	    if (std::abs(mytau2.Eta())<0.4) aweight=aweight*1.010;
+	    else if (std::abs(mytau2.Eta())<0.8) aweight=aweight*1.007;
+	    else if (std::abs(mytau2.Eta())<1.2) aweight=aweight*0.870;
+	    else if (std::abs(mytau2.Eta())<1.7) aweight=aweight*1.154;
+	    else aweight=aweight*2.281;
+	  }
+	  //aweight=aweight*h_Trk->Eval(eta_1);
         }
         
         // Z pt reweighting for DY events
         if (sample=="DY" || sample=="EWKZLL" || sample=="EWKZNuNu" || sample=="ZTT" || sample=="ZLL" || sample=="ZL" || sample=="ZJ"){
-            float zpt_corr=histZ->GetBinContent(histZ->GetXaxis()->FindBin(genM),histZ->GetYaxis()->FindBin(genpT));
-            if (std::abs(tes)!=10) //nominal
+	  float zpt_corr=histZ->GetBinContent(histZ->GetXaxis()->FindBin(genM),histZ->GetYaxis()->FindBin(genpT));
+	  if (std::abs(tes)!=10) //nominal
             aweight=aweight*zpt_corr;
-            else if (tes==10) // up
+	  else if (tes==10) // up
             aweight=aweight*(1+1.10*(zpt_corr-1));
-            else if (tes==-10) // down
+	  else if (tes==-10) // down
             aweight=aweight*(1+0.90*(zpt_corr-1));
         }
         
@@ -573,7 +571,7 @@ int main(int argc, char** argv) {
         if ((sample=="ZL") && (gen_match_1>5 || gen_match_2>5 || (gen_match_1==5 && gen_match_2==5))) continue;
         if ((sample=="ZJ") && (gen_match_1!=6 || gen_match_2!=6)) continue;
         
-
+	
 	//KK Added for future. For now we need only first two variables
 	int nombrejets[56]={njets_JESDown,njets_JESUp,njets_JetAbsoluteFlavMapDown,njets_JetAbsoluteFlavMapUp,njets_JetAbsoluteMPFBiasDown,njets_JetAbsoluteMPFBiasUp,njets_JetAbsoluteScaleDown,njets_JetAbsoluteScaleUp,njets_JetAbsoluteStatDown,njets_JetAbsoluteStatUp,njets_JetFlavorQCDDown,njets_JetFlavorQCDUp,njets_JetFragmentationDown,njets_JetFragmentationUp,njets_JetPileUpDataMCDown,njets_JetPileUpDataMCUp,njets_JetPileUpPtBBDown,njets_JetPileUpPtBBUp,njets_JetPileUpPtEC1Down,njets_JetPileUpPtEC1Up,njets_JetPileUpPtEC2Down,njets_JetPileUpPtEC2Up,njets_JetPileUpPtHFDown,njets_JetPileUpPtHFUp,njets_JetPileUpPtRefDown,njets_JetPileUpPtRefUp,njets_JetRelativeBalDown,njets_JetRelativeBalUp,njets_JetRelativeFSRDown,njets_JetRelativeFSRUp,njets_JetRelativeJEREC1Down,njets_JetRelativeJEREC1Up,njets_JetRelativeJEREC2Down,njets_JetRelativeJEREC2Up,njets_JetRelativeJERHFDown,njets_JetRelativeJERHFUp,njets_JetRelativePtBBDown,njets_JetRelativePtBBUp,njets_JetRelativePtEC1Down,njets_JetRelativePtEC1Up,njets_JetRelativePtEC2Down,njets_JetRelativePtEC2Up,njets_JetRelativePtHFDown,njets_JetRelativePtHFUp,njets_JetRelativeStatECDown,njets_JetRelativeStatECUp,njets_JetRelativeStatFSRDown,njets_JetRelativeStatFSRUp,njets_JetRelativeStatHFDown,njets_JetRelativeStatHFUp,njets_JetSinglePionECALDown,njets_JetSinglePionECALUp,njets_JetSinglePionHCALDown,njets_JetSinglePionHCALUp,njets_JetTimePtEtaDown,njets_JetTimePtEtaUp};
 
@@ -635,6 +633,7 @@ int main(int argc, char** argv) {
 	    njets = nombrejets[k];
 	    //	    mjj = massejets[k]; //KK for now not available in trees
 	  }
+	
 	    
 
 	//KK: Combine two loops over nbhist
@@ -651,7 +650,7 @@ int main(int argc, char** argv) {
 	  // pT, Eta cuts for the leptons
 	  if (mytau1.Pt()<50 || mytau2.Pt()<40) continue; // L770
 	  if (mytau1.Pt()<40 && mytau2.Pt()<40) continue;//if (mytau1.Pt()<20 and mytau2.Pt()<20) continue;
-	  if ((std::abs(mytau1.Eta()))>2.1 || (std::abs(mytau2.Eta())>2.1)) continue; // L770
+	  if ((fabs(mytau1.Eta()))>2.1 || (fabs(mytau2.Eta())>2.1)) continue; // L770
 	  
 	  float weight2=1.0;	  
 	  weight2=weight2*sf_trg;
@@ -665,7 +664,8 @@ int main(int argc, char** argv) {
 	  myjet2.SetPtEtaPhiM(jpt_2,jeta_2,jphi_2,0);
 	  TLorentzVector Higgs = mytau1+mytau2+mymet;
 	  TLorentzVector jets=myjet2+myjet1;
-          
+          mjj = jets.M();
+
 	  // Categories
 	  bool is_0jet = false;
 	  bool is_boosted = false;
