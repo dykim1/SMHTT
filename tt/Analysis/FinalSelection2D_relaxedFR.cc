@@ -422,327 +422,329 @@ int main(int argc, char** argv) {
     
     Int_t nentries_wtn = (Int_t) arbre->GetEntries();
     for (Int_t i = 0; i < nentries_wtn; i++) {
-        arbre->GetEntry(i);
-        if (i % 10000 == 0) fprintf(stdout, "\r  Processed events: %8d of %8d ", i, nentries_wtn);
-        fflush(stdout);
-        
-        // DoubleTau trigger
-        if (sample=="data_obs" && input=="myntuples/data_H.root") {
-	  if(!passDoubleTauCmbIso35) continue;
-	  if(!matchDoubleTauCmbIso35_1 || !matchDoubleTauCmbIso35_2) continue;
-	  if(filterDoubleTauCmbIso35_1<0.5 || filterDoubleTauCmbIso35_2<0.5) continue;
-        }
-        if (sample=="data_obs" && input=="myntuples/data_H.root") {
-	  if (!passDoubleTau35) continue;
-	  if (!matchDoubleTau35_1 || !matchDoubleTau35_2) continue;
-	  if (filterDoubleTau35_1<0.5 || filterDoubleTau35_2<0.5) continue;
-        }
-        if (sample!="data_obs") {
-	  if(!passDoubleTauCmbIso35 || !passDoubleTau35) continue;
-	  if(passDoubleTauCmbIso35 && (filterDoubleTauCmbIso35_1<0.5 || filterDoubleTauCmbIso35_2<0.5)) continue;
-	  if(passDoubleTauCmbIso35 && (!matchDoubleTauCmbIso35_1 || !matchDoubleTauCmbIso35_2)) continue;
-	  if(passDoubleTau35 && (filterDoubleTau35_1<0.5 || filterDoubleTau35_2<0.5)) continue;
-	  if(passDoubleTau35 && (!matchDoubleTau35_1 || !matchDoubleTau35_2)) continue;
-        }
-        
-        // mytau1 is the highest pT tau
-        float charge1=q_1;
-        float charge2=q_2;
-        TLorentzVector mytau1;
-        mytau1.SetPtEtaPhiM(pt_1,eta_1,phi_1,m_1);
-        TLorentzVector mytau2;
-        mytau2.SetPtEtaPhiM(pt_2,eta_2,phi_2,m_2);
-        if (pt_1<pt_2){
-	  charge2=q_1;
-	  charge1=q_2;
-	  mytau2.SetPtEtaPhiM(pt_1,eta_1,phi_1,m_1);
-	  mytau1.SetPtEtaPhiM(pt_2,eta_2,phi_2,m_2);
-        }
-        
-        if (againstElectronVLooseMVA6_1 < 0.5) continue; // L773
-        if (againstElectronVLooseMVA6_2 < 0.5) continue;
-        if (againstMuonLoose3_1 < 0.5) continue; //774
-        if (againstMuonLoose3_2 < 0.5) continue;
-        if (byLooseIsolationMVArun2v1DBoldDMwLT_1 < 0.5 && byLooseIsolationMVArun2v1DBoldDMwLT_2 < 0.5) continue; // Fig 43(a)
-        if (extramuon_veto) continue;
-        if (extraelec_veto) continue;
-        
-        float sf_trg=1.0;
-        float sf_id=1.0;
-        float eff_tau=1.0;
-        
-        /*
-	  if (sample!="data_obs"){
-	  //sf_id=myScaleFactor_idMu->get_ScaleFactor(mytau1.Pt(),mytau1.Eta())*myScaleFactor_idMu->get_ScaleFactor(mytau2.Pt(),mytau2.Eta());
-	  w->var("m_pt")->setVal(mytau1.Pt());
-	  w->var("m_eta")->setVal(mytau1.Eta());
-	  sf_id=sf_id*w->function("m_trk_ratio")->getVal();
-	  w->var("m_pt")->setVal(mytau2.Pt());
-	  w->var("m_eta")->setVal(mytau2.Eta());
-	  sf_id=sf_id*w->function("m_trk_ratio")->getVal();
-	  }*/
-        
-        // Regions
-        float signalRegion = byTightIsolationMVArun2v1DBoldDMwLT_1 && byTightIsolationMVArun2v1DBoldDMwLT_2;
-        float aiRegion = ((byMediumIsolationMVArun2v1DBoldDMwLT_1 && !byTightIsolationMVArun2v1DBoldDMwLT_2 && byLooseIsolationMVArun2v1DBoldDMwLT_2) || (byMediumIsolationMVArun2v1DBoldDMwLT_2 && !byTightIsolationMVArun2v1DBoldDMwLT_1 && byLooseIsolationMVArun2v1DBoldDMwLT_1));
-        
-        // Weights depending in the generated jet multiplicity
-        if (sample=="W"){
-	  weight=25.446;
-	  if (numGenJets==1) weight=6.8176;
-	  else if (numGenJets==2) weight=2.1038;
-	  else if (numGenJets==3) weight=0.6889;
-	  else if (numGenJets==4) weight=0.6900;
-	  //cout << weight << endl;
-        }
-        
-        if (sample=="DY" or sample=="ZTT" or sample=="ZLL" or sample=="ZL" or sample=="ZJ"){
-	  weight=1.41957039;
-	  if (numGenJets==1 || input=="myntuples/DY1.root")
-            weight=0.457675455;
-	  else if (numGenJets==2 || input=="myntuples/DY2.root")
-            weight=0.467159142;
-	  else if (numGenJets==3 || input=="myntuples/DY3.root")
-            weight=0.480349711;
-	  else if (numGenJets==4 || input=="myntuples/DY4.root")
-            weight=0.3938184351;
-        }
-        
-        // Multiply some weights and scale factors together
-        // ID and iso corrections
-        float correction=sf_id;
-        if (sample!="data_obs") correction=correction*LumiWeights_12->weight(npu);
-        float aweight=amcatNLO_weight*weight*correction;
-        if (sample!="data_obs"){
-	  //Tau ID SF (Tight WP)
-	  if (gen_match_1==5) aweight=aweight*0.95;
-	  if (gen_match_2==5) aweight=aweight*0.95;
-	  //e->tau fakes VLoose
-	  if (gen_match_1==1 or gen_match_1==3){
-	    if (std::abs(mytau1.Eta())<1.460) aweight=aweight*1.213;
-	    else if (std::abs(mytau1.Eta())>1.558) aweight=aweight*1.375;
-	  }
-	  if (gen_match_2==1 or gen_match_2==3){
-	    if (std::abs(mytau2.Eta())<1.460) aweight=aweight*1.213;
-	    else if (std::abs(mytau2.Eta())>1.558) aweight=aweight*1.375;
-	  }
-	  // mu->tau fakes Loose
-	  else if (gen_match_1==2 or gen_match_1==4){
-	    if (std::abs(mytau1.Eta())<0.4) aweight=aweight*1.010;
-	    else if (std::abs(mytau1.Eta())<0.8) aweight=aweight*1.007;
-	    else if (std::abs(mytau1.Eta())<1.2) aweight=aweight*0.870;
-	    else if (std::abs(mytau1.Eta())<1.7) aweight=aweight*1.154;
-	    else aweight=aweight*2.281;
-	  }
-	  else if (gen_match_2==2 or gen_match_2==4){
-	    if (std::abs(mytau2.Eta())<0.4) aweight=aweight*1.010;
-	    else if (std::abs(mytau2.Eta())<0.8) aweight=aweight*1.007;
-	    else if (std::abs(mytau2.Eta())<1.2) aweight=aweight*0.870;
-	    else if (std::abs(mytau2.Eta())<1.7) aweight=aweight*1.154;
-	    else aweight=aweight*2.281;
-	  }
-	  //aweight=aweight*h_Trk->Eval(eta_1);
-        }
-        
-        // Z pt reweighting for DY events
-        if (sample=="DY" || sample=="EWKZLL" || sample=="EWKZNuNu" || sample=="ZTT" || sample=="ZLL" || sample=="ZL" || sample=="ZJ"){
-	  float zpt_corr=histZ->GetBinContent(histZ->GetXaxis()->FindBin(genM),histZ->GetYaxis()->FindBin(genpT));
-	  if (std::abs(tes)!=10) //nominal
-            aweight=aweight*zpt_corr;
-	  else if (tes==10) // up
-            aweight=aweight*(1+1.10*(zpt_corr-1));
-	  else if (tes==-10) // down
-            aweight=aweight*(1+0.90*(zpt_corr-1));
-        }
-        
-        //  Top pT reweighting for ttbar events
-        float pttop1=pt_top1;
-        if (pttop1>400) pttop1=400;
-        float pttop2=pt_top2;
-        if (pttop2>400) pttop2=400;
-        if ((sample=="TTL" or sample=="TTJ" or sample=="TTT" or sample=="TT") && std::abs(tes)!=11) aweight*=sqrt(exp(0.0615-0.0005*pttop1)*exp(0.0615-0.0005*pttop2));
-        //aweight*=sqrt(exp(0.156-0.00137*pttop1)*exp(0.156-0.00137*pttop2));
-        if ((sample=="TTL" or sample=="TTJ" or sample=="TTT" or sample=="TT") && tes==11) aweight*=(1+2*(sqrt(exp(0.0615-0.0005*pttop1)*exp(0.0615-0.0005*pttop2))-1));
-        
-        if (sample=="data_obs") aweight=1.0;
-        
-        // Separation between L, T and J
-        if ((sample=="ZTT") && (gen_match_1!=5 || gen_match_2!=5)) continue;
-        if ((sample=="ZL") && (gen_match_1>5 || gen_match_2>5 || (gen_match_1==5 && gen_match_2==5))) continue;
-        if ((sample=="ZJ") && (gen_match_1!=6 || gen_match_2!=6)) continue;
-        
+      arbre->GetEntry(i);
+      if (i % 10000 == 0) fprintf(stdout, "\r  Processed events: %8d of %8d ", i, nentries_wtn);
+      fflush(stdout);
+      
+      // DoubleTau trigger
+      if (sample=="data_obs" && input=="myntuples/data_H.root") {
+	if(!passDoubleTauCmbIso35) continue;
+	if(!matchDoubleTauCmbIso35_1 || !matchDoubleTauCmbIso35_2) continue;
+	if(filterDoubleTauCmbIso35_1<0.5 || filterDoubleTauCmbIso35_2<0.5) continue;
+      }
+      if (sample=="data_obs" && input!="myntuples/data_H.root") {
+	if (!passDoubleTau35) continue;
+	if (!matchDoubleTau35_1 || !matchDoubleTau35_2) continue;
+	if (filterDoubleTau35_1<0.5 || filterDoubleTau35_2<0.5) continue;
+      }
+      if (sample!="data_obs") {
+	if(!passDoubleTauCmbIso35 || !passDoubleTau35) continue;
+	if(passDoubleTauCmbIso35 && (filterDoubleTauCmbIso35_1<0.5 || filterDoubleTauCmbIso35_2<0.5)) continue;
+	if(passDoubleTauCmbIso35 && (!matchDoubleTauCmbIso35_1 || !matchDoubleTauCmbIso35_2)) continue;
+	if(passDoubleTau35 && (filterDoubleTau35_1<0.5 || filterDoubleTau35_2<0.5)) continue;
+	if(passDoubleTau35 && (!matchDoubleTau35_1 || !matchDoubleTau35_2)) continue;
+      }
+      
+      // mytau1 is the highest pT tau
+      float charge1=q_1;
+      float charge2=q_2;
+      TLorentzVector mytau1;
+      mytau1.SetPtEtaPhiM(pt_1,eta_1,phi_1,m_1);
+      TLorentzVector mytau2;
+      mytau2.SetPtEtaPhiM(pt_2,eta_2,phi_2,m_2);
+      if (pt_1<pt_2){
+	charge2=q_1;
+	charge1=q_2;
+	mytau2.SetPtEtaPhiM(pt_1,eta_1,phi_1,m_1);
+	mytau1.SetPtEtaPhiM(pt_2,eta_2,phi_2,m_2);
+      }
+      
+      if (mytau1.DeltaR(mytau2) < 0.5) continue;
+      if (againstElectronVLooseMVA6_1 < 0.5) continue; // L773
+      if (againstElectronVLooseMVA6_2 < 0.5) continue;
+      if (againstMuonLoose3_1 < 0.5) continue; //774
+      if (againstMuonLoose3_2 < 0.5) continue;
+      // Change && -> ||
+      if (byLooseIsolationMVArun2v1DBoldDMwLT_1 < 0.5 || byLooseIsolationMVArun2v1DBoldDMwLT_2 < 0.5) continue; // Fig 43(a)
+      if (extramuon_veto) continue;
+      if (extraelec_veto) continue;
+      
+      float sf_trg=1.0;
+      float sf_id=1.0;
+      float eff_tau=1.0;
+      
+      /*
+	if (sample!="data_obs"){
+	//sf_id=myScaleFactor_idMu->get_ScaleFactor(mytau1.Pt(),mytau1.Eta())*myScaleFactor_idMu->get_ScaleFactor(mytau2.Pt(),mytau2.Eta());
+	w->var("m_pt")->setVal(mytau1.Pt());
+	w->var("m_eta")->setVal(mytau1.Eta());
+	sf_id=sf_id*w->function("m_trk_ratio")->getVal();
+	w->var("m_pt")->setVal(mytau2.Pt());
+	w->var("m_eta")->setVal(mytau2.Eta());
+	sf_id=sf_id*w->function("m_trk_ratio")->getVal();
+	}*/
+      
+      // Regions
+      float signalRegion = byTightIsolationMVArun2v1DBoldDMwLT_1 && byTightIsolationMVArun2v1DBoldDMwLT_2;
+      float aiRegion = ((byMediumIsolationMVArun2v1DBoldDMwLT_1 && !byTightIsolationMVArun2v1DBoldDMwLT_2 && byLooseIsolationMVArun2v1DBoldDMwLT_2) || (byMediumIsolationMVArun2v1DBoldDMwLT_2 && !byTightIsolationMVArun2v1DBoldDMwLT_1 && byLooseIsolationMVArun2v1DBoldDMwLT_1));
+      
+      // Weights depending in the generated jet multiplicity
+      if (sample=="W"){
+	weight=25.446;
+	if (numGenJets==1) weight=6.8176;
+	else if (numGenJets==2) weight=2.1038;
+	else if (numGenJets==3) weight=0.6889;
+	else if (numGenJets==4) weight=0.6900;
+	//cout << weight << endl;
+      }
+      
+      if (sample=="DY" or sample=="ZTT" or sample=="ZLL" or sample=="ZL" or sample=="ZJ"){
+	weight=1.41957039;
+	if (numGenJets==1 || input=="myntuples/DY1.root")
+	  weight=0.457675455;
+	else if (numGenJets==2 || input=="myntuples/DY2.root")
+	  weight=0.467159142;
+	else if (numGenJets==3 || input=="myntuples/DY3.root")
+	  weight=0.480349711;
+	else if (numGenJets==4 || input=="myntuples/DY4.root")
+	  weight=0.3938184351;
+      }
+      
+      // Multiply some weights and scale factors together
+      // ID and iso corrections
+      float correction=sf_id;
+      if (sample!="data_obs") correction=correction*LumiWeights_12->weight(npu);
+      float aweight=amcatNLO_weight*weight*correction;
+      if (sample!="data_obs"){
+	//Tau ID SF (Tight WP)
+	if (gen_match_1==5) aweight=aweight*0.95;
+	if (gen_match_2==5) aweight=aweight*0.95;
+	//e->tau fakes VLoose
+	if (gen_match_1==1 or gen_match_1==3){
+	  if (std::abs(mytau1.Eta())<1.460) aweight=aweight*1.213;
+	  else if (std::abs(mytau1.Eta())>1.558) aweight=aweight*1.375;
+	}
+	if (gen_match_2==1 or gen_match_2==3){
+	  if (std::abs(mytau2.Eta())<1.460) aweight=aweight*1.213;
+	  else if (std::abs(mytau2.Eta())>1.558) aweight=aweight*1.375;
+	}
+	// mu->tau fakes Loose
+	else if (gen_match_1==2 or gen_match_1==4){
+	  if (std::abs(mytau1.Eta())<0.4) aweight=aweight*1.010;
+	  else if (std::abs(mytau1.Eta())<0.8) aweight=aweight*1.007;
+	  else if (std::abs(mytau1.Eta())<1.2) aweight=aweight*0.870;
+	  else if (std::abs(mytau1.Eta())<1.7) aweight=aweight*1.154;
+	  else aweight=aweight*2.281;
+	}
+	else if (gen_match_2==2 or gen_match_2==4){
+	  if (std::abs(mytau2.Eta())<0.4) aweight=aweight*1.010;
+	  else if (std::abs(mytau2.Eta())<0.8) aweight=aweight*1.007;
+	  else if (std::abs(mytau2.Eta())<1.2) aweight=aweight*0.870;
+	  else if (std::abs(mytau2.Eta())<1.7) aweight=aweight*1.154;
+	  else aweight=aweight*2.281;
+	}
+	//aweight=aweight*h_Trk->Eval(eta_1);
+      }
+      
+      // Z pt reweighting for DY events
+      if (sample=="DY" || sample=="EWKZLL" || sample=="EWKZNuNu" || sample=="ZTT" || sample=="ZLL" || sample=="ZL" || sample=="ZJ"){
+	float zpt_corr=histZ->GetBinContent(histZ->GetXaxis()->FindBin(genM),histZ->GetYaxis()->FindBin(genpT));
+	if (std::abs(tes)!=10) //nominal
+	  aweight=aweight*zpt_corr;
+	else if (tes==10) // up
+	  aweight=aweight*(1+1.10*(zpt_corr-1));
+	else if (tes==-10) // down
+	  aweight=aweight*(1+0.90*(zpt_corr-1));
+      }
+      
+      //  Top pT reweighting for ttbar events
+      float pttop1=pt_top1;
+      if (pttop1>400) pttop1=400;
+      float pttop2=pt_top2;
+      if (pttop2>400) pttop2=400;
+      if ((sample=="TTL" or sample=="TTJ" or sample=="TTT" or sample=="TT") && std::abs(tes)!=11) aweight*=sqrt(exp(0.0615-0.0005*pttop1)*exp(0.0615-0.0005*pttop2));
+      //aweight*=sqrt(exp(0.156-0.00137*pttop1)*exp(0.156-0.00137*pttop2));
+      if ((sample=="TTL" or sample=="TTJ" or sample=="TTT" or sample=="TT") && tes==11) aweight*=(1+2*(sqrt(exp(0.0615-0.0005*pttop1)*exp(0.0615-0.0005*pttop2))-1));
+      
+      if (sample=="data_obs") aweight=1.0;
+      
+      // Separation between L, T and J
+      if ((sample=="ZTT") && (gen_match_1!=5 || gen_match_2!=5)) continue;
+      if ((sample=="ZL") && (gen_match_1>5 || gen_match_2>5 || (gen_match_1==5 && gen_match_2==5))) continue;
+      if ((sample=="ZJ") && (gen_match_1!=6 || gen_match_2!=6)) continue;
+      
+      
+      //KK Added for future. For now we need only first two variables
+      int nombrejets[56]={njets_JESDown,njets_JESUp,njets_JetAbsoluteFlavMapDown,njets_JetAbsoluteFlavMapUp,njets_JetAbsoluteMPFBiasDown,njets_JetAbsoluteMPFBiasUp,njets_JetAbsoluteScaleDown,njets_JetAbsoluteScaleUp,njets_JetAbsoluteStatDown,njets_JetAbsoluteStatUp,njets_JetFlavorQCDDown,njets_JetFlavorQCDUp,njets_JetFragmentationDown,njets_JetFragmentationUp,njets_JetPileUpDataMCDown,njets_JetPileUpDataMCUp,njets_JetPileUpPtBBDown,njets_JetPileUpPtBBUp,njets_JetPileUpPtEC1Down,njets_JetPileUpPtEC1Up,njets_JetPileUpPtEC2Down,njets_JetPileUpPtEC2Up,njets_JetPileUpPtHFDown,njets_JetPileUpPtHFUp,njets_JetPileUpPtRefDown,njets_JetPileUpPtRefUp,njets_JetRelativeBalDown,njets_JetRelativeBalUp,njets_JetRelativeFSRDown,njets_JetRelativeFSRUp,njets_JetRelativeJEREC1Down,njets_JetRelativeJEREC1Up,njets_JetRelativeJEREC2Down,njets_JetRelativeJEREC2Up,njets_JetRelativeJERHFDown,njets_JetRelativeJERHFUp,njets_JetRelativePtBBDown,njets_JetRelativePtBBUp,njets_JetRelativePtEC1Down,njets_JetRelativePtEC1Up,njets_JetRelativePtEC2Down,njets_JetRelativePtEC2Up,njets_JetRelativePtHFDown,njets_JetRelativePtHFUp,njets_JetRelativeStatECDown,njets_JetRelativeStatECUp,njets_JetRelativeStatFSRDown,njets_JetRelativeStatFSRUp,njets_JetRelativeStatHFDown,njets_JetRelativeStatHFUp,njets_JetSinglePionECALDown,njets_JetSinglePionECALUp,njets_JetSinglePionHCALDown,njets_JetSinglePionHCALUp,njets_JetTimePtEtaDown,njets_JetTimePtEtaUp};
+      
+      float massejets[56]={mjj_JESDown,mjj_JESUp,mjj_JetAbsoluteFlavMapDown,mjj_JetAbsoluteFlavMapUp,mjj_JetAbsoluteMPFBiasDown,mjj_JetAbsoluteMPFBiasUp,mjj_JetAbsoluteScaleDown,mjj_JetAbsoluteScaleUp,mjj_JetAbsoluteStatDown,mjj_JetAbsoluteStatUp,mjj_JetFlavorQCDDown,mjj_JetFlavorQCDUp,mjj_JetFragmentationDown,mjj_JetFragmentationUp,mjj_JetPileUpDataMCDown,mjj_JetPileUpDataMCUp,mjj_JetPileUpPtBBDown,mjj_JetPileUpPtBBUp,mjj_JetPileUpPtEC1Down,mjj_JetPileUpPtEC1Up,mjj_JetPileUpPtEC2Down,mjj_JetPileUpPtEC2Up,mjj_JetPileUpPtHFDown,mjj_JetPileUpPtHFUp,mjj_JetPileUpPtRefDown,mjj_JetPileUpPtRefUp,mjj_JetRelativeBalDown,mjj_JetRelativeBalUp,mjj_JetRelativeFSRDown,mjj_JetRelativeFSRUp,mjj_JetRelativeJEREC1Down,mjj_JetRelativeJEREC1Up,mjj_JetRelativeJEREC2Down,mjj_JetRelativeJEREC2Up,mjj_JetRelativeJERHFDown,mjj_JetRelativeJERHFUp,mjj_JetRelativePtBBDown,mjj_JetRelativePtBBUp,mjj_JetRelativePtEC1Down,mjj_JetRelativePtEC1Up,mjj_JetRelativePtEC2Down,mjj_JetRelativePtEC2Up,mjj_JetRelativePtHFDown,mjj_JetRelativePtHFUp,mjj_JetRelativeStatECDown,mjj_JetRelativeStatECUp,mjj_JetRelativeStatFSRDown,mjj_JetRelativeStatFSRUp,mjj_JetRelativeStatHFDown,mjj_JetRelativeStatHFUp,mjj_JetSinglePionECALDown,mjj_JetSinglePionECALUp,mjj_JetSinglePionHCALDown,mjj_JetSinglePionHCALUp,mjj_JetTimePtEtaDown,mjj_JetTimePtEtaUp};
+      
+      for (int k=0; k<nbhist; ++k){
 	
-	//KK Added for future. For now we need only first two variables
-	int nombrejets[56]={njets_JESDown,njets_JESUp,njets_JetAbsoluteFlavMapDown,njets_JetAbsoluteFlavMapUp,njets_JetAbsoluteMPFBiasDown,njets_JetAbsoluteMPFBiasUp,njets_JetAbsoluteScaleDown,njets_JetAbsoluteScaleUp,njets_JetAbsoluteStatDown,njets_JetAbsoluteStatUp,njets_JetFlavorQCDDown,njets_JetFlavorQCDUp,njets_JetFragmentationDown,njets_JetFragmentationUp,njets_JetPileUpDataMCDown,njets_JetPileUpDataMCUp,njets_JetPileUpPtBBDown,njets_JetPileUpPtBBUp,njets_JetPileUpPtEC1Down,njets_JetPileUpPtEC1Up,njets_JetPileUpPtEC2Down,njets_JetPileUpPtEC2Up,njets_JetPileUpPtHFDown,njets_JetPileUpPtHFUp,njets_JetPileUpPtRefDown,njets_JetPileUpPtRefUp,njets_JetRelativeBalDown,njets_JetRelativeBalUp,njets_JetRelativeFSRDown,njets_JetRelativeFSRUp,njets_JetRelativeJEREC1Down,njets_JetRelativeJEREC1Up,njets_JetRelativeJEREC2Down,njets_JetRelativeJEREC2Up,njets_JetRelativeJERHFDown,njets_JetRelativeJERHFUp,njets_JetRelativePtBBDown,njets_JetRelativePtBBUp,njets_JetRelativePtEC1Down,njets_JetRelativePtEC1Up,njets_JetRelativePtEC2Down,njets_JetRelativePtEC2Up,njets_JetRelativePtHFDown,njets_JetRelativePtHFUp,njets_JetRelativeStatECDown,njets_JetRelativeStatECUp,njets_JetRelativeStatFSRDown,njets_JetRelativeStatFSRUp,njets_JetRelativeStatHFDown,njets_JetRelativeStatHFUp,njets_JetSinglePionECALDown,njets_JetSinglePionECALUp,njets_JetSinglePionHCALDown,njets_JetSinglePionHCALUp,njets_JetTimePtEtaDown,njets_JetTimePtEtaUp};
-
-	float massejets[56]={mjj_JESDown,mjj_JESUp,mjj_JetAbsoluteFlavMapDown,mjj_JetAbsoluteFlavMapUp,mjj_JetAbsoluteMPFBiasDown,mjj_JetAbsoluteMPFBiasUp,mjj_JetAbsoluteScaleDown,mjj_JetAbsoluteScaleUp,mjj_JetAbsoluteStatDown,mjj_JetAbsoluteStatUp,mjj_JetFlavorQCDDown,mjj_JetFlavorQCDUp,mjj_JetFragmentationDown,mjj_JetFragmentationUp,mjj_JetPileUpDataMCDown,mjj_JetPileUpDataMCUp,mjj_JetPileUpPtBBDown,mjj_JetPileUpPtBBUp,mjj_JetPileUpPtEC1Down,mjj_JetPileUpPtEC1Up,mjj_JetPileUpPtEC2Down,mjj_JetPileUpPtEC2Up,mjj_JetPileUpPtHFDown,mjj_JetPileUpPtHFUp,mjj_JetPileUpPtRefDown,mjj_JetPileUpPtRefUp,mjj_JetRelativeBalDown,mjj_JetRelativeBalUp,mjj_JetRelativeFSRDown,mjj_JetRelativeFSRUp,mjj_JetRelativeJEREC1Down,mjj_JetRelativeJEREC1Up,mjj_JetRelativeJEREC2Down,mjj_JetRelativeJEREC2Up,mjj_JetRelativeJERHFDown,mjj_JetRelativeJERHFUp,mjj_JetRelativePtBBDown,mjj_JetRelativePtBBUp,mjj_JetRelativePtEC1Down,mjj_JetRelativePtEC1Up,mjj_JetRelativePtEC2Down,mjj_JetRelativePtEC2Up,mjj_JetRelativePtHFDown,mjj_JetRelativePtHFUp,mjj_JetRelativeStatECDown,mjj_JetRelativeStatECUp,mjj_JetRelativeStatFSRDown,mjj_JetRelativeStatFSRUp,mjj_JetRelativeStatHFDown,mjj_JetRelativeStatHFUp,mjj_JetSinglePionECALDown,mjj_JetSinglePionECALUp,mjj_JetSinglePionHCALDown,mjj_JetSinglePionHCALUp,mjj_JetTimePtEtaDown,mjj_JetTimePtEtaUp};
-
-	for (int k=0; k<nbhist; ++k){
+	float var2=m_sv; 
+	float var1_1=pt_sv;
+	//	  float var1_2=massJets;
+        
+	TLorentzVector myrawmet;
+	myrawmet.SetPtEtaPhiM(met,0,metphi,0);
+	TLorentzVector mymet=myrawmet;
+	//cout << mymet.M() << endl;
+	// Apply uncertainty shifts ( NOT ADDED YET )	  
+	
+	
+	//AM
+	//This is for tau ES uncertainty up and down
+	//KK: added "&& gen_match_1==5"
+	if (tes==1 && gen_match_2==5 && gen_match_1==5){	    
+	  
+	  if (k==0){ var1_1=pt_sv_DOWN; var2=m_sv_DOWN; mytau1*=0.988; mytau2*=0.988;  mymet=mymet+(0.012/0.988)*mytau1+(0.012/0.988)*mytau2;}
+	  if (k==1){ var1_1=pt_sv_UP;   var2=m_sv_UP;   mytau1*=1.012; mytau2*=1.012;  mymet=mymet-(0.012/1.012)*mytau1-(0.012/1.012)*mytau2;}
           
-	  float var2=m_sv; 
-	  float var1_1=pt_sv;
-	  //	  float var1_2=massJets;
-         
-	  TLorentzVector myrawmet;
-	  myrawmet.SetPtEtaPhiM(met,0,metphi,0);
-	  TLorentzVector mymet=myrawmet;
-	  //cout << mymet.M() << endl;
-	  // Apply uncertainty shifts ( NOT ADDED YET )	  
-
-	  
-	  //AM
-	  //This is for tau ES uncertainty up and down
-	  //KK: added "&& gen_match_1==5"
-	  if (tes==1 && gen_match_2==5 && gen_match_1==5){	    
-            
-	    if (k==0){ var1_1=pt_sv_DOWN; var2=m_sv_DOWN; mytau1*=0.988; mytau2*=0.988;  mymet=mymet+(0.012/0.988)*mytau1+(0.012/0.988)*mytau2;}
-	    if (k==1){ var1_1=pt_sv_UP;   var2=m_sv_UP;   mytau1*=1.012; mytau2*=1.012;  mymet=mymet-(0.012/1.012)*mytau1-(0.012/1.012)*mytau2;}
-                        
-            
-	    if (k==2 && t2_decayMode==0){ var1_1=pt_sv_DOWN; var2=m_sv_DOWN; mytau2*=0.988; mymet=mymet+(0.012/0.988)*mytau2;}
-	    if (k==3 && t2_decayMode==0){ var1_1=pt_sv_UP; var2=m_sv_UP; mytau2*=1.012; mymet=mymet-(0.012/1.012)*mytau2;}
-	    if (k==4 && t2_decayMode==1){ var1_1=pt_sv_DOWN; var2=m_sv_DOWN; mytau2*=0.988; mymet=mymet+(0.012/0.988)*mytau2;}
-	    if (k==5 && t2_decayMode==1){ var1_1=pt_sv_UP; var2=m_sv_UP; mytau2*=1.012; mymet=mymet-(0.012/1.012)*mytau2;}
-	    if (k==6 && t2_decayMode==10){ var1_1=pt_sv_DOWN; var2=m_sv_DOWN; mytau2*=0.988; mymet=mymet+(0.012/0.988)*mytau2;}
-	    if (k==7 && t2_decayMode==10){ var1_1=pt_sv_UP; var2=m_sv_UP; mytau2*=1.012; mymet=mymet-(0.012/1.012)*mytau2;}
-            
-	    if (k==2 && t1_decayMode==0){ var1_1=pt_sv_DOWN; var2=m_sv_DOWN; mytau1*=0.988; mymet=mymet+(0.012/0.988)*mytau1;}
-	    if (k==3 && t1_decayMode==0){ var1_1=pt_sv_UP; var2=m_sv_UP; mytau1*=1.012; mymet=mymet-(0.012/1.012)*mytau1;}
-	    if (k==4 && t1_decayMode==1){ var1_1=pt_sv_DOWN; var2=m_sv_DOWN; mytau1*=0.988; mymet=mymet+(0.012/0.988)*mytau1;}
-	    if (k==5 && t1_decayMode==1){ var1_1=pt_sv_UP; var2=m_sv_UP; mytau1*=1.012; mymet=mymet-(0.012/1.012)*mytau1;}
-	    if (k==6 && t1_decayMode==10){ var1_1=pt_sv_DOWN; var2=m_sv_DOWN; mytau1*=0.988; mymet=mymet+(0.012/0.988)*mytau1;}
-	    if (k==7 && t1_decayMode==10){ var1_1=pt_sv_UP; var2=m_sv_UP; mytau1*=1.012; mymet=mymet-(0.012/1.012)*mytau1;}
-            
-	  }
-	  
-	  if (tes==1){
-	    //KK: Modified lines below from
-	    //	    if (k==8){ var2=m_sv_UESDown; var1_1=pt_sv_UESDown; mymet.SetPtEtaPhiM(met_UESDown,0,metphi_UESDown,0);}
-	    //	    else if (k==9){ var2=m_sv_UESUp; var1_1=pt_sv_UESUp; mymet.SetPtEtaPhiM(met_UESUp,0,metphi_UESUp,0);}
-	    //	    else if (k==10){ var2=m_sv_JESDown; var1_1=pt_sv_JESDown; mymet.SetPtEtaPhiM(met_JESDown,0,metphi_JESDown,0);}
-	    //	    else if (k==11){ var2=m_sv_JESUp; var1_1=pt_sv_JESUp; mymet.SetPtEtaPhiM(met_JESUp,0,metphi_JESUp,0);}
-	    //KK: to
-	    if (k==8){ var2=m_sv_UncMet_DOWN; var1_1=pt_sv_UncMet_DOWN; mymet.SetPtEtaPhiM(met_UESDown,0,metphi_UESDown,0);}
-	    else if (k==9){ var2=m_sv_UncMet_UP; var1_1=pt_sv_UncMet_UP; mymet.SetPtEtaPhiM(met_UESUp,0,metphi_UESUp,0);}
-	    else if (k==10){ var2=m_sv_ClusteredMet_DOWN; var1_1=pt_sv_ClusteredMet_DOWN; mymet.SetPtEtaPhiM(met_JESDown,0,metphi_JESDown,0);}
-	    else if (k==11){ var2=m_sv_ClusteredMet_UP; var1_1=pt_sv_ClusteredMet_UP; mymet.SetPtEtaPhiM(met_JESUp,0,metphi_JESUp,0);}
-	  }
-
-	  //KK: Added njet and mjj variables affected by JES
-	  if (tes==100){
-	    njets = nombrejets[k];
-	    //	    mjj = massejets[k]; //KK for now not available in trees
-	  }
+          
+	  if (k==2 && t2_decayMode==0){ var1_1=pt_sv_DOWN; var2=m_sv_DOWN; mytau2*=0.988; mymet=mymet+(0.012/0.988)*mytau2;}
+	  if (k==3 && t2_decayMode==0){ var1_1=pt_sv_UP; var2=m_sv_UP; mytau2*=1.012; mymet=mymet-(0.012/1.012)*mytau2;}
+	  if (k==4 && t2_decayMode==1){ var1_1=pt_sv_DOWN; var2=m_sv_DOWN; mytau2*=0.988; mymet=mymet+(0.012/0.988)*mytau2;}
+	  if (k==5 && t2_decayMode==1){ var1_1=pt_sv_UP; var2=m_sv_UP; mytau2*=1.012; mymet=mymet-(0.012/1.012)*mytau2;}
+	  if (k==6 && t2_decayMode==10){ var1_1=pt_sv_DOWN; var2=m_sv_DOWN; mytau2*=0.988; mymet=mymet+(0.012/0.988)*mytau2;}
+	  if (k==7 && t2_decayMode==10){ var1_1=pt_sv_UP; var2=m_sv_UP; mytau2*=1.012; mymet=mymet-(0.012/1.012)*mytau2;}
+          
+	  if (k==2 && t1_decayMode==0){ var1_1=pt_sv_DOWN; var2=m_sv_DOWN; mytau1*=0.988; mymet=mymet+(0.012/0.988)*mytau1;}
+	  if (k==3 && t1_decayMode==0){ var1_1=pt_sv_UP; var2=m_sv_UP; mytau1*=1.012; mymet=mymet-(0.012/1.012)*mytau1;}
+	  if (k==4 && t1_decayMode==1){ var1_1=pt_sv_DOWN; var2=m_sv_DOWN; mytau1*=0.988; mymet=mymet+(0.012/0.988)*mytau1;}
+	  if (k==5 && t1_decayMode==1){ var1_1=pt_sv_UP; var2=m_sv_UP; mytau1*=1.012; mymet=mymet-(0.012/1.012)*mytau1;}
+	  if (k==6 && t1_decayMode==10){ var1_1=pt_sv_DOWN; var2=m_sv_DOWN; mytau1*=0.988; mymet=mymet+(0.012/0.988)*mytau1;}
+	  if (k==7 && t1_decayMode==10){ var1_1=pt_sv_UP; var2=m_sv_UP; mytau1*=1.012; mymet=mymet-(0.012/1.012)*mytau1;}
+          
+	}
 	
-	    
-
+	if (tes==1){
+	  //KK: Modified lines below from
+	  //	    if (k==8){ var2=m_sv_UESDown; var1_1=pt_sv_UESDown; mymet.SetPtEtaPhiM(met_UESDown,0,metphi_UESDown,0);}
+	  //	    else if (k==9){ var2=m_sv_UESUp; var1_1=pt_sv_UESUp; mymet.SetPtEtaPhiM(met_UESUp,0,metphi_UESUp,0);}
+	  //	    else if (k==10){ var2=m_sv_JESDown; var1_1=pt_sv_JESDown; mymet.SetPtEtaPhiM(met_JESDown,0,metphi_JESDown,0);}
+	  //	    else if (k==11){ var2=m_sv_JESUp; var1_1=pt_sv_JESUp; mymet.SetPtEtaPhiM(met_JESUp,0,metphi_JESUp,0);}
+	  //KK: to
+	  if (k==8){ var2=m_sv_UncMet_DOWN; var1_1=pt_sv_UncMet_DOWN; mymet.SetPtEtaPhiM(met_UESDown,0,metphi_UESDown,0);}
+	  else if (k==9){ var2=m_sv_UncMet_UP; var1_1=pt_sv_UncMet_UP; mymet.SetPtEtaPhiM(met_UESUp,0,metphi_UESUp,0);}
+	  else if (k==10){ var2=m_sv_ClusteredMet_DOWN; var1_1=pt_sv_ClusteredMet_DOWN; mymet.SetPtEtaPhiM(met_JESDown,0,metphi_JESDown,0);}
+	  else if (k==11){ var2=m_sv_ClusteredMet_UP; var1_1=pt_sv_ClusteredMet_UP; mymet.SetPtEtaPhiM(met_JESUp,0,metphi_JESUp,0);}
+	}
+	
+	//KK: Added njet and mjj variables affected by JES
+	if (tes==100){
+	  njets = nombrejets[k];
+	  //	    mjj = massejets[k]; //KK for now not available in trees
+	}
+	
+	
+	
 	//KK: Combine two loops over nbhist
 	/*
-        }
-	
-        // #################################
-        // # Loop over uncertainty sources #
-        // #################################
-        for (int k=0; k<nbhist; ++k){
+	  }
+	  
+	  // #################################
+	  // # Loop over uncertainty sources #
+	  // #################################
+	  for (int k=0; k<nbhist; ++k){
 	*/
 	// for each iteration start from the nominal objets
+	
+	// pT, Eta cuts for the leptons
+	if (mytau1.Pt()<50 || mytau2.Pt()<40) continue; // L770
+	if (mytau1.Pt()<40 && mytau2.Pt()<40) continue;//if (mytau1.Pt()<20 and mytau2.Pt()<20) continue;
+	if ((fabs(mytau1.Eta()))>2.1 || (fabs(mytau2.Eta())>2.1)) continue; // L770
+	
+	float weight2=1.0;	  
+	weight2=weight2*sf_trg;
+	if (sample=="data_obs") {aweight=1.0; weight2=1.0;}
+        
+	// Additional selections
+	bool selection =true;
+	TLorentzVector myjet1;
+	myjet1.SetPtEtaPhiM(jpt_1,jeta_1,jphi_1,0);
+	TLorentzVector myjet2;
+	myjet2.SetPtEtaPhiM(jpt_2,jeta_2,jphi_2,0);
+	TLorentzVector Higgs = mytau1+mytau2+mymet;
+	TLorentzVector jets=myjet2+myjet1;
+	mjj = jets.M();
+	
+	// Categories
+	bool is_0jet = false;
+	bool is_boosted = false;
+	bool is_VBF = false;
+	bool is_VH = false;
+        
+	if(njets==0) is_0jet=true;
+	if(njets>=2 && Higgs.Pt()>100 && mjj > 300) is_VBF=true;
+	if(njets>=2 && mjj < 300) is_VH=true;
+	if(njets==1 || (njets>=2 && mjj > 300 && Higgs.Pt()<100)) is_boosted=true;
+        
+	//else if(njets>=2 && Higgs.Pt()>100 && std::abs(myjet1.Eta()-myjet2.Eta())>2.5) is_VBF=true;
+	//if(njets==1 || !(njets>=2 && Higgs.Pt()>100 && std::abs(myjet1.Eta()-myjet2.Eta())>2.5)) is_boosted=true;
+	//else cout << "AN's category is not complete." << endl;
+        
+	//cout << "-------" << is_0jet << is_boosted << is_VBF << is_VH << endl;
+        
+	if (!(is_boosted || is_0jet || is_VBF || is_VH)) {
+	  cout << endl;
+	  cout << "-------" << is_0jet << is_boosted << is_VBF << is_VH << endl;
+	  cout << "hole1 *****************************************"<< endl;
+	  cout << "njets : " << njets << endl;
+	  cout << "Higgs.Pt() : " << Higgs.Pt() << endl;
+	  cout << "std::abs(myjet1.Eta()-myjet2.Eta()) : "<< std::abs(myjet1.Eta()-myjet2.Eta()) << endl;
+	}
+        
+	//************************* Fill histograms **********************
+        
+	//            float var = Higgs.Pt(); //Variable to plot
+	float var = (mytau2+mytau1).M(); //Variable to plot
+	if (selection){
+	  if (is_0jet && signalRegion && charge1*charge2<0)
+	    h0_OS[k]->Fill(var,weight2*aweight);
+	  if (is_boosted && signalRegion && charge1*charge2<0)
+	    h1_OS[k]->Fill(var,weight2*aweight);
+	  if (is_VBF && signalRegion && charge1*charge2<0)
+	    h2_OS[k]->Fill(var,weight2*aweight);
+	  if (is_VH && signalRegion && charge1*charge2<0)
+	    h3_OS[k]->Fill(var,weight2*aweight);
+	  if (signalRegion && charge1*charge2<0)
+	    h_OS[k]->Fill(var,weight2*aweight);
 	  
-	  // pT, Eta cuts for the leptons
-	  if (mytau1.Pt()<50 || mytau2.Pt()<40) continue; // L770
-	  if (mytau1.Pt()<40 && mytau2.Pt()<40) continue;//if (mytau1.Pt()<20 and mytau2.Pt()<20) continue;
-	  if ((fabs(mytau1.Eta()))>2.1 || (fabs(mytau2.Eta())>2.1)) continue; // L770
+	  if (is_0jet && signalRegion && charge1*charge2>0)
+	    h0_SS[k]->Fill(var,weight2*aweight);
+	  if (is_boosted && signalRegion && charge1*charge2>0)
+	    h1_SS[k]->Fill(var,weight2*aweight);
+	  if (is_VBF && signalRegion && charge1*charge2>0)
+	    h2_SS[k]->Fill(var,weight2*aweight);
+	  if (is_VH && signalRegion && charge1*charge2>0)
+	    h3_SS[k]->Fill(var,weight2*aweight);
+	  if (signalRegion && charge1*charge2>0)
+	    h_SS[k]->Fill(var,weight2*aweight);
 	  
-	  float weight2=1.0;	  
-	  weight2=weight2*sf_trg;
-	  if (sample=="data_obs") {aweight=1.0; weight2=1.0;}
+	  if (is_0jet && charge1*charge2<0 && aiRegion)
+	    h0_AIOS[k]->Fill(var,weight2*aweight);
+	  if (is_boosted && charge1*charge2<0 && aiRegion)
+	    h1_AIOS[k]->Fill(var,weight2*aweight);
+	  if (is_VBF && charge1*charge2<0 && aiRegion)
+	    h2_AIOS[k]->Fill(var,weight2*aweight);
+	  if (is_VH && charge1*charge2<0 && aiRegion)
+	    h3_AIOS[k]->Fill(var,weight2*aweight);
+	  if (charge1*charge2<0 && aiRegion)
+	    h_AIOS[k]->Fill(var,weight2*aweight);
+	  
           
-	  // Additional selections
-	  bool selection =true;
-	  TLorentzVector myjet1;
-	  myjet1.SetPtEtaPhiM(jpt_1,jeta_1,jphi_1,0);
-	  TLorentzVector myjet2;
-	  myjet2.SetPtEtaPhiM(jpt_2,jeta_2,jphi_2,0);
-	  TLorentzVector Higgs = mytau1+mytau2+mymet;
-	  TLorentzVector jets=myjet2+myjet1;
-          mjj = jets.M();
-
-	  // Categories
-	  bool is_0jet = false;
-	  bool is_boosted = false;
-	  bool is_VBF = false;
-	  bool is_VH = false;
-          
-	  if(njets==0) is_0jet=true;
-	  if(njets>=2 && Higgs.Pt()>100 && mjj > 300) is_VBF=true;
-	  if(njets>=2 && mjj < 300) is_VH=true;
-	  if(njets==1 || (njets>=2 && mjj > 300 && Higgs.Pt()<100)) is_boosted=true;
-          
-            //else if(njets>=2 && Higgs.Pt()>100 && std::abs(myjet1.Eta()-myjet2.Eta())>2.5) is_VBF=true;
-            //if(njets==1 || !(njets>=2 && Higgs.Pt()>100 && std::abs(myjet1.Eta()-myjet2.Eta())>2.5)) is_boosted=true;
-            //else cout << "AN's category is not complete." << endl;
-            
-            //cout << "-------" << is_0jet << is_boosted << is_VBF << is_VH << endl;
-            
-            if (!(is_boosted || is_0jet || is_VBF || is_VH)) {
-                cout << endl;
-                cout << "-------" << is_0jet << is_boosted << is_VBF << is_VH << endl;
-                cout << "hole1 *****************************************"<< endl;
-                cout << "njets : " << njets << endl;
-                cout << "Higgs.Pt() : " << Higgs.Pt() << endl;
-                cout << "std::abs(myjet1.Eta()-myjet2.Eta()) : "<< std::abs(myjet1.Eta()-myjet2.Eta()) << endl;
-            }
-            
-            //************************* Fill histograms **********************
-                                   
-            //            float var = Higgs.Pt(); //Variable to plot
-            float var = (mytau2+mytau1).M(); //Variable to plot
-            if (selection){
-                if (is_0jet && signalRegion && charge1*charge2<0)
-                h0_OS[k]->Fill(var,weight2*aweight);
-                if (is_boosted && signalRegion && charge1*charge2<0)
-                h1_OS[k]->Fill(var,weight2*aweight);
-                if (is_VBF && signalRegion && charge1*charge2<0)
-                h2_OS[k]->Fill(var,weight2*aweight);
-                if (is_VH && signalRegion && charge1*charge2<0)
-                h3_OS[k]->Fill(var,weight2*aweight);
-                if (signalRegion && charge1*charge2<0)
-                h_OS[k]->Fill(var,weight2*aweight);
-                
-                if (is_0jet && signalRegion && charge1*charge2>0)
-                h0_SS[k]->Fill(var,weight2*aweight);
-                if (is_boosted && signalRegion && charge1*charge2>0)
-                h1_SS[k]->Fill(var,weight2*aweight);
-                if (is_VBF && signalRegion && charge1*charge2>0)
-                h2_SS[k]->Fill(var,weight2*aweight);
-                if (is_VH && signalRegion && charge1*charge2>0)
-                h3_SS[k]->Fill(var,weight2*aweight);
-                if (signalRegion && charge1*charge2>0)
-                h_SS[k]->Fill(var,weight2*aweight);
-                
-                if (is_0jet && charge1*charge2<0 && aiRegion)
-                h0_AIOS[k]->Fill(var,weight2*aweight);
-                if (is_boosted && charge1*charge2<0 && aiRegion)
-                h1_AIOS[k]->Fill(var,weight2*aweight);
-                if (is_VBF && charge1*charge2<0 && aiRegion)
-                h2_AIOS[k]->Fill(var,weight2*aweight);
-                if (is_VH && charge1*charge2<0 && aiRegion)
-                h3_AIOS[k]->Fill(var,weight2*aweight);
-                if (charge1*charge2<0 && aiRegion)
-                h_AIOS[k]->Fill(var,weight2*aweight);
-                
-                
-                if (is_0jet && charge1*charge2>0 && aiRegion)
-                h0_AISS[k]->Fill(var,weight2*aweight);
-                if (is_boosted && charge1*charge2>0 && aiRegion)
-                h1_AISS[k]->Fill(var,weight2*aweight);
-                if (is_VBF && charge1*charge2>0 && aiRegion)
-                h2_AISS[k]->Fill(var,weight2*aweight);
-                if (is_VH && charge1*charge2>0 && aiRegion)
-                h3_AISS[k]->Fill(var,weight2*aweight);
-                if (charge1*charge2>0 && aiRegion)
-                h_AISS[k]->Fill(var,weight2*aweight);
-            }
-        }
+	  if (is_0jet && charge1*charge2>0 && aiRegion)
+	    h0_AISS[k]->Fill(var,weight2*aweight);
+	  if (is_boosted && charge1*charge2>0 && aiRegion)
+	    h1_AISS[k]->Fill(var,weight2*aweight);
+	  if (is_VBF && charge1*charge2>0 && aiRegion)
+	    h2_AISS[k]->Fill(var,weight2*aweight);
+	  if (is_VH && charge1*charge2>0 && aiRegion)
+	    h3_AISS[k]->Fill(var,weight2*aweight);
+	  if (charge1*charge2>0 && aiRegion)
+	    h_AISS[k]->Fill(var,weight2*aweight);
+	}
+      }
     } // end of loop over events
     
     
@@ -754,20 +756,20 @@ int main(int argc, char** argv) {
     
     
     for (int k=0; k<nbhist; ++k){
-        
-        //        if (tes==100) postfix=postfixJES[k];
-        //        if (tes==1) postfix=postfixTES[k];
-        //        if (tes==16) postfix=postfixDM[k];
-        //        if (tes==17) postfix=postfixZLshape[k];
-        //        if (tes==18) postfix=postfixZLnorm[k];
-        //        if (tes==19) postfix=postfixFakeDM[k];
-        //        if (tes==1000) postfix=postfixWG1[k];
-        
-        //        fout->cd();
-        //        n70[k]->SetName("n70"+postfix);
-        //        n70[k]->Write();
-        //        n70SS[k]->SetName("n70SS"+postfix);
-        //        n70SS[k]->Write();
+      
+      //        if (tes==100) postfix=postfixJES[k];
+      //        if (tes==1) postfix=postfixTES[k];
+      //        if (tes==16) postfix=postfixDM[k];
+      //        if (tes==17) postfix=postfixZLshape[k];
+      //        if (tes==18) postfix=postfixZLnorm[k];
+      //        if (tes==19) postfix=postfixFakeDM[k];
+      //        if (tes==1000) postfix=postfixWG1[k];
+      
+      //        fout->cd();
+      //        n70[k]->SetName("n70"+postfix);
+      //        n70[k]->Write();
+      //        n70SS[k]->SetName("n70SS"+postfix);
+      //        n70SS[k]->Write();
     }
     
     TDirectory *OS0jet_tt =fout->mkdir("tt_0jet");
