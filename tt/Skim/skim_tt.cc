@@ -260,17 +260,6 @@ int main(int argc, char** argv) {
     pair<float, float> tau1Candidate, tau2Candidate;
 
 
-    // Starts loop over events 
-    int i1 = 0;
-    int i2 = 0;
-    int i3 = 0;
-    int i4 = 0;
-    int i5 = 0;
-    int i6 = 0;
-    int i7 = 0;
-    int i8 = 0;
-    int i9 = 0;
-    int i10 = 0;
     for (int iEntry = 0; iEntry < tree->GetEntries() ; iEntry++)
     {
       // For tau pair forming algorithm
@@ -296,33 +285,32 @@ int main(int argc, char** argv) {
       if (isMC && tree->t2DecayMode==0) tau2=tau2*0.982;
       else if (isMC && tree->t2DecayMode==1) tau2=tau2*1.010;
       else if (isMC && tree->t2DecayMode==10) tau2=tau2*1.004;
-      ++i1;
+
       // Baseline selection https://www.dropbox.com/s/mb6e26affiodpn3/AN2016_355_v10.pdf?dl=0 page 44
       // line 769. No requirement on OS/SS @ skimming level
       if (tau1.DeltaR(tau2) < 0.5) continue;
-      ++i2;
+
       // loosen requirements  on  pT a bit for energy scale systematics
-      if (tau1.Pt() < 35 || fabs(tau1.Eta()) > 2.1 ) continue;
-      if (tau2.Pt() < 35 || fabs(tau2.Eta()) > 2.1 ) continue;
-      ++i3;
+      if (tau1.Pt() < 40 || fabs(tau1.Eta()) > 2.1 ) continue;
+      if (tau2.Pt() < 40 || fabs(tau2.Eta()) > 2.1 ) continue;
+
       // require the highest pT tau to have pT > 45
-      if (tau1.Pt() < 45 && tau2.Pt() < 45 ) continue;
+      if (tau1.Pt() < 50 && tau2.Pt() < 50 ) continue;
       // Doyeong, the requirements below is 1-  or  3-prong according to discriminator byDecayModeFinding?
       // line 771
-      ++i4;
+
       if (!tree->t1DecayModeFinding) continue;
       if (!tree->t2DecayModeFinding) continue;
       //  line 772
-      ++i5;
+
       if (fabs( tree->t1PVDZ ) > 0.2 || fabs( tree->t2PVDZ ) > 0.2) continue;
       //  lines 773-774
-      ++i6;
+
       if (tree->t1AgainstElectronVLooseMVA6 < 0.5 || tree->t1AgainstMuonLoose3 < 0.5) continue;
       if (tree->t2AgainstElectronVLooseMVA6 < 0.5 || tree->t2AgainstMuonLoose3 < 0.5) continue;
       // require loose MVA id for both tau leptons for skimming, as QCD requires Loose -> Tight scaling
-      ++i7;
+
       if (tree->t1ByLooseIsolationMVArun2v1DBoldDMwLT <  0.5 || tree->t2ByLooseIsolationMVArun2v1DBoldDMwLT < 0.5 ) continue;
-      ++i8;
 
       // Trigger follow https://github.com/truggles/Z_to_TauTau_13TeV/blob/MELA_test/analysisCuts.py#L23
       // tt35    = '((doubleTau35Pass > 0 && t1MatchesDoubleTau35Path > 0 && t2MatchesDoubleTau35Path > 0 && t1MatchesDoubleTau35Filter > 0 && t2MatchesDoubleTau35Filter > 0) || 
@@ -341,10 +329,8 @@ int main(int argc, char** argv) {
       // require either tt35 or tt35Combo to fire
       if ( !tt35 && !tt35Combo) continue;
 
-      ++i9;
       //  reject event if it has either an electron or a muon
       if ( tree->eVetoZTTp001dxyzR0>0 || tree->muVetoZTTp001dxyzR0>0 ) continue;
-      ++i10;
 
       evt_now=tree->evt;
       // implement new sorting per 
@@ -413,18 +399,5 @@ int main(int argc, char** argv) {
       nplot2(iMap2->first)->Write();
     
     fout->Close();
-
-    cout << " =================== " << endl;
-    cout << i1 << endl;
-    cout << i2 << endl;
-    cout << i3 << endl;
-    cout << i4 << endl;
-    cout << i5 << endl;
-    cout << i6 << endl;
-    cout << i7 << endl;
-    cout << i8 << endl;
-    cout << i9 << endl;
-    cout << i10 << endl;
-
     return 0;
 }
