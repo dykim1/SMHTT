@@ -62,6 +62,7 @@ outF.write("\n ./Make.sh FinalSelection2D_relaxedFR.cc \n")
 ####################################################
 #Location of the output nominal root files
 OutDir='files_nominal/'
+os.system("mkdir " + OutDir)
 
 for proc in SampleList:
 
@@ -103,6 +104,7 @@ outF.write("\n\n python plot_tt_category.py \n\n\n\n")
 ####################################################
 #Location of the output Z Shape Up
 OutDir='ZShapeUp'
+os.system("mkdir " + OutDir)
 
 for proc in SampleList:
     
@@ -130,6 +132,7 @@ outF.write("\n\n hadd -f  %s %s/ZTT.root %s/ZJ.root %s/ZL.root \n\n\n\n"%(HaddNa
 ####################################################
 #Location of the output Z Shape Down
 OutDir='ZShapeDown'
+os.system("mkdir "  + OutDir)
 
 for proc in SampleList:
     
