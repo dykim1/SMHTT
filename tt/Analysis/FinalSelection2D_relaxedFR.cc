@@ -419,32 +419,29 @@ int main(int argc, char** argv) {
     
     
     
-    
     Int_t nentries_wtn = (Int_t) arbre->GetEntries();
     for (Int_t i = 0; i < nentries_wtn; i++) {
       arbre->GetEntry(i);
-      if (i % 10000 == 0) fprintf(stdout, "\r  Processed events: %8d of %8d ", i, nentries_wtn);
-      fflush(stdout);
-      
+      //if (i % 10000 == 0) fprintf(stdout, "\r  Processed events: %8d of %8d ", i, nentries_wtn);
+      //fflush(stdout);
       // DoubleTau trigger
       if (sample=="data_obs" && input=="myntuples/data_H.root") {
 	if(!passDoubleTauCmbIso35) continue;
-	if(!matchDoubleTauCmbIso35_1 || !matchDoubleTauCmbIso35_2) continue;
-	if(filterDoubleTauCmbIso35_1<0.5 || filterDoubleTauCmbIso35_2<0.5) continue;
+	if(!matchDoubleTauCmbIso35_1  || !matchDoubleTauCmbIso35_2) continue;
+	if(!filterDoubleTauCmbIso35_1 || !filterDoubleTauCmbIso35_2) continue;
       }
       if (sample=="data_obs" && input!="myntuples/data_H.root") {
 	if (!passDoubleTau35) continue;
-	if (!matchDoubleTau35_1 || !matchDoubleTau35_2) continue;
-	if (filterDoubleTau35_1<0.5 || filterDoubleTau35_2<0.5) continue;
+	if (!matchDoubleTau35_1  || !matchDoubleTau35_2) continue;
+	if (!filterDoubleTau35_1 || !filterDoubleTau35_2) continue;
       }
+
       if (sample!="data_obs") {
-	if(!passDoubleTauCmbIso35 || !passDoubleTau35) continue;
-	if(passDoubleTauCmbIso35 && (filterDoubleTauCmbIso35_1<0.5 || filterDoubleTauCmbIso35_2<0.5)) continue;
-	if(passDoubleTauCmbIso35 && (!matchDoubleTauCmbIso35_1 || !matchDoubleTauCmbIso35_2)) continue;
-	if(passDoubleTau35 && (filterDoubleTau35_1<0.5 || filterDoubleTau35_2<0.5)) continue;
-	if(passDoubleTau35 && (!matchDoubleTau35_1 || !matchDoubleTau35_2)) continue;
+	bool t35     =  passDoubleTau35 && filterDoubleTau35_1 && filterDoubleTau35_2 && matchDoubleTau35_1 && matchDoubleTau35_2;
+	bool tcomb35 =  passDoubleTauCmbIso35 && filterDoubleTauCmbIso35_1 && filterDoubleTauCmbIso35_2 && matchDoubleTauCmbIso35_1 && matchDoubleTauCmbIso35_2;
+	if (  !t35 && !tcomb35 ) continue;
       }
-      
+
       // mytau1 is the highest pT tau
       float charge1=q_1;
       float charge2=q_2;
@@ -468,7 +465,6 @@ int main(int argc, char** argv) {
       if (byLooseIsolationMVArun2v1DBoldDMwLT_1 < 0.5 || byLooseIsolationMVArun2v1DBoldDMwLT_2 < 0.5) continue; // Fig 43(a)
       if (extramuon_veto) continue;
       if (extraelec_veto) continue;
-      
       float sf_trg=1.0;
       float sf_id=1.0;
       float eff_tau=1.0;
@@ -650,10 +646,12 @@ int main(int argc, char** argv) {
 	// for each iteration start from the nominal objets
 	
 	// pT, Eta cuts for the leptons
-	if (mytau1.Pt()<50 || mytau2.Pt()<40) continue; // L770
-	if (mytau1.Pt()<40 && mytau2.Pt()<40) continue;//if (mytau1.Pt()<20 and mytau2.Pt()<20) continue;
+	if (mytau1.Pt() > mytau2.Pt() )
+	  if (mytau1.Pt() < 40 || mytau2.Pt() < 40 ) continue;
+	if (mytau1.Pt() < mytau2.Pt() )
+	  if (mytau2.Pt() < 40 || mytau1.Pt() < 40 ) continue;
 	if ((fabs(mytau1.Eta()))>2.1 || (fabs(mytau2.Eta())>2.1)) continue; // L770
-	
+
 	float weight2=1.0;	  
 	weight2=weight2*sf_trg;
 	if (sample=="data_obs") {aweight=1.0; weight2=1.0;}
@@ -746,7 +744,6 @@ int main(int argc, char** argv) {
 	}
       }
     } // end of loop over events
-    
     
     TFile *fout = TFile::Open(output.c_str(), "RECREATE");
     fout->cd();
