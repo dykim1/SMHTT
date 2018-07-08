@@ -48,18 +48,15 @@ int main(int argc, char** argv) {
     //Define new output tree and its variables
     TTree *Run_Tree = new TTree("tt_tree", "tt_tree");
     Run_Tree->SetDirectory(0);
-    // Event ID variables
     Run_Tree->Branch("run", &run);
     Run_Tree->Branch("lumi", &lumi);
     Run_Tree->Branch("evt", &evt);
+
+    Run_Tree->Branch("npv", &npv);
+    Run_Tree->Branch("npu", &npu);
     Run_Tree->Branch("amcatNLO_weight", &aMCatNLO_weight);
-    // Extra lepton vetos
-    Run_Tree->Branch("dilepton_veto",  &dilepton_veto);
-    Run_Tree->Branch("extraelec_veto", &extraelec_veto);
-    Run_Tree->Branch("extramuon_veto", &extramuon_veto);
-    // Trigger flags
-    Run_Tree->Branch("trg_doubletau", &trg_doubletau);
-    // Leg 1
+    Run_Tree->Branch("jetpt_1", &jetpt_1);
+    Run_Tree->Branch("jetpt_2", &jetpt_2);
     Run_Tree->Branch("pt_1", &pt_1);
     Run_Tree->Branch("px_1", &px_1);
     Run_Tree->Branch("py_1", &py_1);
@@ -69,110 +66,10 @@ int main(int argc, char** argv) {
     Run_Tree->Branch("m_1", &m_1);
     Run_Tree->Branch("e_1", &e_1);
     Run_Tree->Branch("q_1", &q_1);
-    Run_Tree->Branch("d0_1", &d0_1);
-    Run_Tree->Branch("dZ_1", &dZ_1);
-    Run_Tree->Branch("mt_1", &mt_1); // FIXME
-    Run_Tree->Branch("iso_1", &iso_1);    
-    Run_Tree->Branch("gen_match_1", &gen_match_1);
-    Run_Tree->Branch("againstElectronLooseMVA6_1",  &againstElectronLooseMVA6_1);
-    Run_Tree->Branch("againstElectronMediumMVA6_1", &againstElectronMediumMVA6_1);
-    Run_Tree->Branch("againstElectronTightMVA6_1",  &againstElectronTightMVA6_1);
-    Run_Tree->Branch("againstElectronVLooseMVA6_1", &againstElectronVLooseMVA6_1);
-    Run_Tree->Branch("againstElectronVTightMVA6_1", &againstElectronVTightMVA6_1);
-    Run_Tree->Branch("againstMuonLoose3_1", &againstMuonLoose3_1);
-    Run_Tree->Branch("againstMuonTight3_1", &againstMuonTight3_1);
-    Run_Tree->Branch("byCombinedIsolationDeltaBetaCorrRaw3Hits_1", &byCombinedIsolationDeltaBetaCorrRaw3Hits_1);
-    Run_Tree->Branch("byIsolationMVA3newDMwLTraw_1", &byIsolationMVA3newDMwLTraw_1);
-    Run_Tree->Branch("byIsolationMVA3oldDMwLTraw_1", &byIsolationMVA3oldDMwLTraw_1);
-    Run_Tree->Branch("chargedIsoPtSum_1", &chargedIsoPtSum_1);
-    Run_Tree->Branch("neutralIsoPtSum_1", &neutralIsoPtSum_1);
-    Run_Tree->Branch("decayModeFinding_1", &decayModeFinding_1);
+    Run_Tree->Branch("mt_1", &mt_1);
+    Run_Tree->Branch("iso_1", &iso_1);
     Run_Tree->Branch("t1_decayMode", &t1_decayMode);
-    // Leg 2
-    Run_Tree->Branch("pt_2", &pt_2);
-    Run_Tree->Branch("px_2", &px_2);
-    Run_Tree->Branch("py_2", &py_2);
-    Run_Tree->Branch("pz_2", &pz_2);
-    Run_Tree->Branch("phi_2", &phi_2);
-    Run_Tree->Branch("eta_2", &eta_2);
-    Run_Tree->Branch("m_2", &m_2);
-    Run_Tree->Branch("e_2", &e_2);
-    Run_Tree->Branch("q_2", &q_2);
-    Run_Tree->Branch("d0_2", &d0_2);
-    Run_Tree->Branch("dZ_2", &dZ_2);
-    Run_Tree->Branch("mt_2", &mt_2); // FIXME
-    Run_Tree->Branch("iso_2", &iso_2);
-    Run_Tree->Branch("gen_match_2", &gen_match_2);
-    Run_Tree->Branch("againstElectronLooseMVA6_2", &againstElectronLooseMVA6_2);
-    Run_Tree->Branch("againstElectronMediumMVA6_2", &againstElectronMediumMVA6_2);
-    Run_Tree->Branch("againstElectronTightMVA6_2", &againstElectronTightMVA6_2);
-    Run_Tree->Branch("againstElectronVLooseMVA6_2", &againstElectronVLooseMVA6_2);
-    Run_Tree->Branch("againstElectronVTightMVA6_2", &againstElectronVTightMVA6_2);
-    Run_Tree->Branch("againstMuonLoose3_2", &againstMuonLoose3_2);
-    Run_Tree->Branch("againstMuonTight3_2", &againstMuonTight3_2);
-    Run_Tree->Branch("byCombinedIsolationDeltaBetaCorrRaw3Hits_2", &byCombinedIsolationDeltaBetaCorrRaw3Hits_2);
-    Run_Tree->Branch("byIsolationMVA3newDMwLTraw_2", &byIsolationMVA3newDMwLTraw_2);
-    Run_Tree->Branch("byIsolationMVA3oldDMwLTraw_2", &byIsolationMVA3oldDMwLTraw_2);
-    Run_Tree->Branch("chargedIsoPtSum_2", &chargedIsoPtSum_2);
-    Run_Tree->Branch("neutralIsoPtSum_2", &neutralIsoPtSum_2);
-    Run_Tree->Branch("decayModeFinding_2", &decayModeFinding_2);
-    Run_Tree->Branch("t2_decayMode", &t2_decayMode);
-    // MET
-    Run_Tree->Branch("met", &met);    
-    Run_Tree->Branch("metphi", &metphi);
-    Run_Tree->Branch("metSig", &metSig);
-    Run_Tree->Branch("metcov00", &metcov00);   
-    Run_Tree->Branch("metcov10", &metcov10);
-    Run_Tree->Branch("metcov11", &metcov11);
-    Run_Tree->Branch("metcov01", &metcov01);
-    Run_Tree->Branch("met_px", &met_px);
-    Run_Tree->Branch("met_py", &met_py);
-    // VBF system
-    Run_Tree->Branch("mjj", &mjj);
-    Run_Tree->Branch("jdeta", &jdeta);
-    Run_Tree->Branch("njetingap", &njetingap);
-    Run_Tree->Branch("njetingap20", &njetingap20);
-    Run_Tree->Branch("jdphi", &jdphi);
-    Run_Tree->Branch("dijetpt", &dijetpt);
-    Run_Tree->Branch("dijetphi", &dijetphi);
-    Run_Tree->Branch("ptvis", &ptvis);
-    // additional jets
-    Run_Tree->Branch("nbtag", &nbtag);
-    Run_Tree->Branch("nbtagL", &nbtagL);
-    Run_Tree->Branch("njets", &njets);
-    Run_Tree->Branch("njetspt20", &njetspt20);
-    Run_Tree->Branch("njets_JESDown", &njets_JESDown);
-    Run_Tree->Branch("njetspt20_JESDown", &njetspt20_JESDown);
-    Run_Tree->Branch("njets_JESUp", &njets_JESUp);
-    Run_Tree->Branch("njetspt20_JESUp", &njetspt20_JESUp);
-    Run_Tree->Branch("jpt_1", &jpt_1);
-    Run_Tree->Branch("jeta_1", &jeta_1);
-    Run_Tree->Branch("jphi_1", &jphi_1);
-    Run_Tree->Branch("jcsv_1", &jcsv_1);
-    Run_Tree->Branch("jetpt_1", &jetpt_1);
-    Run_Tree->Branch("jpt_2", &jpt_2);
-    Run_Tree->Branch("jeta_2", &jeta_2);
-    Run_Tree->Branch("jphi_2", &jphi_2);
-    Run_Tree->Branch("jcsv_2", &jcsv_2);
-    Run_Tree->Branch("jetpt_2", &jetpt_2);
-    Run_Tree->Branch("bpt_1", &bpt_1);
-    Run_Tree->Branch("beta_1", &beta_1);
-    Run_Tree->Branch("bphi_1", &bphi_1);
-    Run_Tree->Branch("bcsv_1", &bcsv_1);
-    Run_Tree->Branch("bflavor_1", &bflavor_1);
-    Run_Tree->Branch("bpt_2", &bpt_2);
-    Run_Tree->Branch("beta_2", &beta_2);
-    Run_Tree->Branch("bphi_2", &bphi_2);
-    Run_Tree->Branch("bcsv_2", &bcsv_2);
-    Run_Tree->Branch("bflavor_2", &bflavor_2);
-    // Generator Variables
-    Run_Tree->Branch("NPU", &NUP);
-    // Pile Up
-    Run_Tree->Branch("npv", &npv);
-    Run_Tree->Branch("npu", &npu);
-    Run_Tree->Branch("rho", &rho);
 
-    // Miscellaneous
     Run_Tree->Branch("t1GenCharge",       &t1GenCharge);
     Run_Tree->Branch("t1GenDecayMode",    &t1GenDecayMode);
     Run_Tree->Branch("t1GenEnergy",       &t1GenEnergy);
@@ -191,6 +88,7 @@ int main(int argc, char** argv) {
     Run_Tree->Branch("t1GenStatus",       &t1GenStatus);
     Run_Tree->Branch("t1ZTTGenDR",        &t1ZTTGenDR);
     Run_Tree->Branch("t1ZTTGenEta",       &t1ZTTGenEta);
+    //Run_Tree->Branch("t1ZTTGenMatching",&t1ZTTGenMatching,"t1ZTTGenMatching/F");
     Run_Tree->Branch("t1ZTTGenPhi",       &t1ZTTGenPhi);
     Run_Tree->Branch("t1ZTTGenPt",        &t1ZTTGenPt);
 
@@ -212,38 +110,51 @@ int main(int argc, char** argv) {
     Run_Tree->Branch("t2GenStatus",       &t2GenStatus);
     Run_Tree->Branch("t2ZTTGenDR",        &t2ZTTGenDR);
     Run_Tree->Branch("t2ZTTGenEta",       &t2ZTTGenEta);
+    //Run_Tree->Branch("t2ZTTGenMatching",&t2ZTTGenMatching,"t2ZTTGenMatching/F");
     Run_Tree->Branch("t2ZTTGenPhi",       &t2ZTTGenPhi);
     Run_Tree->Branch("t2ZTTGenPt",        &t2ZTTGenPt);
 
-    // FIXME h file
-    Run_Tree->Branch("byVLooseIsolationMVArun2v1DBoldDMwLT_1", &byVLooseIsolationMVArun2v1DBoldDMwLT_1  );
-    Run_Tree->Branch("byLooseIsolationMVArun2v1DBoldDMwLT_1", &byLooseIsolationMVArun2v1DBoldDMwLT_1    );
-    Run_Tree->Branch("byMediumIsolationMVArun2v1DBoldDMwLT_1", &byMediumIsolationMVArun2v1DBoldDMwLT_1  );
-    Run_Tree->Branch("byTightIsolationMVArun2v1DBoldDMwLT_1", &byTightIsolationMVArun2v1DBoldDMwLT_1    );
-    Run_Tree->Branch("byVTightIsolationMVArun2v1DBoldDMwLT_1", &byVTightIsolationMVArun2v1DBoldDMwLT_1  );
+    Run_Tree->Branch("againstElectronLooseMVA6_1",  &againstElectronLooseMVA6_1);
+    Run_Tree->Branch("againstElectronMediumMVA6_1", &againstElectronMediumMVA6_1);
+    Run_Tree->Branch("againstElectronTightMVA6_1",  &againstElectronTightMVA6_1 );
+    Run_Tree->Branch("againstElectronVLooseMVA6_1", &againstElectronVLooseMVA6_1);
+    Run_Tree->Branch("againstElectronVTightMVA6_1", &againstElectronVTightMVA6_1);
+    Run_Tree->Branch("againstMuonLoose3_1", &againstMuonLoose3_1);
+    Run_Tree->Branch("againstMuonTight3_1", &againstMuonTight3_1);
+    Run_Tree->Branch("byVLooseIsolationMVArun2v1DBoldDMwLT_1", &byVLooseIsolationMVArun2v1DBoldDMwLT_1);
+    Run_Tree->Branch("byLooseIsolationMVArun2v1DBoldDMwLT_1" , &byLooseIsolationMVArun2v1DBoldDMwLT_1 );
+    Run_Tree->Branch("byMediumIsolationMVArun2v1DBoldDMwLT_1", &byMediumIsolationMVArun2v1DBoldDMwLT_1);
+    Run_Tree->Branch("byTightIsolationMVArun2v1DBoldDMwLT_1", &byTightIsolationMVArun2v1DBoldDMwLT_1);
+    Run_Tree->Branch("byVTightIsolationMVArun2v1DBoldDMwLT_1", &byVTightIsolationMVArun2v1DBoldDMwLT_1);
     Run_Tree->Branch("byVVTightIsolationMVArun2v1DBoldDMwLT_1", &byVVTightIsolationMVArun2v1DBoldDMwLT_1);
-
+    Run_Tree->Branch("byCombinedIsolationDeltaBetaCorrRaw3Hits_1", &byCombinedIsolationDeltaBetaCorrRaw3Hits_1);
+    Run_Tree->Branch("byCombinedIsolationDeltaBetaCorrRaw3Hits_2", &byCombinedIsolationDeltaBetaCorrRaw3Hits_2);
+    Run_Tree->Branch("byIsolationMVA3oldDMwoLTraw_1", &byIsolationMVA3oldDMwoLTraw_1);
+    Run_Tree->Branch("byIsolationMVA3oldDMwoLTraw_2", &byIsolationMVA3oldDMwoLTraw_2);
+    Run_Tree->Branch("pt_2", &pt_2);
+    Run_Tree->Branch("px_2", &px_2);
+    Run_Tree->Branch("py_2", &py_2);
+    Run_Tree->Branch("pz_2", &pz_2);
+    Run_Tree->Branch("phi_2", &phi_2);
+    Run_Tree->Branch("eta_2", &eta_2);
+    Run_Tree->Branch("m_2", &m_2);
+    Run_Tree->Branch("e_2", &e_2);
+    Run_Tree->Branch("q_2", &q_2);
+    Run_Tree->Branch("iso_2", &iso_2);
+    Run_Tree->Branch("t2_decayMode", &t2_decayMode);
+    Run_Tree->Branch("againstElectronLooseMVA6_2", &againstElectronLooseMVA6_2  );
+    Run_Tree->Branch("againstElectronMediumMVA6_2", &againstElectronMediumMVA6_2);
+    Run_Tree->Branch("againstElectronTightMVA6_2", &againstElectronTightMVA6_2);
+    Run_Tree->Branch("againstElectronVLooseMVA6_2", &againstElectronVLooseMVA6_2);
+    Run_Tree->Branch("againstElectronVTightMVA6_2", &againstElectronVTightMVA6_2);
+    Run_Tree->Branch("againstMuonLoose3_2", &againstMuonLoose3_2);
+    Run_Tree->Branch("againstMuonTight3_2", &againstMuonTight3_2);
     Run_Tree->Branch("byVLooseIsolationMVArun2v1DBoldDMwLT_2", &byVLooseIsolationMVArun2v1DBoldDMwLT_2);
-    Run_Tree->Branch("byLooseIsolationMVArun2v1DBoldDMwLT_2", &byLooseIsolationMVArun2v1DBoldDMwLT_2  );
+    Run_Tree->Branch("byLooseIsolationMVArun2v1DBoldDMwLT_2", &byLooseIsolationMVArun2v1DBoldDMwLT_2);
     Run_Tree->Branch("byMediumIsolationMVArun2v1DBoldDMwLT_2", &byMediumIsolationMVArun2v1DBoldDMwLT_2);
-    Run_Tree->Branch("byTightIsolationMVArun2v1DBoldDMwLT_2", &byTightIsolationMVArun2v1DBoldDMwLT_2  );
+    Run_Tree->Branch("byTightIsolationMVArun2v1DBoldDMwLT_2", &byTightIsolationMVArun2v1DBoldDMwLT_2);
     Run_Tree->Branch("byVTightIsolationMVArun2v1DBoldDMwLT_2", &byVTightIsolationMVArun2v1DBoldDMwLT_2);
     Run_Tree->Branch("byVVTightIsolationMVArun2v1DBoldDMwLT_2", &byVVTightIsolationMVArun2v1DBoldDMwLT_2);
-
-    Run_Tree->Branch("t1RerunMVArun2v2DBoldDMwLTVVLoose", &t1RerunMVArun2v2DBoldDMwLTVVLoose);
-    Run_Tree->Branch("t1RerunMVArun2v2DBoldDMwLTVLoose", &t1RerunMVArun2v2DBoldDMwLTVLoose);
-    Run_Tree->Branch("t1RerunMVArun2v2DBoldDMwLTLoose", &t1RerunMVArun2v2DBoldDMwLTLoose);
-    Run_Tree->Branch("t1RerunMVArun2v2DBoldDMwLTMedium", &t1RerunMVArun2v2DBoldDMwLTMedium);
-    Run_Tree->Branch("t1RerunMVArun2v2DBoldDMwLTTight", &t1RerunMVArun2v2DBoldDMwLTTight);
-    Run_Tree->Branch("t1RerunMVArun2v2DBoldDMwLTVTight", &t1RerunMVArun2v2DBoldDMwLTVTight);
-    Run_Tree->Branch("t1RerunMVArun2v2DBoldDMwLTVVTight", &t1RerunMVArun2v2DBoldDMwLTVVTight);
-    Run_Tree->Branch("t2RerunMVArun2v2DBoldDMwLTVVLoose", &t2RerunMVArun2v2DBoldDMwLTVVLoose);
-    Run_Tree->Branch("t2RerunMVArun2v2DBoldDMwLTVLoose", &t2RerunMVArun2v2DBoldDMwLTVLoose);
-    Run_Tree->Branch("t2RerunMVArun2v2DBoldDMwLTLoose", &t2RerunMVArun2v2DBoldDMwLTLoose);
-    Run_Tree->Branch("t2RerunMVArun2v2DBoldDMwLTMedium", &t2RerunMVArun2v2DBoldDMwLTMedium);
-    Run_Tree->Branch("t2RerunMVArun2v2DBoldDMwLTTight", &t2RerunMVArun2v2DBoldDMwLTTight);
-    Run_Tree->Branch("t2RerunMVArun2v2DBoldDMwLTVTight", &t2RerunMVArun2v2DBoldDMwLTVTight);
-    Run_Tree->Branch("t2RerunMVArun2v2DBoldDMwLTVVTight", &t2RerunMVArun2v2DBoldDMwLTVVTight);
 
     Run_Tree->Branch("genpX", &genpX);
     Run_Tree->Branch("genpY", &genpY);
@@ -272,6 +183,50 @@ int main(int argc, char** argv) {
     Run_Tree->Branch("metphi_JESUp", &metphi_JESUp);
     Run_Tree->Branch("metphi_UESUp", &metphi_UESUp);
 
+    Run_Tree->Branch("met", &met);
+    Run_Tree->Branch("metSig", &metSig);
+    Run_Tree->Branch("metcov00", &metcov00);   
+    Run_Tree->Branch("metcov10", &metcov10);
+    Run_Tree->Branch("metcov11", &metcov11);
+    Run_Tree->Branch("metcov01", &metcov01);
+    Run_Tree->Branch("metphi", &metphi);
+    Run_Tree->Branch("met_px", &met_px);
+    Run_Tree->Branch("met_py", &met_py);
+
+    Run_Tree->Branch("gen_match_1", &gen_match_1);
+    Run_Tree->Branch("gen_match_2", &gen_match_2);
+
+    Run_Tree->Branch("nbtag",  &nbtag);
+    Run_Tree->Branch("nbtagL", &nbtagL);
+    Run_Tree->Branch("extraelec_veto",    &extraelec_veto);
+    Run_Tree->Branch("extramuon_veto",    &extramuon_veto);
+    Run_Tree->Branch("njets",             &njets);
+    Run_Tree->Branch("njetspt20",         &njetspt20);
+    Run_Tree->Branch("njets_JESDown",     &njets_JESDown);
+    Run_Tree->Branch("njetspt20_JESDown", &njetspt20_JESDown);
+    Run_Tree->Branch("njets_JESUp",       &njets_JESUp);
+    Run_Tree->Branch("njetspt20_JESUp",   &njetspt20_JESUp);
+    Run_Tree->Branch("jpt_1",  &jpt_1);
+    Run_Tree->Branch("jeta_1", &jeta_1);
+    Run_Tree->Branch("jphi_1", &jphi_1);
+    Run_Tree->Branch("jcsv_1", &jcsv_1);
+
+    Run_Tree->Branch("jpt_2",  &jpt_2 );
+    Run_Tree->Branch("jeta_2", &jeta_2);
+    Run_Tree->Branch("jphi_2", &jphi_2);
+    Run_Tree->Branch("jcsv_2", &jcsv_2);
+
+    Run_Tree->Branch("bpt_1",  &bpt_1 );
+    Run_Tree->Branch("beta_1", &beta_1);
+    Run_Tree->Branch("bphi_1", &bphi_1);
+    Run_Tree->Branch("bcsv_1", &bcsv_1);
+    Run_Tree->Branch("bflavor_1", &bflavor_1);
+
+    Run_Tree->Branch("bpt_2",  &bpt_2);
+    Run_Tree->Branch("beta_2", &beta_2);
+    Run_Tree->Branch("bphi_2", &bphi_2);
+    Run_Tree->Branch("bcsv_2", &bcsv_2);
+    Run_Tree->Branch("bflavor_2", &bflavor_2);
 
     Run_Tree->Branch("passDoubleTau35", &passDoubleTau35);
     Run_Tree->Branch("matchDoubleTau35_1", &matchDoubleTau35_1);
@@ -293,13 +248,6 @@ int main(int argc, char** argv) {
     Run_Tree->Branch("type1_pfMet_shiftedPhi_JetEnUp", &type1_pfMet_shiftedPhi_JetEnUp);
     Run_Tree->Branch("type1_pfMet_shiftedPhi_JetEnDown", &type1_pfMet_shiftedPhi_JetEnDown);
 
-    Run_Tree->Branch("t1MatchesDoubleTightTau35Path", &t1MatchesDoubleTightTau35Path);
-    Run_Tree->Branch("t2MatchesDoubleTightTau35Path", &t2MatchesDoubleTightTau35Path);
-    Run_Tree->Branch("t1MatchesDoubleMediumTau40Path", &t1MatchesDoubleMediumTau40Path);
-    Run_Tree->Branch("t2MatchesDoubleMediumTau40Path", &t2MatchesDoubleMediumTau40Path);
-    Run_Tree->Branch("t1MatchesDoubleTightTau40Path", &t1MatchesDoubleTightTau40Path);
-    Run_Tree->Branch("t2MatchesDoubleTightTau40Path", &t2MatchesDoubleTightTau40Path);
-    
 
     float lt_before=0;
     int bestEntry=-1;
@@ -356,16 +304,22 @@ int main(int argc, char** argv) {
       if (tree->t1AgainstElectronVLooseMVA6 < 0.5 || tree->t1AgainstMuonLoose3 < 0.5) continue;
       if (tree->t2AgainstElectronVLooseMVA6 < 0.5 || tree->t2AgainstMuonLoose3 < 0.5) continue;
       // require loose MVA id for both tau leptons for skimming, as QCD requires Loose -> Tight scaling
-      if (byLooseIsolationMVArun2v1DBoldDMwLT_1 <  0.5 || byLooseIsolationMVArun2v1DBoldDMwLT_2 ) continue;
+      if (tree->t1ByLooseIsolationMVArun2v1DBoldDMwLT <  0.5 || tree->t2ByLooseIsolationMVArun2v1DBoldDMwLT ) continue;
 
       // Trigger follow https://github.com/truggles/Z_to_TauTau_13TeV/blob/MELA_test/analysisCuts.py#L23
       // tt35    = '((doubleTau35Pass > 0 && t1MatchesDoubleTau35Path > 0 && t2MatchesDoubleTau35Path > 0 && t1MatchesDoubleTau35Filter > 0 && t2MatchesDoubleTau35Filter > 0) || 
       //             (doubleTauCmbIso35RegPass > 0 && t1MatchesDoubleTauCmbIso35RegPath > 0 && t2MatchesDoubleTauCmbIso35RegPath > 0 && t1MatchesDoubleTauCmbIso35RegFilter > 0 && t2MatchesDoubleTauCmbIso35RegFilter > 0))'
       // Doyeong, this trigger requirement looks different in  your original code, do you  understand why?
       // MC & data_B, C, D, all the way to G (Table 14 page 44)
-      bool tt35      = passDoubleTau35       && matchDoubleTau35_1       && matchDoubleTau35_2       &&  filterDoubleTau35_1      && filterDoubleTau35_2;
+      bool tt35      = tree->doubleTau35Pass>0 
+	&& tree->t1MatchesDoubleTau35Filter>0 && tree->t2MatchesDoubleTau35Filter>0
+	&& tree->t1MatchesDoubleTau35Path>0   && tree->t2MatchesDoubleTau35Path>0;
+      
       // only data_H
-      bool tt35Combo = passDoubleTauCmbIso35 && matchDoubleTauCmbIso35_1 && matchDoubleTauCmbIso35_2 && filterDoubleTauCmbIso35_1 && filterDoubleTauCmbIso35_2;
+      bool tt35Combo = tree->doubleTauCmbIso35RegPass>0
+	&&  tree->t1MatchesDoubleTauCmbIso35RegFilter>0  && tree->t2MatchesDoubleTauCmbIso35RegFilter
+	&&  tree->t1MatchesDoubleTauCmbIso35RegPath>0    && tree->t2MatchesDoubleTauCmbIso35RegPath;
+
       // require either tt35 or tt35Combo to fire
       if ( !tt35 && !tt35Combo) continue;
 
@@ -384,20 +338,20 @@ int main(int argc, char** argv) {
          
 	//  this is a new event, so the first tau pair is the best! :)
 	bestEntry=iEntry;
-	tau1Candidate  = make_pair(tree->t1Pt,  tree->t1RerunMVArun2v2DBoldDMwLTraw);
-	tau2Candidate  = make_pair(tree->t2Pt,  tree->t2RerunMVArun2v2DBoldDMwLTraw);
+	tau1Candidate  = make_pair(tree->t1Pt,  tree->t1ByIsolationMVArun2v1DBoldDMwLTraw);
+	tau2Candidate  = make_pair(tree->t2Pt,  tree->t2ByIsolationMVArun2v1DBoldDMwLTraw);
 	// check if currentTau1 is most isolated
-	if ( tree->t1RerunMVArun2v2DBoldDMwLTraw < tree->t2RerunMVArun2v2DBoldDMwLTraw ) {
-	  tau1Candidate  = make_pair(tree->t2Pt,  tree->t2RerunMVArun2v2DBoldDMwLTraw);
-	  tau2Candidate  = make_pair(tree->t1Pt,  tree->t1RerunMVArun2v2DBoldDMwLTraw);
+	if ( tree->t1ByIsolationMVArun2v1DBoldDMwLTraw < tree->t2ByIsolationMVArun2v1DBoldDMwLTraw ) {
+	  tau1Candidate  = make_pair(tree->t2Pt,  tree->t2ByIsolationMVArun2v1DBoldDMwLTraw);
+	  tau2Candidate  = make_pair(tree->t1Pt,  tree->t1ByIsolationMVArun2v1DBoldDMwLTraw);
 	}
       } else { // not a new event
 	// comparison between previous tau pair and the new one takes place here!
-	currentTau1Candidate = make_pair(tree->t1Pt,  tree->t1RerunMVArun2v2DBoldDMwLTraw);
-	currentTau2Candidate = make_pair(tree->t2Pt,  tree->t2RerunMVArun2v2DBoldDMwLTraw);
-	if ( tree->t1RerunMVArun2v2DBoldDMwLTraw < tree->t2RerunMVArun2v2DBoldDMwLTraw ) {
-	  currentTau1Candidate  = make_pair(tree->t2Pt,  tree->t2RerunMVArun2v2DBoldDMwLTraw);
-	  currentTau2Candidate  = make_pair(tree->t1Pt,  tree->t1RerunMVArun2v2DBoldDMwLTraw);
+	currentTau1Candidate = make_pair(tree->t1Pt,  tree->t1ByIsolationMVArun2v1DBoldDMwLTraw);
+	currentTau2Candidate = make_pair(tree->t2Pt,  tree->t2ByIsolationMVArun2v1DBoldDMwLTraw);
+	if ( tree->t1ByIsolationMVArun2v1DBoldDMwLTraw < tree->t2ByIsolationMVArun2v1DBoldDMwLTraw ) {
+	  currentTau1Candidate  = make_pair(tree->t2Pt,  tree->t2ByIsolationMVArun2v1DBoldDMwLTraw);
+	  currentTau2Candidate  = make_pair(tree->t1Pt,  tree->t1ByIsolationMVArun2v1DBoldDMwLTraw);
 	}
 	
 	// clause 1, select the pair that has most isolated tau lepton 1
