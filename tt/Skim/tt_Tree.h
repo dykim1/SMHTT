@@ -337,7 +337,7 @@ void fillTree(TTree *Run_Tree, HTauTauTree_tt *tree, int entry_tree, bool ismc){
     gen_match_2=tree->t2ZTTGenMatching;
 
     extraelec_veto=(tree->eVetoZTTp001dxyzR0>0);
-    extramuon_veto=(tree->muVetoZTTp001dxyzR0>2);
+    extramuon_veto=(tree->muVetoZTTp001dxyzR0>0);
     dilepton_veto=(tree->dimuonVeto>0);
  
     t1_decayMode=tree->t1DecayMode;
