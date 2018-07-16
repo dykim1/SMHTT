@@ -1,3 +1,4 @@
+#include <Python.h> // D.Kim
 #include <typeinfo>
 #include <TH2.h>
 #include <TStyle.h>
@@ -71,6 +72,15 @@ int main(int argc, char** argv) {
     TFile fw2("htt_scalefactors_sm_moriond_v1.root");
     RooWorkspace *w2 = (RooWorkspace*)fw2.Get("w");
     fw2.Close();
+    
+    // D.Kim
+    const char *scriptDirectoryName = "/Users/doyeongkim/Dropbox/HTT/SMHTT2016_Maravin/SMHTT/tt/Analysis/scripts";//"/Users/doyeongkim/Work/tmp/pymodule/tmptestpy/scripts";
+    Py_Initialize();
+    PyObject *sysPath = PySys_GetObject("path");
+    PyObject *path = PyString_FromString(scriptDirectoryName);
+    PyList_Insert(sysPath, 0, path);
+    PyObject* fitFunctions =  PyImport_ImportModule("FitFunctions");
+    PyObject* compute_sf = PyObject_GetAttrString(fitFunctions,"compute_SF");
     
     //Normalization os MC samples
     float xs=1.0; float weight=1.0; float luminosity=35870.0;
@@ -282,9 +292,22 @@ int main(int argc, char** argv) {
     //float bins1[] = {0, 40, 60, 70, 80, 90, 100, 110, 120, 130, 150, 200, 250}; //VBF
     //float bins0[] = {0,10,20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240, 250, 260, 270, 280, 290, 300}; //VBF
     //float bins1[] = {0,10,20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240, 250, 260, 270, 280, 290, 300}; //VBF
-    float bins0[] = {0,50,100,150,200,250,300,350,400,450,500}; //fig50 H pT
-    float bins1[] = {0,50,100,150,200,250,300,350,400,450,500}; //fig50 H pT
-    //float bins0[] = {0,50,100,150,200,250,300,350,400,450,500};//,550,600,650,700,750,800,850,900,950,1000,1050}; //fig50 H pT 0~500
+    //    float bins0[] = {0,50,100,150,200,250,300,350,400,450,500}; //fig50 H pT
+    //    float bins1[] = {0,50,100,150,200,250,300,350,400,450,500}; //fig50 H pT
+
+    
+    //Binning for 0jet cat. 1D: Msv. In AN it was 10GeV binning
+    float bins0[] = {0,20,40,60,80,100,120,140,160,180,200,220,240,260,280,300};
+    float bins1[] = {0,20,40,60,80,100,120,140,160,180,200,220,240,260,280,300};
+    //Binning for 1jet cat, x-axis: HpT
+    float bins11[] = {0,100,170,300,10000};
+    //Binning for 1jet cat, y-axis: Msv
+    float bins12[] = {0,40,60,70,80,90,100,110,120,130,150,200,250};
+    //Binning for 2jet cat, x-axis: Mjj
+    float bins21[] = {0,300,500,800,10000};
+    //Binning for 2jet cat, y-axis: Msv
+    float bins22[] = {0,40,60,70,80,90,100,110,120,130,150,200,250};
+    
     //float bins1[] = {0,50,100,150,200,250,300,350,400,450,500};//,550,600,650,700,750,800,850,900,950,1000,1050}; //fig50 H pT
     //float bins0[] = {0,80,160,240,320,400,480,560,640,720,800,880,960,1040,1120,1200,1280,1360};
     //float bins1[] = {0,80,160,240,320,400,480,560,640,720,800,880,960,1040,1120,1200,1280,1360};
@@ -302,12 +325,20 @@ int main(int argc, char** argv) {
     
     int  binnum0 = sizeof(bins0)/sizeof(Float_t) - 1;
     int  binnum1 = sizeof(bins1)/sizeof(Float_t) - 1;
+
+    int  binnum11 = sizeof(bins11)/sizeof(Float_t) - 1;
+    int  binnum12 = sizeof(bins12)/sizeof(Float_t) - 1;
+    int  binnum21 = sizeof(bins21)/sizeof(Float_t) - 1;
+    int  binnum22 = sizeof(bins22)/sizeof(Float_t) - 1;
     
     // Categories
     //TH1F* ojet = new TH1F ("ojet", "ojet", 100, -0.10, 0.10); ojet->Sumw2();
     //TH1F* boosted = new TH1F ("boosted", "boosted", 100, -0.10, 0.10); boosted->Sumw2();
     //TH1F* vbf = new TH1F ("vbf", "vbf", 100, -0.10, 0.10); vbf->Sumw2();
-    
+
+    //KK Change to 2D histograms
+
+    /*
     std::vector<TH1F*> h0_OS;
     std::vector<TH1F*> h0_SS;
     std::vector<TH1F*> h0_AIOS;
@@ -328,7 +359,36 @@ int main(int argc, char** argv) {
     std::vector<TH1F*> h_SS;
     std::vector<TH1F*> h_AIOS;
     std::vector<TH1F*> h_AISS;
-    
+    */
+
+    std::vector<TH1F*> h0_OS;
+    std::vector<TH1F*> h0_SS;
+    std::vector<TH1F*> h0_AIOS;
+    std::vector<TH1F*> h0_AISS;
+    std::vector<TH2F*> h1_OS;
+    std::vector<TH2F*> h1_SS;
+    std::vector<TH2F*> h1_AIOS;
+    std::vector<TH2F*> h1_AISS;
+    std::vector<TH2F*> h2_OS;
+    std::vector<TH2F*> h2_SS;
+    std::vector<TH2F*> h2_AIOS;
+    std::vector<TH2F*> h2_AISS;
+    std::vector<TH2F*> h3_OS;
+    std::vector<TH2F*> h3_SS;
+    std::vector<TH2F*> h3_AIOS;
+    std::vector<TH2F*> h3_AISS;
+    std::vector<TH1F*> h_OS;
+    std::vector<TH1F*> h_SS;
+    std::vector<TH1F*> h_AIOS;
+    std::vector<TH1F*> h_AISS;
+    // D.Kim : trg SF histo
+    std::vector<TH1F*> h_trgSF;
+    std::vector<TH1F*> h_trgSF_RR;
+    std::vector<TH1F*> h_trgSF_FR;
+    std::vector<TH1F*> h_trgSF_RF;
+    std::vector<TH1F*> h_trgSF_FF;
+    std::vector<TH1F*> h_trgSF1;
+    std::vector<TH1F*> h_tauPT1;
     
     TString postfix="";
     //For shape systematics
@@ -350,10 +410,18 @@ int main(int argc, char** argv) {
         ostringstream HNS2OS; HNS2OS << "h2_OS" << k;
         ostringstream HNS3OS; HNS3OS << "h3_OS" << k;
         ostringstream HNSOS; HNS2OS << "h_OS" << k;
+	//KK
+	/*
         h0_OS.push_back(new TH1F (HNS0OS.str().c_str(),"diTauMa",binnum0,bins0)); h0_OS[k]->Sumw2();
         h1_OS.push_back(new TH1F (HNS1OS.str().c_str(),"diTauMa",binnum0,bins0)); h1_OS[k]->Sumw2();
         h2_OS.push_back(new TH1F (HNS2OS.str().c_str(),"diTauMa",binnum0,bins0)); h2_OS[k]->Sumw2();
         h3_OS.push_back(new TH1F (HNS3OS.str().c_str(),"diTauMa",binnum0,bins0)); h3_OS[k]->Sumw2();
+        h_OS.push_back(new TH1F (HNSOS.str().c_str(),"diTauMa",binnum0,bins0)); h_OS[k]->Sumw2();
+	*/
+        h0_OS.push_back(new TH1F (HNS0OS.str().c_str(),"diTauMa",binnum0,bins0)); h0_OS[k]->Sumw2();
+        h1_OS.push_back(new TH2F (HNS1OS.str().c_str(),"diTauMa",binnum11,bins11,binnum12,bins12)); h1_OS[k]->Sumw2();
+        h2_OS.push_back(new TH2F (HNS2OS.str().c_str(),"diTauMa",binnum21,bins21,binnum22,bins22)); h2_OS[k]->Sumw2();
+        h3_OS.push_back(new TH2F (HNS3OS.str().c_str(),"diTauMa",binnum21,bins21,binnum22,bins22)); h3_OS[k]->Sumw2();
         h_OS.push_back(new TH1F (HNSOS.str().c_str(),"diTauMa",binnum0,bins0)); h_OS[k]->Sumw2();
         
         ostringstream HNS0SS; HNS0OS << "h0_SS" << k;
@@ -361,10 +429,18 @@ int main(int argc, char** argv) {
         ostringstream HNS2SS; HNS2OS << "h2_SS" << k;
         ostringstream HNS3SS; HNS2OS << "h3_SS" << k;
         ostringstream HNSSS; HNSOS << "h_SS" << k;
+	//KK
+	/*
         h0_SS.push_back(new TH1F (HNS0SS.str().c_str(),"diTauMa",binnum1,bins1)); h0_SS[k]->Sumw2();
         h1_SS.push_back(new TH1F (HNS1SS.str().c_str(),"diTauMa",binnum1,bins1)); h1_SS[k]->Sumw2();
         h2_SS.push_back(new TH1F (HNS2SS.str().c_str(),"diTauMa",binnum1,bins1)); h2_SS[k]->Sumw2();
         h3_SS.push_back(new TH1F (HNS3SS.str().c_str(),"diTauMa",binnum1,bins1)); h3_SS[k]->Sumw2();
+        h_SS.push_back(new TH1F (HNSSS.str().c_str(),"diTauMa",binnum1,bins1)); h_SS[k]->Sumw2();
+	*/
+        h0_SS.push_back(new TH1F (HNS0SS.str().c_str(),"diTauMa",binnum1,bins1)); h0_SS[k]->Sumw2();
+        h1_SS.push_back(new TH2F (HNS1SS.str().c_str(),"diTauMa",binnum11,bins11,binnum12,bins12)); h1_SS[k]->Sumw2();
+        h2_SS.push_back(new TH2F (HNS2SS.str().c_str(),"diTauMa",binnum21,bins21,binnum22,bins22)); h2_SS[k]->Sumw2();
+        h3_SS.push_back(new TH2F (HNS3SS.str().c_str(),"diTauMa",binnum21,bins21,binnum22,bins22)); h3_SS[k]->Sumw2();
         h_SS.push_back(new TH1F (HNSSS.str().c_str(),"diTauMa",binnum1,bins1)); h_SS[k]->Sumw2();
         
         ostringstream HNS0AIOS; HNS0AIOS << "h0_AIOS" << k;
@@ -372,10 +448,18 @@ int main(int argc, char** argv) {
         ostringstream HNS2AIOS; HNS2AIOS << "h2_AIOS" << k;
         ostringstream HNS3AIOS; HNS3AIOS << "h3_AIOS" << k;
         ostringstream HNSAIOS; HNSAIOS << "h_AIOS" << k;
+	//KK
+	/*
         h0_AIOS.push_back(new TH1F (HNS0AIOS.str().c_str(),"diTauMa",binnum0,bins0)); h0_AIOS[k]->Sumw2();
         h1_AIOS.push_back(new TH1F (HNS1AIOS.str().c_str(),"diTauMa",binnum0,bins0)); h1_AIOS[k]->Sumw2();
         h2_AIOS.push_back(new TH1F (HNS2AIOS.str().c_str(),"diTauMa",binnum0,bins0)); h2_AIOS[k]->Sumw2();
         h3_AIOS.push_back(new TH1F (HNS3AIOS.str().c_str(),"diTauMa",binnum0,bins0)); h3_AIOS[k]->Sumw2();
+        h_AIOS.push_back(new TH1F (HNSAIOS.str().c_str(),"diTauMa",binnum0,bins0)); h_AIOS[k]->Sumw2();
+	*/
+        h0_AIOS.push_back(new TH1F (HNS0AIOS.str().c_str(),"diTauMa",binnum0,bins0)); h0_AIOS[k]->Sumw2();
+        h1_AIOS.push_back(new TH2F (HNS1AIOS.str().c_str(),"diTauMa",binnum11,bins11,binnum12,bins12)); h1_AIOS[k]->Sumw2();
+        h2_AIOS.push_back(new TH2F (HNS2AIOS.str().c_str(),"diTauMa",binnum21,bins21,binnum22,bins22)); h2_AIOS[k]->Sumw2();
+        h3_AIOS.push_back(new TH2F (HNS3AIOS.str().c_str(),"diTauMa",binnum21,bins21,binnum22,bins22)); h3_AIOS[k]->Sumw2();
         h_AIOS.push_back(new TH1F (HNSAIOS.str().c_str(),"diTauMa",binnum0,bins0)); h_AIOS[k]->Sumw2();
         
         ostringstream HNS0AISS; HNS0AISS << "h0_AISS" << k;
@@ -383,11 +467,37 @@ int main(int argc, char** argv) {
         ostringstream HNS2AISS; HNS2AISS << "h2_AISS" << k;
         ostringstream HNS3AISS; HNS3AISS << "h3_AISS" << k;
         ostringstream HNSAISS; HNSAISS << "h_AISS" << k;
+	//KK
+	/*
         h0_AISS.push_back(new TH1F (HNS0AISS.str().c_str(),"diTauMa",binnum1,bins1)); h0_AISS[k]->Sumw2();
         h1_AISS.push_back(new TH1F (HNS1AISS.str().c_str(),"diTauMa",binnum1,bins1)); h1_AISS[k]->Sumw2();
         h2_AISS.push_back(new TH1F (HNS2AISS.str().c_str(),"diTauMa",binnum1,bins1)); h2_AISS[k]->Sumw2();
         h3_AISS.push_back(new TH1F (HNS3AISS.str().c_str(),"diTauMa",binnum1,bins1)); h3_AISS[k]->Sumw2();
         h_AISS.push_back(new TH1F (HNSAISS.str().c_str(),"diTauMa",binnum1,bins1)); h_AISS[k]->Sumw2();
+	*/
+        h0_AISS.push_back(new TH1F (HNS0AISS.str().c_str(),"diTauMa",binnum1,bins1)); h0_AISS[k]->Sumw2();
+        h1_AISS.push_back(new TH2F (HNS1AISS.str().c_str(),"diTauMa",binnum11,bins11,binnum12,bins12)); h1_AISS[k]->Sumw2();
+        h2_AISS.push_back(new TH2F (HNS2AISS.str().c_str(),"diTauMa",binnum21,bins21,binnum22,bins22)); h2_AISS[k]->Sumw2();
+        h3_AISS.push_back(new TH2F (HNS3AISS.str().c_str(),"diTauMa",binnum21,bins21,binnum22,bins22)); h3_AISS[k]->Sumw2();
+        h_AISS.push_back(new TH1F (HNSAISS.str().c_str(),"diTauMa",binnum1,bins1)); h_AISS[k]->Sumw2();
+
+	// D.Kim ostringstream HNS0AISS; HNS0AISS << "h0_AISS" << k
+	ostringstream HTRGSF; HTRGSF << "h_trgSF" << k;
+	ostringstream HTRGSFRR; HTRGSFRR << "h_trgSF_RR" << k;
+	ostringstream HTRGSFFR; HTRGSFFR << "h_trgSF_FR" << k;
+	ostringstream HTRGSFRF; HTRGSFRF << "h_trgSF_RF" << k;
+	ostringstream HTRGSFFF; HTRGSFFF << "h_trgSF_FF" << k;
+	h_trgSF.push_back(new TH1F (HTRGSF.str().c_str(),"trfSF", 100,0.9,1.5)); h_trgSF[k]->Sumw2();
+	h_trgSF_RR.push_back(new TH1F (HTRGSFRR.str().c_str(),"trgSF_RR", 100,0.9,1.5)); h_trgSF_RR[k]->Sumw2();
+	h_trgSF_FR.push_back(new TH1F (HTRGSFFR.str().c_str(),"trgSF_FR", 100,0.9,1.5)); h_trgSF_FR[k]->Sumw2();
+	h_trgSF_RF.push_back(new TH1F (HTRGSFRF.str().c_str(),"trgSF_RF", 100,0.9,1.5)); h_trgSF_RF[k]->Sumw2();
+	h_trgSF_FF.push_back(new TH1F (HTRGSFFF.str().c_str(),"trgSF_FF", 100,0.9,1.5)); h_trgSF_FF[k]->Sumw2();
+	ostringstream HTRGSF1; HTRGSF1 << "h_trgSF1" << k;
+	ostringstream HTAUPT1; HTAUPT1 << "h_tauPT1" << k;
+	h_trgSF1.push_back(new TH1F (HTRGSF1.str().c_str(),"trfSF1", 100,0.9,1.5)); h_trgSF1[k]->Sumw2();
+	h_tauPT1.push_back(new TH1F (HTAUPT1.str().c_str(),"tau1_pT", 100,0.0,200.0)); h_tauPT1[k]->Sumw2();
+	//ostringstream GTRGSFPT; GTRGSFPT << "g_trgSF_pT" << k;
+	//g_trgSF_pT.push_back(new TGraph (GTRGSFPT.str().c_str(),"
     }
     /*
      ScaleFactor * myScaleFactor_trgMu23 = new ScaleFactor();
@@ -468,7 +578,44 @@ int main(int argc, char** argv) {
       float sf_trg=1.0;
       float sf_id=1.0;
       float eff_tau=1.0;
+
+      // D.Kim : Trigger SF
+      float sf_trgDK = 1.0;
+      float sf_trgDK_RR = 1.0;
+      float sf_trgDK_FR = 1.0;
+      float sf_trgDK_RF = 1.0;
+      float sf_trgDK_FF = 1.0;
+      PyObject* trgSF = PyObject_CallFunction(compute_sf,"[f,i]",0.0,0);
+      if (sample!="data_obs"){
+	if (t1_decayMode==0) trgSF = PyObject_CallFunction(compute_sf,"[f,i]",mytau1.Pt(),0);
+	else if (t1_decayMode==1) trgSF = PyObject_CallFunction(compute_sf,"[f,i]",mytau1.Pt(),1);
+	else if (t1_decayMode==10) trgSF = PyObject_CallFunction(compute_sf,"[f,i]",mytau1.Pt(),10);
+	sf_trgDK = PyFloat_AsDouble(trgSF);
+	if (gen_match_1==5)  {
+	  sf_trgDK_RR = PyFloat_AsDouble(trgSF);
+	  sf_trgDK_RF = PyFloat_AsDouble(trgSF);
+	}
+	if (gen_match_1==6) {
+	  sf_trgDK_FR = PyFloat_AsDouble(trgSF);
+	  sf_trgDK_FF = PyFloat_AsDouble(trgSF);
+	}
+	if (t2_decayMode==0) trgSF = PyObject_CallFunction(compute_sf,"[f,i]",mytau2.Pt(),0);
+	else if (t2_decayMode==1) trgSF = PyObject_CallFunction(compute_sf,"[f,i]",mytau2.Pt(),1);
+	else if (t2_decayMode==10) trgSF = PyObject_CallFunction(compute_sf,"[f,i]",mytau2.Pt(),10);
+	sf_trgDK = sf_trgDK*PyFloat_AsDouble(trgSF);
+	if (gen_match_2==5)  {
+	  sf_trgDK_RR = sf_trgDK_RR*PyFloat_AsDouble(trgSF);
+          sf_trgDK_FR = sf_trgDK_FR*PyFloat_AsDouble(trgSF);
+        }
+        if (gen_match_2==6) {
+          sf_trgDK_RF = sf_trgDK_RF*PyFloat_AsDouble(trgSF);
+          sf_trgDK_FF = sf_trgDK_FF*PyFloat_AsDouble(trgSF);
+	}
+
+      }
       
+
+      // D.Kim : I think we this is Trigger SF for other channel, so we can delete this.
       /*
 	if (sample!="data_obs"){
 	//sf_id=myScaleFactor_idMu->get_ScaleFactor(mytau1.Pt(),mytau1.Eta())*myScaleFactor_idMu->get_ScaleFactor(mytau2.Pt(),mytau2.Eta());
@@ -579,8 +726,8 @@ int main(int argc, char** argv) {
 	
 	float var2=m_sv; 
 	float var1_1=pt_sv;
-	//	  float var1_2=massJets;
-        
+	//	float var1_2=mjj; //KK: This variable should be defined here eventually
+
 	TLorentzVector myrawmet;
 	myrawmet.SetPtEtaPhiM(met,0,metphi,0);
 	TLorentzVector mymet=myrawmet;
@@ -629,7 +776,7 @@ int main(int argc, char** argv) {
 	//KK: Added njet and mjj variables affected by JES
 	if (tes==100){
 	  njets = nombrejets[k];
-	  //	    mjj = massejets[k]; //KK for now not available in trees
+	  //	  var1_2 = massejets[k]; //KK for now not available in trees
 	}
 	
 	
@@ -646,10 +793,17 @@ int main(int argc, char** argv) {
 	// for each iteration start from the nominal objets
 	
 	// pT, Eta cuts for the leptons
+	//KK 07/08/2018: Change from
+	/*
 	if (mytau1.Pt() > mytau2.Pt() )
 	  if (mytau1.Pt() < 40 || mytau2.Pt() < 40 ) continue;
 	if (mytau1.Pt() < mytau2.Pt() )
 	  if (mytau2.Pt() < 40 || mytau1.Pt() < 40 ) continue;
+	*/
+	//KK: to
+	if (mytau1.Pt() < 40 || mytau2.Pt() < 40 ) continue;
+	if (mytau1.Pt() < 50) continue;
+	
 	if ((fabs(mytau1.Eta()))>2.1 || (fabs(mytau2.Eta())>2.1)) continue; // L770
 
 	float weight2=1.0;	  
@@ -673,13 +827,14 @@ int main(int argc, char** argv) {
 	bool is_VH = false;
         
 	if(njets==0) is_0jet=true;
-	if(njets>=2 && Higgs.Pt()>100 && mjj > 300) is_VBF=true;
-	if(njets>=2 && mjj < 300) is_VH=true;
-	if(njets==1 || (njets>=2 && mjj > 300 && Higgs.Pt()<100)) is_boosted=true;
-        
-	//else if(njets>=2 && Higgs.Pt()>100 && std::abs(myjet1.Eta()-myjet2.Eta())>2.5) is_VBF=true;
-	//if(njets==1 || !(njets>=2 && Higgs.Pt()>100 && std::abs(myjet1.Eta()-myjet2.Eta())>2.5)) is_boosted=true;
+	if(njets>=2 && Higgs.Pt()>100 && std::abs(myjet1.Eta()-myjet2.Eta())>2.5) is_VBF=true;
+	if(njets==1 || !(njets>=2 && Higgs.Pt()>100 && std::abs(myjet1.Eta()-myjet2.Eta())>2.5)) is_boosted=true;
 	//else cout << "AN's category is not complete." << endl;
+
+	//KK: For some studies
+	//	if(njets>=2 && Higgs.Pt()>100 && mjj > 300) is_VBF=true;
+	//	if(njets>=2 && mjj < 300) is_VH=true;
+	//	if(njets==1 || (njets>=2 && mjj > 300 && Higgs.Pt()<100)) is_boosted=true;
         
 	//cout << "-------" << is_0jet << is_boosted << is_VBF << is_VH << endl;
         
@@ -693,40 +848,51 @@ int main(int argc, char** argv) {
 	}
         
 	//************************* Fill histograms **********************
-        
-	//            float var = Higgs.Pt(); //Variable to plot
-	float var = (mytau2+mytau1).M(); //Variable to plot
+	
+        //            float var = Higgs.Pt(); //Variable to plot
+        //	float var = (mytau2+mytau1).M(); //Variable to plot
+	float var = var2;
+	float var1_2 = mjj;
 	if (selection){
 	  if (is_0jet && signalRegion && charge1*charge2<0)
 	    h0_OS[k]->Fill(var,weight2*aweight);
 	  if (is_boosted && signalRegion && charge1*charge2<0)
-	    h1_OS[k]->Fill(var,weight2*aweight);
+	    //	    h1_OS[k]->Fill(var,weight2*aweight); //KK
+	    h1_OS[k]->Fill(var1_1,var2,weight2*aweight);
 	  if (is_VBF && signalRegion && charge1*charge2<0)
-	    h2_OS[k]->Fill(var,weight2*aweight);
+	    //	    h2_OS[k]->Fill(var,weight2*aweight); //KK
+	    h2_OS[k]->Fill(var1_2,var2,weight2*aweight);
 	  if (is_VH && signalRegion && charge1*charge2<0)
-	    h3_OS[k]->Fill(var,weight2*aweight);
+	    //	    h3_OS[k]->Fill(var,weight2*aweight); //KK
+	    h3_OS[k]->Fill(var1_2,var2,weight2*aweight);
 	  if (signalRegion && charge1*charge2<0)
 	    h_OS[k]->Fill(var,weight2*aweight);
 	  
 	  if (is_0jet && signalRegion && charge1*charge2>0)
 	    h0_SS[k]->Fill(var,weight2*aweight);
 	  if (is_boosted && signalRegion && charge1*charge2>0)
-	    h1_SS[k]->Fill(var,weight2*aweight);
+	    //	    h1_SS[k]->Fill(var,weight2*aweight); //KK
+	    h1_SS[k]->Fill(var1_1,var2,weight2*aweight);
 	  if (is_VBF && signalRegion && charge1*charge2>0)
-	    h2_SS[k]->Fill(var,weight2*aweight);
+	    //	    h2_SS[k]->Fill(var,weight2*aweight); //KK
+	    h2_SS[k]->Fill(var1_2,var2,weight2*aweight);
 	  if (is_VH && signalRegion && charge1*charge2>0)
-	    h3_SS[k]->Fill(var,weight2*aweight);
+	    //	    h3_SS[k]->Fill(var,weight2*aweight); //KK
+	    h3_SS[k]->Fill(var1_2,var2,weight2*aweight); 
 	  if (signalRegion && charge1*charge2>0)
 	    h_SS[k]->Fill(var,weight2*aweight);
 	  
 	  if (is_0jet && charge1*charge2<0 && aiRegion)
 	    h0_AIOS[k]->Fill(var,weight2*aweight);
 	  if (is_boosted && charge1*charge2<0 && aiRegion)
-	    h1_AIOS[k]->Fill(var,weight2*aweight);
+	    //	    h1_AIOS[k]->Fill(var,weight2*aweight);//KK
+	    h1_AIOS[k]->Fill(var1_1,var2,weight2*aweight);
 	  if (is_VBF && charge1*charge2<0 && aiRegion)
-	    h2_AIOS[k]->Fill(var,weight2*aweight);
+	    //	    h2_AIOS[k]->Fill(var,weight2*aweight);//KK
+	    h2_AIOS[k]->Fill(var1_2,var2,weight2*aweight);
 	  if (is_VH && charge1*charge2<0 && aiRegion)
-	    h3_AIOS[k]->Fill(var,weight2*aweight);
+	    //	    h3_AIOS[k]->Fill(var,weight2*aweight);//KK
+	    h3_AIOS[k]->Fill(var1_2,var2,weight2*aweight);
 	  if (charge1*charge2<0 && aiRegion)
 	    h_AIOS[k]->Fill(var,weight2*aweight);
 	  
@@ -734,13 +900,25 @@ int main(int argc, char** argv) {
 	  if (is_0jet && charge1*charge2>0 && aiRegion)
 	    h0_AISS[k]->Fill(var,weight2*aweight);
 	  if (is_boosted && charge1*charge2>0 && aiRegion)
-	    h1_AISS[k]->Fill(var,weight2*aweight);
+	    //	    h1_AISS[k]->Fill(var,weight2*aweight);//KK
+	    h1_AISS[k]->Fill(var1_1,var2,weight2*aweight);
 	  if (is_VBF && charge1*charge2>0 && aiRegion)
-	    h2_AISS[k]->Fill(var,weight2*aweight);
+	    //	    h2_AISS[k]->Fill(var,weight2*aweight);//KK
+	    h2_AISS[k]->Fill(var1_2,var2,weight2*aweight);
 	  if (is_VH && charge1*charge2>0 && aiRegion)
-	    h3_AISS[k]->Fill(var,weight2*aweight);
+	    //	    h3_AISS[k]->Fill(var,weight2*aweight);
+	    h3_AISS[k]->Fill(var1_2,var2,weight2*aweight);
 	  if (charge1*charge2>0 && aiRegion)
 	    h_AISS[k]->Fill(var,weight2*aweight);
+
+	  // D.Kim
+	  if (signalRegion && charge1*charge2<0) {
+	    h_trgSF[k]->Fill(sf_trgDK);
+	    if (gen_match_1==5 && gen_match_2==5) h_trgSF_RR[k]->Fill(sf_trgDK_RR);
+	    if (gen_match_1==6 && gen_match_2==5) h_trgSF_FR[k]->Fill(sf_trgDK_FR);
+	    if (gen_match_1==5 && gen_match_2==6) h_trgSF_RF[k]->Fill(sf_trgDK_RF);
+	    if (gen_match_1==6 && gen_match_2==6) h_trgSF_FF[k]->Fill(sf_trgDK_FF);
+	  }
 	}
       }
     } // end of loop over events
@@ -773,7 +951,6 @@ int main(int argc, char** argv) {
     TDirectory *OSboosted_tt =fout->mkdir("tt_boosted");
     TDirectory *OSvbf_tt =fout->mkdir("tt_vbf");
     
-    
     TDirectory *OS0jet =fout->mkdir("ttOS_0jet");
     TDirectory *OSboosted =fout->mkdir("ttOS_boosted");
     TDirectory *OSvbf =fout->mkdir("ttOS_vbf");
@@ -797,7 +974,9 @@ int main(int argc, char** argv) {
     TDirectory *AISSvbf =fout->mkdir("AISS_vbf");
     TDirectory *AISSvh =fout->mkdir("AISS_vh");
     TDirectory *AISS =fout->mkdir("AISS_inclusive");
-    
+    // D.Kim
+    TDirectory *TRG_SF = fout->mkdir("trgSF");
+
     for (int k=0; k<nbhist; ++k){
         
         
@@ -821,6 +1000,19 @@ int main(int argc, char** argv) {
         
         
         // These will be the final root files
+	// D.Kim
+	TRG_SF->cd();
+	h_trgSF[k]->SetName("trgSF");
+	h_trgSF[k]->Write();
+	h_trgSF_RR[k]->SetName("trgSF_RR");
+	h_trgSF_RR[k]->Write();
+	h_trgSF_FR[k]->SetName("trgSF_FR");
+	h_trgSF_FR[k]->Write();
+	h_trgSF_RF[k]->SetName("trgSF_RF");
+	h_trgSF_RF[k]->Write();
+	h_trgSF_FF[k]->SetName("trgSF_FF");
+	h_trgSF_FF[k]->Write();
+	
         OS0jet_tt->cd();
         h0_OS[k]->SetName(name.c_str()+postfix);
         h0_OS[k]->Write();
@@ -899,6 +1091,8 @@ int main(int argc, char** argv) {
         h_AISS[k]->Write();
     }
     fout->Close();
+    // D.Kim
+    Py_Finalize();
 } 
 
 
