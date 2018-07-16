@@ -248,6 +248,8 @@ int main(int argc, char** argv) {
     Run_Tree->Branch("type1_pfMet_shiftedPhi_JetEnUp", &type1_pfMet_shiftedPhi_JetEnUp);
     Run_Tree->Branch("type1_pfMet_shiftedPhi_JetEnDown", &type1_pfMet_shiftedPhi_JetEnDown);
 
+    Run_Tree->Branch("mjj", &mjj);
+    Run_Tree->Branch("jdeta", &jdeta);
 
     float lt_before=0;
     int bestEntry=-1;
@@ -259,7 +261,6 @@ int main(int argc, char** argv) {
 
     pair<float, float> tau1Candidate, tau2Candidate;
 
-
     for (int iEntry = 0; iEntry < tree->GetEntries() ; iEntry++)
     {
       // For tau pair forming algorithm
@@ -267,9 +268,10 @@ int main(int argc, char** argv) {
 
       float pu=1.0;
       tree->GetEntry(iEntry);
+      
       bool print=false;
-      //if (iEntry % 1000 == 0) fprintf(stdout, "\r  Processed events: %8d ", iEntry);
-      //fflush(stdout);
+      if (iEntry % 1000 == 0) fprintf(stdout, "\r  Processed events: %8d ", iEntry);
+      fflush(stdout);
 
       //DY : 4-momentums of final state objects, tt
       TLorentzVector tau1;
@@ -277,41 +279,34 @@ int main(int argc, char** argv) {
       tau1.SetPtEtaPhiM(tree->t1Pt,tree->t1Eta,tree->t1Phi,tree->t1Mass);
       tau2.SetPtEtaPhiM(tree->t2Pt,tree->t2Eta,tree->t2Phi,tree->t2Mass);
 
-      // To Doyeong - the following needs to be uncommented for 2016?
-      // Tau energy scale (AN L1271 : -1.8%, +1.0%, +0.4%)
-      if (isMC && tree->t1DecayMode==0) tau1=tau1*0.982;
-      else if (isMC && tree->t1DecayMode==1) tau1=tau1*1.010;
-      else if (isMC && tree->t1DecayMode==10) tau1=tau1*1.004;
-      if (isMC && tree->t2DecayMode==0) tau2=tau2*0.982;
-      else if (isMC && tree->t2DecayMode==1) tau2=tau2*1.010;
-      else if (isMC && tree->t2DecayMode==10) tau2=tau2*1.004;
-
       // Baseline selection https://www.dropbox.com/s/mb6e26affiodpn3/AN2016_355_v10.pdf?dl=0 page 44
       // line 769. No requirement on OS/SS @ skimming level
       if (tau1.DeltaR(tau2) < 0.5) continue;
+      
+      // loosen requirements  on  pT a bit for energy scale systematics  (by 5%)
+      if (tau1.Pt() < 40./1.05 || fabs(tau1.Eta()) > 2.1 ) continue;
+      if (tau2.Pt() < 40./1.05 || fabs(tau2.Eta()) > 2.1 ) continue;
+      
+      // require the highest pT tau to have pT > 50 (loosen requirements by 5%)
+      if (tau1.Pt() < 50./1.05 && tau2.Pt() < 50./1.5 ) continue;
 
-      // loosen requirements  on  pT a bit for energy scale systematics
-      if (tau1.Pt() < 40 || fabs(tau1.Eta()) > 2.1 ) continue;
-      if (tau2.Pt() < 40 || fabs(tau2.Eta()) > 2.1 ) continue;
-
-      // require the highest pT tau to have pT > 45
-      if (tau1.Pt() < 50 && tau2.Pt() < 50 ) continue;
-      // Doyeong, the requirements below is 1-  or  3-prong according to discriminator byDecayModeFinding?
       // line 771
-
       if (!tree->t1DecayModeFinding) continue;
       if (!tree->t2DecayModeFinding) continue;
-      //  line 772
 
+      if ( abs(tree->t1Charge) != 1 || abs(tree->t2Charge) != 1) continue;
+      //  line 772
       if (fabs( tree->t1PVDZ ) > 0.2 || fabs( tree->t2PVDZ ) > 0.2) continue;
       //  lines 773-774
-
+      
       if (tree->t1AgainstElectronVLooseMVA6 < 0.5 || tree->t1AgainstMuonLoose3 < 0.5) continue;
       if (tree->t2AgainstElectronVLooseMVA6 < 0.5 || tree->t2AgainstMuonLoose3 < 0.5) continue;
-      // require loose MVA id for both tau leptons for skimming, as QCD requires Loose -> Tight scaling
-
-      if (tree->t1ByLooseIsolationMVArun2v1DBoldDMwLT <  0.5 || tree->t2ByLooseIsolationMVArun2v1DBoldDMwLT < 0.5 ) continue;
-
+      
+      bool isoAll =
+	tree->t1ByVLooseIsolationMVArun2v1DBoldDMwLT > 0.5 &&
+	tree->t2ByVLooseIsolationMVArun2v1DBoldDMwLT > 0.5;
+      if (!isoAll ) continue;
+      
       // Trigger follow https://github.com/truggles/Z_to_TauTau_13TeV/blob/MELA_test/analysisCuts.py#L23
       // tt35    = '((doubleTau35Pass > 0 && t1MatchesDoubleTau35Path > 0 && t2MatchesDoubleTau35Path > 0 && t1MatchesDoubleTau35Filter > 0 && t2MatchesDoubleTau35Filter > 0) || 
       //             (doubleTauCmbIso35RegPass > 0 && t1MatchesDoubleTauCmbIso35RegPath > 0 && t2MatchesDoubleTauCmbIso35RegPath > 0 && t1MatchesDoubleTauCmbIso35RegFilter > 0 && t2MatchesDoubleTauCmbIso35RegFilter > 0))'
@@ -328,7 +323,7 @@ int main(int argc, char** argv) {
 
       // require either tt35 or tt35Combo to fire
       if ( !tt35 && !tt35Combo) continue;
-
+      
       //  reject event if it has either an electron or a muon
       if ( tree->eVetoZTTp001dxyzR0>0 || tree->muVetoZTTp001dxyzR0>0 ) continue;
 
@@ -338,10 +333,10 @@ int main(int argc, char** argv) {
       if ( evt_now!=evt_before) { // new event, save the tau candidates
 
       //   since it is new event, do we have the best entry to save? If yes, save it!
-	if ( bestEntry > -1  )
+	if ( bestEntry > -1 )
 	  // this is the code that actually saves branches etc.
 	  fillTree(Run_Tree,tree,bestEntry,isMC);
-         
+	
 	//  this is a new event, so the first tau pair is the best! :)
 	bestEntry=iEntry;
 	tau1Candidate  = make_pair(tree->t1Pt,  tree->t1ByIsolationMVArun2v1DBoldDMwLTraw);
@@ -361,7 +356,7 @@ int main(int argc, char** argv) {
 	}
 	
 	// clause 1, select the pair that has most isolated tau lepton 1
-	if (currentTau1Candidate.second - tau1Candidate.second  < 0.0001 ) bestEntry=iEntry;
+	if (currentTau1Candidate.second - tau1Candidate.second  > 0.0001 ) bestEntry=iEntry;
 	// check if the first tau is the same, and if so - move to clause 2
 	if ( fabs(currentTau1Candidate.second - tau1Candidate.second)  <  0.0001 ) {
 	  // pick up  the pair with the highest pT of the first candidate
