@@ -807,7 +807,7 @@ int main(int argc, char** argv) {
 	if ((fabs(mytau1.Eta()))>2.1 || (fabs(mytau2.Eta())>2.1)) continue; // L770
 
 	float weight2=1.0;	  
-	weight2=weight2*sf_trg;
+	weight2=weight2*sf_trgDK;
 	if (sample=="data_obs") {aweight=1.0; weight2=1.0;}
         
 	// Additional selections
