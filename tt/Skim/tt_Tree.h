@@ -65,7 +65,7 @@ float byLooseCombinedIsolationDeltaBetaCorr3HitsdR03_3, byMediumCombinedIsolatio
 float extratau_veto, pt_top1, pt_top2, genweight, dphi_12, dphi_mumet, dphi_taumet;
 float aMCatNLO_weight, numGenJets;
 float met_px, met_py;
-float metSig, metcov00, metcov01, metcov10,metcov11, mvaMetcov00, mvaMetcov01,mvaMetcov10,mvaMetcov11, metcov00_v2, metcov01_v2, metcov10_v2,metcov11_v2;
+float metSig, metcov00, metcov01, metcov10,metcov11, metcov00_v2, metcov01_v2, metcov10_v2,metcov11_v2;
 float met_JESDown,met_UESDown;
 float met_JESUp,met_UESUp,met_MESUp;
 float metphi_JERDown,metphi_JESDown,metphi_UESDown,metphi_MESDown,metphi_EESDown,metphi_TESDown,metphi_PESDown;
@@ -322,6 +322,11 @@ void fillTree(TTree *Run_Tree, HTauTauTree_tt *tree, int entry_tree, bool ismc){
     metcov01=tree->metcov01;
     metcov10=tree->metcov10;
     metcov11=tree->metcov11;
+
+    metcov00_v2=tree->metcov00_DESYlike;  
+    metcov01_v2=tree->metcov01_DESYlike; 
+    metcov10_v2=tree->metcov10_DESYlike; 
+    metcov11_v2=tree->metcov11_DESYlike; 
 
     njets = tree->jetVeto30;
     nbtag = tree->bjetCISVVeto20Medium;

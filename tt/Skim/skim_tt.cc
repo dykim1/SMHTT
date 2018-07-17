@@ -189,6 +189,10 @@ int main(int argc, char** argv) {
     Run_Tree->Branch("metcov10", &metcov10);
     Run_Tree->Branch("metcov11", &metcov11);
     Run_Tree->Branch("metcov01", &metcov01);
+    Run_Tree->Branch("metcov00_v2", &metcov00_v2);
+    Run_Tree->Branch("metcov10_v2", &metcov10_v2);
+    Run_Tree->Branch("metcov11_v2", &metcov11_v2);
+    Run_Tree->Branch("metcov01_v2", &metcov01_v2);
     Run_Tree->Branch("metphi", &metphi);
     Run_Tree->Branch("met_px", &met_px);
     Run_Tree->Branch("met_py", &met_py);
@@ -249,6 +253,8 @@ int main(int argc, char** argv) {
     Run_Tree->Branch("type1_pfMet_shiftedPhi_JetEnDown", &type1_pfMet_shiftedPhi_JetEnDown);
 
     Run_Tree->Branch("mjj", &mjj);
+    Run_Tree->Branch("mjj_JESUp", &mjj_JESUp); 
+    Run_Tree->Branch("mjj_JESDown", &mjj_JESDown); 
     Run_Tree->Branch("jdeta", &jdeta);
 
     float lt_before=0;

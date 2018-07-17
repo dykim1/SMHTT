@@ -382,13 +382,12 @@ int main(int argc, char** argv) {
     std::vector<TH1F*> h_AIOS;
     std::vector<TH1F*> h_AISS;
     // D.Kim : trg SF histo
-    std::vector<TH1F*> h_trgSF;
+    std::vector<TH1F*> h_trgSF1;
+    std::vector<TH1F*> h_trgSF2;
     std::vector<TH1F*> h_trgSF_RR;
     std::vector<TH1F*> h_trgSF_FR;
     std::vector<TH1F*> h_trgSF_RF;
     std::vector<TH1F*> h_trgSF_FF;
-    std::vector<TH1F*> h_trgSF1;
-    std::vector<TH1F*> h_tauPT1;
     
     TString postfix="";
     //For shape systematics
@@ -482,22 +481,18 @@ int main(int argc, char** argv) {
         h_AISS.push_back(new TH1F (HNSAISS.str().c_str(),"diTauMa",binnum1,bins1)); h_AISS[k]->Sumw2();
 
 	// D.Kim ostringstream HNS0AISS; HNS0AISS << "h0_AISS" << k
-	ostringstream HTRGSF; HTRGSF << "h_trgSF" << k;
+	ostringstream HTRGSF1; HTRGSF1 << "h_trgSF1" << k;
+	ostringstream HTRGSF2; HTRGSF2 << "h_trgSF2" << k;
 	ostringstream HTRGSFRR; HTRGSFRR << "h_trgSF_RR" << k;
 	ostringstream HTRGSFFR; HTRGSFFR << "h_trgSF_FR" << k;
 	ostringstream HTRGSFRF; HTRGSFRF << "h_trgSF_RF" << k;
 	ostringstream HTRGSFFF; HTRGSFFF << "h_trgSF_FF" << k;
-	h_trgSF.push_back(new TH1F (HTRGSF.str().c_str(),"trfSF", 100,0.9,1.5)); h_trgSF[k]->Sumw2();
+	h_trgSF1.push_back(new TH1F (HTRGSF1.str().c_str(),"trfSF1", 80,1.00,1.10)); h_trgSF1[k]->Sumw2();
+	h_trgSF2.push_back(new TH1F (HTRGSF2.str().c_str(),"trfSF2", 80,0.97,1.15)); h_trgSF2[k]->Sumw2();
 	h_trgSF_RR.push_back(new TH1F (HTRGSFRR.str().c_str(),"trgSF_RR", 100,0.9,1.5)); h_trgSF_RR[k]->Sumw2();
 	h_trgSF_FR.push_back(new TH1F (HTRGSFFR.str().c_str(),"trgSF_FR", 100,0.9,1.5)); h_trgSF_FR[k]->Sumw2();
 	h_trgSF_RF.push_back(new TH1F (HTRGSFRF.str().c_str(),"trgSF_RF", 100,0.9,1.5)); h_trgSF_RF[k]->Sumw2();
 	h_trgSF_FF.push_back(new TH1F (HTRGSFFF.str().c_str(),"trgSF_FF", 100,0.9,1.5)); h_trgSF_FF[k]->Sumw2();
-	ostringstream HTRGSF1; HTRGSF1 << "h_trgSF1" << k;
-	ostringstream HTAUPT1; HTAUPT1 << "h_tauPT1" << k;
-	h_trgSF1.push_back(new TH1F (HTRGSF1.str().c_str(),"trfSF1", 100,0.9,1.5)); h_trgSF1[k]->Sumw2();
-	h_tauPT1.push_back(new TH1F (HTAUPT1.str().c_str(),"tau1_pT", 100,0.0,200.0)); h_tauPT1[k]->Sumw2();
-	//ostringstream GTRGSFPT; GTRGSFPT << "g_trgSF_pT" << k;
-	//g_trgSF_pT.push_back(new TGraph (GTRGSFPT.str().c_str(),"
     }
     /*
      ScaleFactor * myScaleFactor_trgMu23 = new ScaleFactor();
@@ -580,7 +575,8 @@ int main(int argc, char** argv) {
       float eff_tau=1.0;
 
       // D.Kim : Trigger SF
-      float sf_trgDK = 1.0;
+      float sf_trgDK1 = 1.0;
+      float sf_trgDK2 = 1.0;
       float sf_trgDK_RR = 1.0;
       float sf_trgDK_FR = 1.0;
       float sf_trgDK_RF = 1.0;
@@ -590,7 +586,7 @@ int main(int argc, char** argv) {
 	if (t1_decayMode==0) trgSF = PyObject_CallFunction(compute_sf,"[f,i]",mytau1.Pt(),0);
 	else if (t1_decayMode==1) trgSF = PyObject_CallFunction(compute_sf,"[f,i]",mytau1.Pt(),1);
 	else if (t1_decayMode==10) trgSF = PyObject_CallFunction(compute_sf,"[f,i]",mytau1.Pt(),10);
-	sf_trgDK = PyFloat_AsDouble(trgSF);
+	sf_trgDK1 = PyFloat_AsDouble(trgSF);
 	if (gen_match_1==5)  {
 	  sf_trgDK_RR = PyFloat_AsDouble(trgSF);
 	  sf_trgDK_RF = PyFloat_AsDouble(trgSF);
@@ -602,7 +598,7 @@ int main(int argc, char** argv) {
 	if (t2_decayMode==0) trgSF = PyObject_CallFunction(compute_sf,"[f,i]",mytau2.Pt(),0);
 	else if (t2_decayMode==1) trgSF = PyObject_CallFunction(compute_sf,"[f,i]",mytau2.Pt(),1);
 	else if (t2_decayMode==10) trgSF = PyObject_CallFunction(compute_sf,"[f,i]",mytau2.Pt(),10);
-	sf_trgDK = sf_trgDK*PyFloat_AsDouble(trgSF);
+	sf_trgDK2 = PyFloat_AsDouble(trgSF);
 	if (gen_match_2==5)  {
 	  sf_trgDK_RR = sf_trgDK_RR*PyFloat_AsDouble(trgSF);
           sf_trgDK_FR = sf_trgDK_FR*PyFloat_AsDouble(trgSF);
@@ -807,7 +803,8 @@ int main(int argc, char** argv) {
 	if ((fabs(mytau1.Eta()))>2.1 || (fabs(mytau2.Eta())>2.1)) continue; // L770
 
 	float weight2=1.0;	  
-	weight2=weight2*sf_trgDK;
+	// D.Kim
+	weight2=weight2*sf_trgDK1*sf_trgDK2;
 	if (sample=="data_obs") {aweight=1.0; weight2=1.0;}
         
 	// Additional selections
@@ -912,13 +909,12 @@ int main(int argc, char** argv) {
 	    h_AISS[k]->Fill(var,weight2*aweight);
 
 	  // D.Kim
-	  if (signalRegion && charge1*charge2<0) {
-	    h_trgSF[k]->Fill(sf_trgDK);
-	    if (gen_match_1==5 && gen_match_2==5) h_trgSF_RR[k]->Fill(sf_trgDK_RR);
-	    if (gen_match_1==6 && gen_match_2==5) h_trgSF_FR[k]->Fill(sf_trgDK_FR);
-	    if (gen_match_1==5 && gen_match_2==6) h_trgSF_RF[k]->Fill(sf_trgDK_RF);
-	    if (gen_match_1==6 && gen_match_2==6) h_trgSF_FF[k]->Fill(sf_trgDK_FF);
-	  }
+	  h_trgSF1[k]->Fill(sf_trgDK1);
+	  h_trgSF2[k]->Fill(sf_trgDK2);
+	  if (gen_match_1==5 && gen_match_2==5) h_trgSF_RR[k]->Fill(sf_trgDK_RR);
+	  if (gen_match_1==6 && gen_match_2==5) h_trgSF_FR[k]->Fill(sf_trgDK_FR);
+	  if (gen_match_1==5 && gen_match_2==6) h_trgSF_RF[k]->Fill(sf_trgDK_RF);
+	  if (gen_match_1==6 && gen_match_2==6) h_trgSF_FF[k]->Fill(sf_trgDK_FF);
 	}
       }
     } // end of loop over events
@@ -1002,8 +998,10 @@ int main(int argc, char** argv) {
         // These will be the final root files
 	// D.Kim
 	TRG_SF->cd();
-	h_trgSF[k]->SetName("trgSF");
-	h_trgSF[k]->Write();
+	h_trgSF1[k]->SetName("trgSF1");
+	h_trgSF1[k]->Write();
+	h_trgSF2[k]->SetName("trgSF2");
+	h_trgSF2[k]->Write();
 	h_trgSF_RR[k]->SetName("trgSF_RR");
 	h_trgSF_RR[k]->Write();
 	h_trgSF_FR[k]->SetName("trgSF_FR");
