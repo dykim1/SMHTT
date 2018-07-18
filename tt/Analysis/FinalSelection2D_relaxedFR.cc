@@ -84,8 +84,10 @@ int main(int argc, char** argv) {
     
     //Normalization os MC samples
     float xs=1.0; float weight=1.0; float luminosity=35870.0;
-    if (sample=="DY" or sample=="ZL" or sample=="ZTT" or sample=="ZJ" or sample=="ZLL"){ xs=5765.4; weight=luminosity*xs/ngen;}
-    else if (sample=="TTL" or sample=="TT" or sample=="TTT" or sample=="TTJ") {xs=831.76; weight=luminosity*xs/ngen;}
+
+    // D.Kim : updated from Cécile's mt analysis code.
+    if (sample=="ZL" or sample=="ZTT" or sample=="ZJ" or sample=="ZLL"){ xs=5765.4; weight=luminosity*xs/ngen;}
+    else if (sample=="TT" or sample=="TTT" or sample=="TTJ") {xs=831.76; weight=luminosity*xs/ngen;}
     else if (sample=="W") {xs=61526.7; weight=luminosity*xs/ngen;}
     else if (sample=="QCD") {xs=720648000*0.00042; weight=luminosity*xs/ngen;}
     else if (sample=="data_obs"){weight=1.0;}
@@ -138,25 +140,8 @@ int main(int argc, char** argv) {
     else if (sample=="EWKWplus") {xs=25.62; weight=luminosity*xs/ngen;}
     else if (sample=="EWKZLL" or sample=="EWKZLL_TT" or sample=="EWKZLL_J" or sample=="EWKZLL_L" or sample=="EWKZLL_LL") {xs=3.987; weight=luminosity*xs/ngen;}
     else if (sample=="EWKZNuNu" or sample=="EWKZNuNu_TT" or sample=="EWKZNuNu_J" or sample=="EWKZNuNu_L" or sample=="EWKZNuNu_LL") {xs=10.01; weight=luminosity*xs/ngen;}
-    else if (sample=="ZZ4L_powheg") {xs=1.256; weight=luminosity*xs/ngen;}
-    else if (sample=="WZ3LNu_powheg") {xs=4.430; weight=luminosity*xs/ngen;}
-    else if (sample=="ttZ") {xs=0.2529; weight=luminosity*xs/ngen;}
-    else if (sample=="ttW") {xs=0.2043; weight=luminosity*xs/ngen;}
-    else if (sample=="ZG") {xs=117.864; weight=luminosity*xs/ngen;}
-    else if (sample=="GGZZ2e2mu") {xs=0.00319; weight=luminosity*xs/ngen;}
-    else if (sample=="GGZZ2e2tau") {xs=0.00319; weight=luminosity*xs/ngen;}
-    else if (sample=="GGZZ2mu2tau") {xs=0.00319; weight=luminosity*xs/ngen;}
-    else if (sample=="GGZZ4e") {xs=0.00159; weight=luminosity*xs/ngen;}
-    else if (sample=="GGZZ4mu") {xs=0.00159; weight=luminosity*xs/ngen;}
-    else if (sample=="GGZZ4tau") {xs=0.00159; weight=luminosity*xs/ngen;}
-    else if (sample=="WWZ") {xs=0.1651; weight=luminosity*xs/ngen;}
-    else if (sample=="WZZ") {xs=0.05565; weight=luminosity*xs/ngen;}
-    else if (sample=="ZZZ") {xs=0.01398; weight=luminosity*xs/ngen;}
-    else if (sample=="WplusHWW125") {xs=0.840*0.2137*0.3258*0.3258; weight=luminosity*xs/ngen;}
-    else if (sample=="WminusHWW125") {xs=0.5328*0.2137*0.3258*0.3258; weight=luminosity*xs/ngen;}
-    else if (sample=="ZHWW125") {xs=0.8839*0.2137*0.3258*0.3258; weight=luminosity*xs/ngen;}
     else cout<<"Attention!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;
-    
+
     cout.setf(ios::fixed, ios::floatfield);
     cout.precision(10);
     arbre->SetBranchAddress("jpt_1", &jpt_1);
@@ -707,11 +692,20 @@ int main(int argc, char** argv) {
       
       if (sample=="data_obs") aweight=1.0;
       
-      // Separation between L, T and J
+      // D.Kim : Separation between L, T and J (for DY, TT, and VV)
+      // for now, don't care about DY categorization. Need to be check with Cécile.
       if ((sample=="ZTT") && (gen_match_1!=5 || gen_match_2!=5)) continue;
       if ((sample=="ZL") && (gen_match_1>5 || gen_match_2>5 || (gen_match_1==5 && gen_match_2==5))) continue;
-      if ((sample=="ZJ") && (gen_match_1!=6 || gen_match_2!=6)) continue;
+      bool isZJ = true;
+      if (gen_match_1!=5 || gen_match_2!=5) isZJ = false;
+      if (gen_match_1>5 || gen_match_2>5 || (gen_match_1==5 && gen_match_2==5))  isZJ = false;
+      if ((sample=="ZJ") && !isZJ) continue;
+      //if ((sample=="ZJ") && !((gen_match_1!=5 || gen_match_2!=5) || (gen_match_1>5 || gen_match_2>5 || (gen_match_1==5 && gen_match_2==5)))) continue;
       
+      // TT & VV : line 895~897
+      if (!(gen_match_1==5 && gen_match_2==5) && (name=="VVT"|| name=="TTT")) continue;
+      if ((gen_match_1==5 && gen_match_2==5) && (name=="VVJ" || name=="TTJ")) continue;
+
       
       //KK Added for future. For now we need only first two variables
       int nombrejets[56]={njets_JESDown,njets_JESUp,njets_JetAbsoluteFlavMapDown,njets_JetAbsoluteFlavMapUp,njets_JetAbsoluteMPFBiasDown,njets_JetAbsoluteMPFBiasUp,njets_JetAbsoluteScaleDown,njets_JetAbsoluteScaleUp,njets_JetAbsoluteStatDown,njets_JetAbsoluteStatUp,njets_JetFlavorQCDDown,njets_JetFlavorQCDUp,njets_JetFragmentationDown,njets_JetFragmentationUp,njets_JetPileUpDataMCDown,njets_JetPileUpDataMCUp,njets_JetPileUpPtBBDown,njets_JetPileUpPtBBUp,njets_JetPileUpPtEC1Down,njets_JetPileUpPtEC1Up,njets_JetPileUpPtEC2Down,njets_JetPileUpPtEC2Up,njets_JetPileUpPtHFDown,njets_JetPileUpPtHFUp,njets_JetPileUpPtRefDown,njets_JetPileUpPtRefUp,njets_JetRelativeBalDown,njets_JetRelativeBalUp,njets_JetRelativeFSRDown,njets_JetRelativeFSRUp,njets_JetRelativeJEREC1Down,njets_JetRelativeJEREC1Up,njets_JetRelativeJEREC2Down,njets_JetRelativeJEREC2Up,njets_JetRelativeJERHFDown,njets_JetRelativeJERHFUp,njets_JetRelativePtBBDown,njets_JetRelativePtBBUp,njets_JetRelativePtEC1Down,njets_JetRelativePtEC1Up,njets_JetRelativePtEC2Down,njets_JetRelativePtEC2Up,njets_JetRelativePtHFDown,njets_JetRelativePtHFUp,njets_JetRelativeStatECDown,njets_JetRelativeStatECUp,njets_JetRelativeStatFSRDown,njets_JetRelativeStatFSRUp,njets_JetRelativeStatHFDown,njets_JetRelativeStatHFUp,njets_JetSinglePionECALDown,njets_JetSinglePionECALUp,njets_JetSinglePionHCALDown,njets_JetSinglePionHCALUp,njets_JetTimePtEtaDown,njets_JetTimePtEtaUp};
