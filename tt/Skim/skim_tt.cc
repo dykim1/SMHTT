@@ -54,9 +54,10 @@ int main(int argc, char** argv) {
 
     Run_Tree->Branch("npv", &npv);
     Run_Tree->Branch("npu", &npu);
+    Run_Tree->Branch("NUP", &NUP);
     Run_Tree->Branch("amcatNLO_weight", &aMCatNLO_weight);
-    Run_Tree->Branch("jetpt_1", &jetpt_1);
-    Run_Tree->Branch("jetpt_2", &jetpt_2);
+    Run_Tree->Branch("jetPt_1", &jetPt_1);
+    Run_Tree->Branch("jetPt_2", &jetPt_2);
     Run_Tree->Branch("pt_1", &pt_1);
     Run_Tree->Branch("px_1", &px_1);
     Run_Tree->Branch("py_1", &py_1);
@@ -69,6 +70,7 @@ int main(int argc, char** argv) {
     Run_Tree->Branch("mt_1", &mt_1);
     Run_Tree->Branch("iso_1", &iso_1);
     Run_Tree->Branch("t1_decayMode", &t1_decayMode);
+    Run_Tree->Branch("trackpt_1", &trackpt_1);
 
     Run_Tree->Branch("t1GenCharge",       &t1GenCharge);
     Run_Tree->Branch("t1GenDecayMode",    &t1GenDecayMode);
@@ -142,6 +144,7 @@ int main(int argc, char** argv) {
     Run_Tree->Branch("q_2", &q_2);
     Run_Tree->Branch("iso_2", &iso_2);
     Run_Tree->Branch("t2_decayMode", &t2_decayMode);
+    Run_Tree->Branch("trackpt_2", &trackpt_2);
     Run_Tree->Branch("againstElectronLooseMVA6_2", &againstElectronLooseMVA6_2  );
     Run_Tree->Branch("againstElectronMediumMVA6_2", &againstElectronMediumMVA6_2);
     Run_Tree->Branch("againstElectronTightMVA6_2", &againstElectronTightMVA6_2);
@@ -196,6 +199,8 @@ int main(int argc, char** argv) {
     Run_Tree->Branch("metphi", &metphi);
     Run_Tree->Branch("met_px", &met_px);
     Run_Tree->Branch("met_py", &met_py);
+    Run_Tree->Branch("met_norecoil", &met_norecoil);
+
 
     Run_Tree->Branch("gen_match_1", &gen_match_1);
     Run_Tree->Branch("gen_match_2", &gen_match_2);
@@ -253,9 +258,128 @@ int main(int argc, char** argv) {
     Run_Tree->Branch("type1_pfMet_shiftedPhi_JetEnDown", &type1_pfMet_shiftedPhi_JetEnDown);
 
     Run_Tree->Branch("mjj", &mjj);
-    Run_Tree->Branch("mjj_JESUp", &mjj_JESUp); 
-    Run_Tree->Branch("mjj_JESDown", &mjj_JESDown); 
-    Run_Tree->Branch("jdeta", &jdeta);
+    Run_Tree->Branch("mjj_JESUp", &mjj_JESUp);
+    Run_Tree->Branch("mjj_JESDown", &mjj_JESDown);
+  
+    if (isMC){
+      Run_Tree->Branch("njets_JetAbsoluteFlavMapDown", &njets_JetAbsoluteFlavMapDown, "njets_JetAbsoluteFlavMapDown/I");
+      Run_Tree->Branch("mjj_JetAbsoluteFlavMapDown", &mjj_JetAbsoluteFlavMapDown, "mjj_JetAbsoluteFlavMapDown/F");
+      Run_Tree->Branch("njets_JetAbsoluteMPFBiasDown", &njets_JetAbsoluteMPFBiasDown, "njets_JetAbsoluteMPFBiasDown/I");
+      Run_Tree->Branch("mjj_JetAbsoluteMPFBiasDown", &mjj_JetAbsoluteMPFBiasDown, "mjj_JetAbsoluteMPFBiasDown/F");
+      Run_Tree->Branch("njets_JetAbsoluteScaleDown", &njets_JetAbsoluteScaleDown, "njets_JetAbsoluteScaleDown/I");
+      Run_Tree->Branch("mjj_JetAbsoluteScaleDown", &mjj_JetAbsoluteScaleDown, "mjj_JetAbsoluteScaleDown/F");
+      Run_Tree->Branch("njets_JetAbsoluteStatDown", &njets_JetAbsoluteStatDown, "njets_JetAbsoluteStatDown/I");
+      Run_Tree->Branch("mjj_JetAbsoluteStatDown", &mjj_JetAbsoluteStatDown, "mjj_JetAbsoluteStatDown/F");
+      Run_Tree->Branch("njets_JetEnDown", &njets_JetEnDown, "njets_JetEnDown/I");
+      Run_Tree->Branch("mjj_JetEnDown", &mjj_JetEnDown, "mjj_JetEnDown/F");
+      Run_Tree->Branch("njets_JetFlavorQCDDown", &njets_JetFlavorQCDDown, "njets_JetFlavorQCDDown/I");
+      Run_Tree->Branch("mjj_JetFlavorQCDDown", &mjj_JetFlavorQCDDown, "mjj_JetFlavorQCDDown/F");
+      Run_Tree->Branch("njets_JetFragmentationDown", &njets_JetFragmentationDown, "njets_JetFragmentationDown/I");
+      Run_Tree->Branch("mjj_JetFragmentationDown", &mjj_JetFragmentationDown, "mjj_JetFragmentationDown/F");
+      Run_Tree->Branch("njets_JetPileUpDataMCDown", &njets_JetPileUpDataMCDown, "njets_JetPileUpDataMCDown/I");
+      Run_Tree->Branch("mjj_JetPileUpDataMCDown", &mjj_JetPileUpDataMCDown, "mjj_JetPileUpDataMCDown/F");
+      Run_Tree->Branch("njets_JetPileUpPtBBDown", &njets_JetPileUpPtBBDown, "njets_JetPileUpPtBBDown/I");
+      Run_Tree->Branch("mjj_JetPileUpPtBBDown", &mjj_JetPileUpPtBBDown, "mjj_JetPileUpPtBBDown/F");
+      Run_Tree->Branch("njets_JetPileUpPtEC1Down", &njets_JetPileUpPtEC1Down, "njets_JetPileUpPtEC1Down/I");
+      Run_Tree->Branch("mjj_JetPileUpPtEC1Down", &mjj_JetPileUpPtEC1Down, "mjj_JetPileUpPtEC1Down/F");
+      Run_Tree->Branch("njets_JetPileUpPtEC2Down", &njets_JetPileUpPtEC2Down, "njets_JetPileUpPtEC2Down/I");
+      Run_Tree->Branch("mjj_JetPileUpPtEC2Down", &mjj_JetPileUpPtEC2Down, "mjj_JetPileUpPtEC2Down/F");
+      Run_Tree->Branch("njets_JetPileUpPtHFDown", &njets_JetPileUpPtHFDown, "njets_JetPileUpPtHFDown/I");
+      Run_Tree->Branch("mjj_JetPileUpPtHFDown", &mjj_JetPileUpPtHFDown, "mjj_JetPileUpPtHFDown/F");
+      Run_Tree->Branch("njets_JetPileUpPtRefDown", &njets_JetPileUpPtRefDown, "njets_JetPileUpPtRefDown/I");
+      Run_Tree->Branch("mjj_JetPileUpPtRefDown", &mjj_JetPileUpPtRefDown, "mjj_JetPileUpPtRefDown/F");
+      Run_Tree->Branch("njets_JetRelativeBalDown", &njets_JetRelativeBalDown, "njets_JetRelativeBalDown/I");
+      Run_Tree->Branch("mjj_JetRelativeBalDown", &mjj_JetRelativeBalDown, "mjj_JetRelativeBalDown/F");
+      Run_Tree->Branch("njets_JetRelativeFSRDown", &njets_JetRelativeFSRDown, "njets_JetRelativeFSRDown/I");
+      Run_Tree->Branch("mjj_JetRelativeFSRDown", &mjj_JetRelativeFSRDown, "mjj_JetRelativeFSRDown/F");
+      Run_Tree->Branch("njets_JetRelativeJEREC1Down", &njets_JetRelativeJEREC1Down, "njets_JetRelativeJEREC1Down/I");
+      Run_Tree->Branch("mjj_JetRelativeJEREC1Down", &mjj_JetRelativeJEREC1Down, "mjj_JetRelativeJEREC1Down/F");
+      Run_Tree->Branch("njets_JetRelativeJEREC2Down", &njets_JetRelativeJEREC2Down, "njets_JetRelativeJEREC2Down/I");
+      Run_Tree->Branch("mjj_JetRelativeJEREC2Down", &mjj_JetRelativeJEREC2Down, "mjj_JetRelativeJEREC2Down/F");
+      Run_Tree->Branch("njets_JetRelativeJERHFDown", &njets_JetRelativeJERHFDown, "njets_JetRelativeJERHFDown/I");
+      Run_Tree->Branch("mjj_JetRelativeJERHFDown", &mjj_JetRelativeJERHFDown, "mjj_JetRelativeJERHFDown/F");
+      Run_Tree->Branch("njets_JetRelativePtBBDown", &njets_JetRelativePtBBDown, "njets_JetRelativePtBBDown/I");
+      Run_Tree->Branch("mjj_JetRelativePtBBDown", &mjj_JetRelativePtBBDown, "mjj_JetRelativePtBBDown/F");
+      Run_Tree->Branch("njets_JetRelativePtEC1Down", &njets_JetRelativePtEC1Down, "njets_JetRelativePtEC1Down/I");
+      Run_Tree->Branch("mjj_JetRelativePtEC1Down", &mjj_JetRelativePtEC1Down, "mjj_JetRelativePtEC1Down/F");
+      Run_Tree->Branch("njets_JetRelativePtEC2Down", &njets_JetRelativePtEC2Down, "njets_JetRelativePtEC2Down/I");
+      Run_Tree->Branch("mjj_JetRelativePtEC2Down", &mjj_JetRelativePtEC2Down, "mjj_JetRelativePtEC2Down/F");
+      Run_Tree->Branch("njets_JetRelativePtHFDown", &njets_JetRelativePtHFDown, "njets_JetRelativePtHFDown/I");
+      Run_Tree->Branch("mjj_JetRelativePtHFDown", &mjj_JetRelativePtHFDown, "mjj_JetRelativePtHFDown/F");
+      Run_Tree->Branch("njets_JetRelativeStatECDown", &njets_JetRelativeStatECDown, "njets_JetRelativeStatECDown/I");
+      Run_Tree->Branch("mjj_JetRelativeStatECDown", &mjj_JetRelativeStatECDown, "mjj_JetRelativeStatECDown/F");
+      Run_Tree->Branch("njets_JetRelativeStatFSRDown", &njets_JetRelativeStatFSRDown, "njets_JetRelativeStatFSRDown/I");
+      Run_Tree->Branch("mjj_JetRelativeStatFSRDown", &mjj_JetRelativeStatFSRDown, "mjj_JetRelativeStatFSRDown/F");
+      Run_Tree->Branch("njets_JetRelativeStatHFDown", &njets_JetRelativeStatHFDown, "njets_JetRelativeStatHFDown/I");
+      Run_Tree->Branch("mjj_JetRelativeStatHFDown", &mjj_JetRelativeStatHFDown, "mjj_JetRelativeStatHFDown/F");
+      Run_Tree->Branch("njets_JetSinglePionECALDown", &njets_JetSinglePionECALDown, "njets_JetSinglePionECALDown/I");
+      Run_Tree->Branch("mjj_JetSinglePionECALDown", &mjj_JetSinglePionECALDown, "mjj_JetSinglePionECALDown/F");
+      Run_Tree->Branch("njets_JetSinglePionHCALDown", &njets_JetSinglePionHCALDown, "njets_JetSinglePionHCALDown/I");
+      Run_Tree->Branch("mjj_JetSinglePionHCALDown", &mjj_JetSinglePionHCALDown, "mjj_JetSinglePionHCALDown/F");
+      Run_Tree->Branch("njets_JetTimePtEtaDown", &njets_JetTimePtEtaDown, "njets_JetTimePtEtaDown/I");
+      Run_Tree->Branch("mjj_JetTimePtEtaDown", &mjj_JetTimePtEtaDown, "mjj_JetTimePtEtaDown/F");
+
+      Run_Tree->Branch("njets_JetAbsoluteFlavMapUp", &njets_JetAbsoluteFlavMapUp, "njets_JetAbsoluteFlavMapUp/I");
+      Run_Tree->Branch("mjj_JetAbsoluteFlavMapUp", &mjj_JetAbsoluteFlavMapUp, "mjj_JetAbsoluteFlavMapUp/F");
+      Run_Tree->Branch("njets_JetAbsoluteMPFBiasUp", &njets_JetAbsoluteMPFBiasUp, "njets_JetAbsoluteMPFBiasUp/I");
+      Run_Tree->Branch("mjj_JetAbsoluteMPFBiasUp", &mjj_JetAbsoluteMPFBiasUp, "mjj_JetAbsoluteMPFBiasUp/F");
+      Run_Tree->Branch("njets_JetAbsoluteScaleUp", &njets_JetAbsoluteScaleUp, "njets_JetAbsoluteScaleUp/I");
+      Run_Tree->Branch("mjj_JetAbsoluteScaleUp", &mjj_JetAbsoluteScaleUp, "mjj_JetAbsoluteScaleUp/F");
+      Run_Tree->Branch("njets_JetAbsoluteStatUp", &njets_JetAbsoluteStatUp, "njets_JetAbsoluteStatUp/I");
+      Run_Tree->Branch("mjj_JetAbsoluteStatUp", &mjj_JetAbsoluteStatUp, "mjj_JetAbsoluteStatUp/F");
+      Run_Tree->Branch("njets_JetEnUp", &njets_JetEnUp, "njets_JetEnUp/I");
+      Run_Tree->Branch("mjj_JetEnUp", &mjj_JetEnUp, "mjj_JetEnUp/F");
+      Run_Tree->Branch("njets_JetFlavorQCDUp", &njets_JetFlavorQCDUp, "njets_JetFlavorQCDUp/I");
+      Run_Tree->Branch("mjj_JetFlavorQCDUp", &mjj_JetFlavorQCDUp, "mjj_JetFlavorQCDUp/F");
+      Run_Tree->Branch("njets_JetFragmentationUp", &njets_JetFragmentationUp, "njets_JetFragmentationUp/I");
+      Run_Tree->Branch("mjj_JetFragmentationUp", &mjj_JetFragmentationUp, "mjj_JetFragmentationUp/F");
+      Run_Tree->Branch("njets_JetPileUpDataMCUp", &njets_JetPileUpDataMCUp, "njets_JetPileUpDataMCUp/I");
+      Run_Tree->Branch("mjj_JetPileUpDataMCUp", &mjj_JetPileUpDataMCUp, "mjj_JetPileUpDataMCUp/F");
+      Run_Tree->Branch("njets_JetPileUpPtBBUp", &njets_JetPileUpPtBBUp, "njets_JetPileUpPtBBUp/I");
+      Run_Tree->Branch("mjj_JetPileUpPtBBUp", &mjj_JetPileUpPtBBUp, "mjj_JetPileUpPtBBUp/F");
+      Run_Tree->Branch("njets_JetPileUpPtEC1Up", &njets_JetPileUpPtEC1Up, "njets_JetPileUpPtEC1Up/I");
+      Run_Tree->Branch("mjj_JetPileUpPtEC1Up", &mjj_JetPileUpPtEC1Up, "mjj_JetPileUpPtEC1Up/F");
+      Run_Tree->Branch("njets_JetPileUpPtEC2Up", &njets_JetPileUpPtEC2Up, "njets_JetPileUpPtEC2Up/I");
+      Run_Tree->Branch("mjj_JetPileUpPtEC2Up", &mjj_JetPileUpPtEC2Up, "mjj_JetPileUpPtEC2Up/F");
+      Run_Tree->Branch("njets_JetPileUpPtHFUp", &njets_JetPileUpPtHFUp, "njets_JetPileUpPtHFUp/I");
+      Run_Tree->Branch("mjj_JetPileUpPtHFUp", &mjj_JetPileUpPtHFUp, "mjj_JetPileUpPtHFUp/F");
+      Run_Tree->Branch("njets_JetPileUpPtRefUp", &njets_JetPileUpPtRefUp, "njets_JetPileUpPtRefUp/I");
+      Run_Tree->Branch("mjj_JetPileUpPtRefUp", &mjj_JetPileUpPtRefUp, "mjj_JetPileUpPtRefUp/F");
+      Run_Tree->Branch("njets_JetRelativeBalUp", &njets_JetRelativeBalUp, "njets_JetRelativeBalUp/I");
+      Run_Tree->Branch("mjj_JetRelativeBalUp", &mjj_JetRelativeBalUp, "mjj_JetRelativeBalUp/F");
+      Run_Tree->Branch("njets_JetRelativeFSRUp", &njets_JetRelativeFSRUp, "njets_JetRelativeFSRUp/I");
+
+      Run_Tree->Branch("mjj_JetRelativeFSRUp", &mjj_JetRelativeFSRUp, "mjj_JetRelativeFSRUp/F");
+      Run_Tree->Branch("njets_JetRelativeJEREC1Up", &njets_JetRelativeJEREC1Up, "njets_JetRelativeJEREC1Up/I");
+      Run_Tree->Branch("mjj_JetRelativeJEREC1Up", &mjj_JetRelativeJEREC1Up, "mjj_JetRelativeJEREC1Up/F");
+      Run_Tree->Branch("njets_JetRelativeJEREC2Up", &njets_JetRelativeJEREC2Up, "njets_JetRelativeJEREC2Up/I");
+      Run_Tree->Branch("mjj_JetRelativeJEREC2Up", &mjj_JetRelativeJEREC2Up, "mjj_JetRelativeJEREC2Up/F");
+      Run_Tree->Branch("njets_JetRelativeJERHFUp", &njets_JetRelativeJERHFUp, "njets_JetRelativeJERHFUp/I");
+      Run_Tree->Branch("mjj_JetRelativeJERHFUp", &mjj_JetRelativeJERHFUp, "mjj_JetRelativeJERHFUp/F");
+      Run_Tree->Branch("njets_JetRelativePtBBUp", &njets_JetRelativePtBBUp, "njets_JetRelativePtBBUp/I");
+      Run_Tree->Branch("mjj_JetRelativePtBBUp", &mjj_JetRelativePtBBUp, "mjj_JetRelativePtBBUp/F");
+      Run_Tree->Branch("njets_JetRelativePtEC1Up", &njets_JetRelativePtEC1Up, "njets_JetRelativePtEC1Up/I");
+      Run_Tree->Branch("mjj_JetRelativePtEC1Up", &mjj_JetRelativePtEC1Up, "mjj_JetRelativePtEC1Up/F");
+      Run_Tree->Branch("njets_JetRelativePtEC2Up", &njets_JetRelativePtEC2Up, "njets_JetRelativePtEC2Up/I");
+      Run_Tree->Branch("mjj_JetRelativePtEC2Up", &mjj_JetRelativePtEC2Up, "mjj_JetRelativePtEC2Up/F");
+      Run_Tree->Branch("njets_JetRelativePtHFUp", &njets_JetRelativePtHFUp, "njets_JetRelativePtHFUp/I");
+      Run_Tree->Branch("mjj_JetRelativePtHFUp", &mjj_JetRelativePtHFUp, "mjj_JetRelativePtHFUp/F");
+      Run_Tree->Branch("njets_JetRelativeStatECUp", &njets_JetRelativeStatECUp, "njets_JetRelativeStatECUp/I");
+      Run_Tree->Branch("mjj_JetRelativeStatECUp", &mjj_JetRelativeStatECUp, "mjj_JetRelativeStatECUp/F");
+      Run_Tree->Branch("njets_JetRelativeStatFSRUp", &njets_JetRelativeStatFSRUp, "njets_JetRelativeStatFSRUp/I");
+      Run_Tree->Branch("mjj_JetRelativeStatFSRUp", &mjj_JetRelativeStatFSRUp, "mjj_JetRelativeStatFSRUp/F");
+      Run_Tree->Branch("njets_JetRelativeStatHFUp", &njets_JetRelativeStatHFUp, "njets_JetRelativeStatHFUp/I");
+      Run_Tree->Branch("mjj_JetRelativeStatHFUp", &mjj_JetRelativeStatHFUp, "mjj_JetRelativeStatHFUp/F");
+      Run_Tree->Branch("njets_JetSinglePionECALUp", &njets_JetSinglePionECALUp, "njets_JetSinglePionECALUp/I");
+      Run_Tree->Branch("mjj_JetSinglePionECALUp", &mjj_JetSinglePionECALUp, "mjj_JetSinglePionECALUp/F");
+      Run_Tree->Branch("njets_JetSinglePionHCALUp", &njets_JetSinglePionHCALUp, "njets_JetSinglePionHCALUp/I");
+      Run_Tree->Branch("mjj_JetSinglePionHCALUp", &mjj_JetSinglePionHCALUp, "mjj_JetSinglePionHCALUp/F");
+      Run_Tree->Branch("njets_JetTimePtEtaUp", &njets_JetTimePtEtaUp, "njets_JetTimePtEtaUp/I");
+      Run_Tree->Branch("mjj_JetTimePtEtaUp", &mjj_JetTimePtEtaUp, "mjj_JetTimePtEtaUp/F");
+    }
+
+
+     
 
     float lt_before=0;
     int bestEntry=-1;

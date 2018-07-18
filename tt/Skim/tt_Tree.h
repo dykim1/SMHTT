@@ -11,7 +11,6 @@
 #include "TTree.h"
 #include "TFile.h"
 #include "TSystem.h"
-//#include "HTauTauTree_tt_DY1.h"
 #include "HTauTauTree_tt.h"
 //#include "myHelper.h"
 
@@ -21,19 +20,13 @@ using namespace std;
 float trackpt_1,trackpt_2, jetPt_1, jetPt_2;
 unsigned int run, lumi, evt, NUP = -10;
 int gen_match_1, gen_match_2=0;
-
-float jetpt_1, jetpt_2, jetpt_3;
 float met_norecoil;
-float npu, rho, npv=-1, puweight, weight;
-//float againstMuonLoose3_1, againstElectronVLooseMVA6_1, againstMuonLoose3_2, againstElectronVLooseMVA6_2;
+float npu, rho, npv=-1;//, puweight, weight;
 float againstElectronLooseMVA6_1, againstElectronMediumMVA6_1, againstElectronTightMVA6_1, againstElectronVLooseMVA6_1, againstElectronVTightMVA6_1, againstMuonLoose3_1, againstMuonTight3_1, decayModeFinding_1;
 float againstElectronLooseMVA6_2, againstElectronMediumMVA6_2, againstElectronTightMVA6_2, againstElectronVLooseMVA6_2, againstElectronVTightMVA6_2, againstMuonLoose3_2, againstMuonTight3_2, decayModeFinding_2;
 float e_1, px_1, py_1, pz_1, pt_1, phi_1, eta_1, m_1, q_1, d0_1, dZ_1, mt_1, iso_1, t1_decayMode;
-float eid90_1, eid80_1;
 float e_2, px_2, py_2, pz_2, pt_2, phi_2, eta_2, m_2, q_2, d0_2, dZ_2, mt_2, iso_2, t2_decayMode;
-//float e_3, px_3, py_3, pz_3, pt_3, phi_3, eta_3, m_3, q_3, d0_3, dZ_3, mt_3, iso_3, t2_decayMode;
-float id_m_medium_2,id_m_medium2016_2, id_m_tight_2;
-float id_m_medium_1,id_m_medium2016_1, id_m_tight_1;
+//
 float byCombinedIsolationDeltaBetaCorrRaw3Hits_1, byIsolationMVA3oldDMwoLTraw_1;//byIsolationMVA3oldDMwoLTraw_1;
 float byCombinedIsolationDeltaBetaCorrRaw3Hits_2, byIsolationMVA3oldDMwoLTraw_2;
 float byVLooseIsolationMVArun2v1DBnewDMwLT_1,  byVLooseIsolationMVArun2v1DBoldDMwLT_1,  byVLooseIsolationMVArun2v1DBdR03oldDMwLT_1;
@@ -94,7 +87,6 @@ void fillTree(TTree *Run_Tree, HTauTauTree_tt *tree, int entry_tree, bool ismc){
     evt =tree->evt;
     aMCatNLO_weight = tree->GenWeight;
     
-
     njets_JetAbsoluteFlavMapUp=tree->jetVeto30_JetAbsoluteFlavMapUp;
     njets_JetAbsoluteMPFBiasUp=tree->jetVeto30_JetAbsoluteMPFBiasUp;
     njets_JetAbsoluteScaleUp=tree->jetVeto30_JetAbsoluteScaleUp;
@@ -123,7 +115,7 @@ void fillTree(TTree *Run_Tree, HTauTauTree_tt *tree, int entry_tree, bool ismc){
     njets_JetSinglePionECALUp=tree->jetVeto30_JetSinglePionECALUp;
     njets_JetSinglePionHCALUp=tree->jetVeto30_JetSinglePionHCALUp;
     njets_JetTimePtEtaUp=tree->jetVeto30_JetTimePtEtaUp;
-
+    
     njets_JetAbsoluteFlavMapDown=tree->jetVeto30_JetAbsoluteFlavMapDown;
     njets_JetAbsoluteMPFBiasDown=tree->jetVeto30_JetAbsoluteMPFBiasDown;
     njets_JetAbsoluteScaleDown=tree->jetVeto30_JetAbsoluteScaleDown;
@@ -152,7 +144,7 @@ void fillTree(TTree *Run_Tree, HTauTauTree_tt *tree, int entry_tree, bool ismc){
     njets_JetSinglePionECALDown=tree->jetVeto30_JetSinglePionECALDown;
     njets_JetSinglePionHCALDown=tree->jetVeto30_JetSinglePionHCALDown;
     njets_JetTimePtEtaDown=tree->jetVeto30_JetTimePtEtaDown;
-
+    
     mjj_JetAbsoluteFlavMapUp=tree->vbfMass_JetAbsoluteFlavMapUp;
     mjj_JetAbsoluteMPFBiasUp=tree->vbfMass_JetAbsoluteMPFBiasUp;
     mjj_JetAbsoluteScaleUp=tree->vbfMass_JetAbsoluteScaleUp;
@@ -181,7 +173,7 @@ void fillTree(TTree *Run_Tree, HTauTauTree_tt *tree, int entry_tree, bool ismc){
     mjj_JetSinglePionECALUp=tree->vbfMass_JetSinglePionECALUp;
     mjj_JetSinglePionHCALUp=tree->vbfMass_JetSinglePionHCALUp;
     mjj_JetTimePtEtaUp=tree->vbfMass_JetTimePtEtaUp;
-
+    
     mjj_JetAbsoluteFlavMapDown=tree->vbfMass_JetAbsoluteFlavMapDown;
     mjj_JetAbsoluteMPFBiasDown=tree->vbfMass_JetAbsoluteMPFBiasDown;
     mjj_JetAbsoluteScaleDown=tree->vbfMass_JetAbsoluteScaleDown;
@@ -210,6 +202,7 @@ void fillTree(TTree *Run_Tree, HTauTauTree_tt *tree, int entry_tree, bool ismc){
     mjj_JetSinglePionECALDown=tree->vbfMass_JetSinglePionECALDown;
     mjj_JetSinglePionHCALDown=tree->vbfMass_JetSinglePionHCALDown;
     mjj_JetTimePtEtaDown=tree->vbfMass_JetTimePtEtaDown;
+
 
     passDoubleTau35 = tree->doubleTau35Pass;
     matchDoubleTau35_1 = tree->t1MatchesDoubleTau35Path; // data    - path
@@ -342,7 +335,7 @@ void fillTree(TTree *Run_Tree, HTauTauTree_tt *tree, int entry_tree, bool ismc){
     gen_match_2=tree->t2ZTTGenMatching;
 
     extraelec_veto=(tree->eVetoZTTp001dxyzR0>0);
-    extramuon_veto=(tree->muVetoZTTp001dxyzR0>2);
+    extramuon_veto=(tree->muVetoZTTp001dxyzR0>0);
     dilepton_veto=(tree->dimuonVeto>0);
  
     t1_decayMode=tree->t1DecayMode;
