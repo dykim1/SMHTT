@@ -1,4 +1,4 @@
-#include <Python.h> // D.Kim
+#include "Python.h" // D.Kim
 #include <typeinfo>
 #include <TH2.h>
 #include <TStyle.h>
@@ -33,8 +33,6 @@
 #include "RooRealVar.h"
 #include "RooFunctor.h"
 
-using namespace std;
-
 int main(int argc, char** argv) {
     
     std::string input = *(argv + 1);
@@ -48,12 +46,11 @@ int main(int argc, char** argv) {
     }
     
     TFile *f_Double = new TFile(input.c_str());
-    cout<<"XXXXXXXXXXXXX "<<input.c_str()<<" XXXXXXXXXXXX"<<endl;
+    std::cout<<"XXXXXXXXXXXXX "<<input.c_str()<<" XXXXXXXXXXXX"<<std::endl;
     TTree *arbre = (TTree*) f_Double->Get("tt_tree");
     TH1F* nbevt = (TH1F*) f_Double->Get("nevents");
     float ngen = nbevt->GetBinContent(2);
-    cout.precision(11);
-    //cout << "############## " << input.c_str() << "nevents 2nd bin - " << ngen << endl;
+    std::cout.precision(11);
     
     //Declaration of files with scale factors
     TFile *f_Trk=new TFile("Tracking_EfficienciesAndSF_BCDEFGH.root");
@@ -74,14 +71,17 @@ int main(int argc, char** argv) {
     fw2.Close();
     
     // D.Kim
-    const char *scriptDirectoryName = "/Users/doyeongkim/Dropbox/HTT/SMHTT2016_Maravin/SMHTT/tt/Analysis/scripts";//"/Users/doyeongkim/Work/tmp/pymodule/tmptestpy/scripts";
+    const char *scriptDirectoryName = "./scripts/";
     Py_Initialize();
-    PyObject *sysPath = PySys_GetObject("path");
+    PyObject *sysPath = PySys_GetObject((char *)"path");
     PyObject *path = PyString_FromString(scriptDirectoryName);
     PyList_Insert(sysPath, 0, path);
-    PyObject* fitFunctions =  PyImport_ImportModule("FitFunctions");
-    PyObject* compute_sf = PyObject_GetAttrString(fitFunctions,"compute_SF");
-    
+    PyObject* fitFunctions =  PyImport_ImportModule((char *)"FitFunctions");
+    // The line below breaks the code
+    std::cout << "Before seg fault" << std::endl;
+    PyObject* compute_sf = PyObject_GetAttrString(fitFunctions,(char *)"compute_SF");
+    std::cout << "After seg fault" << std::endl;
+
     //Normalization os MC samples
     float xs=1.0; float weight=1.0; float luminosity=35870.0;
 
@@ -140,10 +140,10 @@ int main(int argc, char** argv) {
     else if (sample=="EWKWplus") {xs=25.62; weight=luminosity*xs/ngen;}
     else if (sample=="EWKZLL" or sample=="EWKZLL_TT" or sample=="EWKZLL_J" or sample=="EWKZLL_L" or sample=="EWKZLL_LL") {xs=3.987; weight=luminosity*xs/ngen;}
     else if (sample=="EWKZNuNu" or sample=="EWKZNuNu_TT" or sample=="EWKZNuNu_J" or sample=="EWKZNuNu_L" or sample=="EWKZNuNu_LL") {xs=10.01; weight=luminosity*xs/ngen;}
-    else cout<<"Attention!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;
+    else std::cout<<"Attention!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<std::endl;
 
-    cout.setf(ios::fixed, ios::floatfield);
-    cout.precision(10);
+    std::cout.setf(std::ios::fixed, std::ios::floatfield);
+    std::cout.precision(10);
     arbre->SetBranchAddress("jpt_1", &jpt_1);
     arbre->SetBranchAddress("jeta_1", &jeta_1);
     arbre->SetBranchAddress("jphi_1", &jphi_1);
@@ -304,9 +304,9 @@ int main(int argc, char** argv) {
     //float bins1[] = {-5.0,-4.5,-4.0,-3.5,-3.0,-2.5,-2.0,-1.5,-1.0,-0.5,0.0,0.5,1.0,1.5,2.0,2.5,3.0,3.5,4.0,4.5,5.0};
     //float bins0[] = {0,30,60,90,120,150,180,210,240,270,300,330,360,390};
     //float bins1[] = {0,30,60,90,120,150,180,210,240,270,300,330,360,390};
-    cout<<"bins0 : "<<bins0<<endl;
-    cout<<"size of bins0 : "<<sizeof(bins0)<<endl;
-    cout<<"size of Float_t : "<<sizeof(Float_t)<<endl;
+    std::cout<<"bins0 : "<<bins0<<std::endl;
+    std::cout<<"size of bins0 : "<<sizeof(bins0)<<std::endl;
+    std::cout<<"size of Float_t : "<<sizeof(Float_t)<<std::endl;
     
     int  binnum0 = sizeof(bins0)/sizeof(Float_t) - 1;
     int  binnum1 = sizeof(bins1)/sizeof(Float_t) - 1;
@@ -389,11 +389,11 @@ int main(int argc, char** argv) {
     if (tes==19) nbhist=6;
     
     for (int k=0; k<nbhist; ++k){
-        ostringstream HNS0OS; HNS0OS << "h0_OS" << k;
-        ostringstream HNS1OS; HNS1OS << "h1_OS" << k;
-        ostringstream HNS2OS; HNS2OS << "h2_OS" << k;
-        ostringstream HNS3OS; HNS3OS << "h3_OS" << k;
-        ostringstream HNSOS; HNS2OS << "h_OS" << k;
+      std::ostringstream HNS0OS; HNS0OS << "h0_OS" << k;
+      std::ostringstream HNS1OS; HNS1OS << "h1_OS" << k;
+      std::ostringstream HNS2OS; HNS2OS << "h2_OS" << k;
+      std::ostringstream HNS3OS; HNS3OS << "h3_OS" << k;
+      std::ostringstream HNSOS; HNS2OS << "h_OS" << k;
 	//KK
 	/*
         h0_OS.push_back(new TH1F (HNS0OS.str().c_str(),"diTauMa",binnum0,bins0)); h0_OS[k]->Sumw2();
@@ -408,11 +408,11 @@ int main(int argc, char** argv) {
         h3_OS.push_back(new TH2F (HNS3OS.str().c_str(),"diTauMa",binnum21,bins21,binnum22,bins22)); h3_OS[k]->Sumw2();
         h_OS.push_back(new TH1F (HNSOS.str().c_str(),"diTauMa",binnum0,bins0)); h_OS[k]->Sumw2();
         
-        ostringstream HNS0SS; HNS0OS << "h0_SS" << k;
-        ostringstream HNS1SS; HNS1OS << "h1_SS" << k;
-        ostringstream HNS2SS; HNS2OS << "h2_SS" << k;
-        ostringstream HNS3SS; HNS2OS << "h3_SS" << k;
-        ostringstream HNSSS; HNSOS << "h_SS" << k;
+	std::ostringstream HNS0SS; HNS0OS << "h0_SS" << k;
+	std::ostringstream HNS1SS; HNS1OS << "h1_SS" << k;
+	std::ostringstream HNS2SS; HNS2OS << "h2_SS" << k;
+	std::ostringstream HNS3SS; HNS2OS << "h3_SS" << k;
+	std::ostringstream HNSSS; HNSOS << "h_SS" << k;
 	//KK
 	/*
         h0_SS.push_back(new TH1F (HNS0SS.str().c_str(),"diTauMa",binnum1,bins1)); h0_SS[k]->Sumw2();
@@ -427,11 +427,11 @@ int main(int argc, char** argv) {
         h3_SS.push_back(new TH2F (HNS3SS.str().c_str(),"diTauMa",binnum21,bins21,binnum22,bins22)); h3_SS[k]->Sumw2();
         h_SS.push_back(new TH1F (HNSSS.str().c_str(),"diTauMa",binnum1,bins1)); h_SS[k]->Sumw2();
         
-        ostringstream HNS0AIOS; HNS0AIOS << "h0_AIOS" << k;
-        ostringstream HNS1AIOS; HNS1AIOS << "h1_AIOS" << k;
-        ostringstream HNS2AIOS; HNS2AIOS << "h2_AIOS" << k;
-        ostringstream HNS3AIOS; HNS3AIOS << "h3_AIOS" << k;
-        ostringstream HNSAIOS; HNSAIOS << "h_AIOS" << k;
+	std::ostringstream HNS0AIOS; HNS0AIOS << "h0_AIOS" << k;
+	std::ostringstream HNS1AIOS; HNS1AIOS << "h1_AIOS" << k;
+	std::ostringstream HNS2AIOS; HNS2AIOS << "h2_AIOS" << k;
+	std::ostringstream HNS3AIOS; HNS3AIOS << "h3_AIOS" << k;
+	std::ostringstream HNSAIOS; HNSAIOS << "h_AIOS" << k;
 	//KK
 	/*
         h0_AIOS.push_back(new TH1F (HNS0AIOS.str().c_str(),"diTauMa",binnum0,bins0)); h0_AIOS[k]->Sumw2();
@@ -446,11 +446,11 @@ int main(int argc, char** argv) {
         h3_AIOS.push_back(new TH2F (HNS3AIOS.str().c_str(),"diTauMa",binnum21,bins21,binnum22,bins22)); h3_AIOS[k]->Sumw2();
         h_AIOS.push_back(new TH1F (HNSAIOS.str().c_str(),"diTauMa",binnum0,bins0)); h_AIOS[k]->Sumw2();
         
-        ostringstream HNS0AISS; HNS0AISS << "h0_AISS" << k;
-        ostringstream HNS1AISS; HNS1AISS << "h1_AISS" << k;
-        ostringstream HNS2AISS; HNS2AISS << "h2_AISS" << k;
-        ostringstream HNS3AISS; HNS3AISS << "h3_AISS" << k;
-        ostringstream HNSAISS; HNSAISS << "h_AISS" << k;
+	std::ostringstream HNS0AISS; HNS0AISS << "h0_AISS" << k;
+	std::ostringstream HNS1AISS; HNS1AISS << "h1_AISS" << k;
+	std::ostringstream HNS2AISS; HNS2AISS << "h2_AISS" << k;
+	std::ostringstream HNS3AISS; HNS3AISS << "h3_AISS" << k;
+	std::ostringstream HNSAISS; HNSAISS << "h_AISS" << k;
 	//KK
 	/*
         h0_AISS.push_back(new TH1F (HNS0AISS.str().c_str(),"diTauMa",binnum1,bins1)); h0_AISS[k]->Sumw2();
@@ -466,12 +466,12 @@ int main(int argc, char** argv) {
         h_AISS.push_back(new TH1F (HNSAISS.str().c_str(),"diTauMa",binnum1,bins1)); h_AISS[k]->Sumw2();
 
 	// D.Kim ostringstream HNS0AISS; HNS0AISS << "h0_AISS" << k
-	ostringstream HTRGSF1; HTRGSF1 << "h_trgSF1" << k;
-	ostringstream HTRGSF2; HTRGSF2 << "h_trgSF2" << k;
-	ostringstream HTRGSFRR; HTRGSFRR << "h_trgSF_RR" << k;
-	ostringstream HTRGSFFR; HTRGSFFR << "h_trgSF_FR" << k;
-	ostringstream HTRGSFRF; HTRGSFRF << "h_trgSF_RF" << k;
-	ostringstream HTRGSFFF; HTRGSFFF << "h_trgSF_FF" << k;
+	std::ostringstream HTRGSF1; HTRGSF1 << "h_trgSF1" << k;
+	std::ostringstream HTRGSF2; HTRGSF2 << "h_trgSF2" << k;
+	std::ostringstream HTRGSFRR; HTRGSFRR << "h_trgSF_RR" << k;
+	std::ostringstream HTRGSFFR; HTRGSFFR << "h_trgSF_FR" << k;
+	std::ostringstream HTRGSFRF; HTRGSFRF << "h_trgSF_RF" << k;
+	std::ostringstream HTRGSFFF; HTRGSFFF << "h_trgSF_FF" << k;
 	h_trgSF1.push_back(new TH1F (HTRGSF1.str().c_str(),"trfSF1", 80,1.00,1.10)); h_trgSF1[k]->Sumw2();
 	h_trgSF2.push_back(new TH1F (HTRGSF2.str().c_str(),"trfSF2", 80,0.97,1.15)); h_trgSF2[k]->Sumw2();
 	h_trgSF_RR.push_back(new TH1F (HTRGSFRR.str().c_str(),"trgSF_RR", 100,0.9,1.5)); h_trgSF_RR[k]->Sumw2();
@@ -508,12 +508,12 @@ int main(int argc, char** argv) {
     
     
     
-    
+    std::cout << "2" << std::endl;    
     Int_t nentries_wtn = (Int_t) arbre->GetEntries();
     for (Int_t i = 0; i < nentries_wtn; i++) {
       arbre->GetEntry(i);
-      //if (i % 10000 == 0) fprintf(stdout, "\r  Processed events: %8d of %8d ", i, nentries_wtn);
-      //fflush(stdout);
+      if (i % 10 == 0) fprintf(stdout, "\r  Processed events: %8d of %8d ", i, nentries_wtn);
+      fflush(stdout);
       // DoubleTau trigger
       if (sample=="data_obs" && input=="myntuples/data_H.root") {
 	if(!passDoubleTauCmbIso35) continue;
@@ -555,9 +555,9 @@ int main(int argc, char** argv) {
       if (byLooseIsolationMVArun2v1DBoldDMwLT_1 < 0.5 || byLooseIsolationMVArun2v1DBoldDMwLT_2 < 0.5) continue; // Fig 43(a)
       if (extramuon_veto) continue;
       if (extraelec_veto) continue;
-      float sf_trg=1.0;
+      //float sf_trg=1.0;
       float sf_id=1.0;
-      float eff_tau=1.0;
+      //float eff_tau=1.0;
 
       // D.Kim : Trigger SF
       float sf_trgDK1 = 1.0;
@@ -566,11 +566,11 @@ int main(int argc, char** argv) {
       float sf_trgDK_FR = 1.0;
       float sf_trgDK_RF = 1.0;
       float sf_trgDK_FF = 1.0;
-      PyObject* trgSF = PyObject_CallFunction(compute_sf,"[f,i]",0.0,0);
+      PyObject* trgSF = PyObject_CallFunction(compute_sf,(char*)"[f,i]",0.0,0);
       if (sample!="data_obs"){
-	if (t1_decayMode==0) trgSF = PyObject_CallFunction(compute_sf,"[f,i]",mytau1.Pt(),0);
-	else if (t1_decayMode==1) trgSF = PyObject_CallFunction(compute_sf,"[f,i]",mytau1.Pt(),1);
-	else if (t1_decayMode==10) trgSF = PyObject_CallFunction(compute_sf,"[f,i]",mytau1.Pt(),10);
+	if (t1_decayMode==0) trgSF = PyObject_CallFunction(compute_sf,(char*)"[f,i]",mytau1.Pt(),0);
+	else if (t1_decayMode==1) trgSF = PyObject_CallFunction(compute_sf,(char*)"[f,i]",mytau1.Pt(),1);
+	else if (t1_decayMode==10) trgSF = PyObject_CallFunction(compute_sf,(char*)"[f,i]",mytau1.Pt(),10);
 	sf_trgDK1 = PyFloat_AsDouble(trgSF);
 	if (gen_match_1==5)  {
 	  sf_trgDK_RR = PyFloat_AsDouble(trgSF);
@@ -580,9 +580,9 @@ int main(int argc, char** argv) {
 	  sf_trgDK_FR = PyFloat_AsDouble(trgSF);
 	  sf_trgDK_FF = PyFloat_AsDouble(trgSF);
 	}
-	if (t2_decayMode==0) trgSF = PyObject_CallFunction(compute_sf,"[f,i]",mytau2.Pt(),0);
-	else if (t2_decayMode==1) trgSF = PyObject_CallFunction(compute_sf,"[f,i]",mytau2.Pt(),1);
-	else if (t2_decayMode==10) trgSF = PyObject_CallFunction(compute_sf,"[f,i]",mytau2.Pt(),10);
+	if (t2_decayMode==0) trgSF = PyObject_CallFunction(compute_sf,(char*)"[f,i]",mytau2.Pt(),0);
+	else if (t2_decayMode==1) trgSF = PyObject_CallFunction(compute_sf,(char*)"[f,i]",mytau2.Pt(),1);
+	else if (t2_decayMode==10) trgSF = PyObject_CallFunction(compute_sf,(char*)"[f,i]",mytau2.Pt(),10);
 	sf_trgDK2 = PyFloat_AsDouble(trgSF);
 	if (gen_match_2==5)  {
 	  sf_trgDK_RR = sf_trgDK_RR*PyFloat_AsDouble(trgSF);
@@ -619,7 +619,7 @@ int main(int argc, char** argv) {
 	else if (numGenJets==2) weight=2.1038;
 	else if (numGenJets==3) weight=0.6889;
 	else if (numGenJets==4) weight=0.6900;
-	//cout << weight << endl;
+	//std::cout << weight << std::endl;
       }
       
       if (sample=="DY" or sample=="ZTT" or sample=="ZLL" or sample=="ZL" or sample=="ZJ"){
@@ -721,7 +721,7 @@ int main(int argc, char** argv) {
 	TLorentzVector myrawmet;
 	myrawmet.SetPtEtaPhiM(met,0,metphi,0);
 	TLorentzVector mymet=myrawmet;
-	//cout << mymet.M() << endl;
+	//std::cout << mymet.M() << std::endl;
 	// Apply uncertainty shifts ( NOT ADDED YET )	  
 	
 	
@@ -820,22 +820,22 @@ int main(int argc, char** argv) {
 	if(njets==0) is_0jet=true;
 	if(njets>=2 && Higgs.Pt()>100 && std::abs(myjet1.Eta()-myjet2.Eta())>2.5) is_VBF=true;
 	if(njets==1 || !(njets>=2 && Higgs.Pt()>100 && std::abs(myjet1.Eta()-myjet2.Eta())>2.5)) is_boosted=true;
-	//else cout << "AN's category is not complete." << endl;
+	//else std::cout << "AN's category is not complete." << std::endl;
 
 	//KK: For some studies
 	//	if(njets>=2 && Higgs.Pt()>100 && mjj > 300) is_VBF=true;
 	//	if(njets>=2 && mjj < 300) is_VH=true;
 	//	if(njets==1 || (njets>=2 && mjj > 300 && Higgs.Pt()<100)) is_boosted=true;
         
-	//cout << "-------" << is_0jet << is_boosted << is_VBF << is_VH << endl;
+	//std::cout << "-------" << is_0jet << is_boosted << is_VBF << is_VH << std::endl;
         
 	if (!(is_boosted || is_0jet || is_VBF || is_VH)) {
-	  cout << endl;
-	  cout << "-------" << is_0jet << is_boosted << is_VBF << is_VH << endl;
-	  cout << "hole1 *****************************************"<< endl;
-	  cout << "njets : " << njets << endl;
-	  cout << "Higgs.Pt() : " << Higgs.Pt() << endl;
-	  cout << "std::abs(myjet1.Eta()-myjet2.Eta()) : "<< std::abs(myjet1.Eta()-myjet2.Eta()) << endl;
+	  std::cout << std::endl;
+	  std::cout << "-------" << is_0jet << is_boosted << is_VBF << is_VH << std::endl;
+	  std::cout << "hole1 *****************************************"<< std::endl;
+	  std::cout << "njets : " << njets << std::endl;
+	  std::cout << "Higgs.Pt() : " << Higgs.Pt() << std::endl;
+	  std::cout << "std::abs(myjet1.Eta()-myjet2.Eta()) : "<< std::abs(myjet1.Eta()-myjet2.Eta()) << std::endl;
 	}
         
 	//************************* Fill histograms **********************

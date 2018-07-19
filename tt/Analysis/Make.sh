@@ -11,8 +11,9 @@ echo "================================================================"
 filename=`echo $1 | awk -F"." '{print $1}'`
 exefilename=${filename}.exe
 rm -f $exefilename
+
 #g++ $1 -o $exefilename `root-config --cflags --glibs` -lRooFit -lRooFitCore -framework Python
-g++ $1 -o $exefilename `root-config --cflags --glibs` -lRooFit -lRooFitCore -L/System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7 -lpython2.7
+g++ $1 -o $exefilename `root-config --cflags --glibs` -lRooFit -lRooFitCore -std=c++14 -lpython2.6 `python2.6-config --includes`
 echo ""
 if [ -e $exefilename ]; then 
     echo "====> Created exe file : "
