@@ -317,12 +317,13 @@ int main(int argc, char** argv) {
     int  binnum22 = sizeof(bins22)/sizeof(Float_t) - 1;
     
     // Categories
-    //TH1F* ojet = new TH1F ("ojet", "ojet", 100, -0.10, 0.10); ojet->Sumw2();
-    //TH1F* boosted = new TH1F ("boosted", "boosted", 100, -0.10, 0.10); boosted->Sumw2();
-    //TH1F* vbf = new TH1F ("vbf", "vbf", 100, -0.10, 0.10); vbf->Sumw2();
+    TH1F* h_0jet = new TH1F ("h_0jet", "h_0jet", binnum0, bins0); h_0jet->Sumw2();
+    TH1F* hx_boosted = new TH1F ("hx_boosted", "hx_boosted", binnum11, bins11); hx_boosted->Sumw2();
+    TH1F* hy_boosted = new TH1F ("hy_boosted", "hy_boosted", binnum12, bins12); hy_boosted->Sumw2();
+    TH1F* hx_vbf = new TH1F ("hx_vbf", "hx_vbf", binnum21, bins21); hx_vbf->Sumw2();
+    TH1F* hy_vbf = new TH1F ("hy_vbf", "hy_vbf", binnum22, bins22); hy_vbf->Sumw2();
 
     //KK Change to 2D histograms
-
     /*
     std::vector<TH1F*> h0_OS;
     std::vector<TH1F*> h0_SS;
@@ -845,14 +846,30 @@ int main(int argc, char** argv) {
 	float var = var2;
 	float var1_2 = mjj;
 	if (selection){
-	  if (is_0jet && signalRegion && charge1*charge2<0)
+	  if (is_0jet && signalRegion && charge1*charge2<0){
 	    h0_OS[k]->Fill(var,weight2*aweight);
-	  if (is_boosted && signalRegion && charge1*charge2<0)
+	    //KK
+	    if (tes==0)
+	      h_0jet->Fill(var,weight2*aweight);
+	  }
+	  if (is_boosted && signalRegion && charge1*charge2<0){
 	    //	    h1_OS[k]->Fill(var,weight2*aweight); //KK
 	    h1_OS[k]->Fill(var1_1,var2,weight2*aweight);
-	  if (is_VBF && signalRegion && charge1*charge2<0)
+	    //KK
+	    if (tes==0){
+	      hx_boosted->Fill(var1_1,weight2*aweight);
+	      hy_boosted->Fill(var2,weight2*aweight);
+	    }
+	  }
+	  if (is_VBF && signalRegion && charge1*charge2<0){
 	    //	    h2_OS[k]->Fill(var,weight2*aweight); //KK
 	    h2_OS[k]->Fill(var1_2,var2,weight2*aweight);
+	    //KK
+	    if (tes==0){
+	      hx_vbf->Fill(var1_2,weight2*aweight);
+	      hy_vbf->Fill(var2,weight2*aweight);
+	    }
+	  }
 	  if (is_VH && signalRegion && charge1*charge2<0)
 	    //	    h3_OS[k]->Fill(var,weight2*aweight); //KK
 	    h3_OS[k]->Fill(var1_2,var2,weight2*aweight);
@@ -946,6 +963,8 @@ int main(int argc, char** argv) {
     TDirectory *OSvbf =fout->mkdir("ttOS_vbf");
     TDirectory *OSvh =fout->mkdir("ttOS_vh");
     TDirectory *OS =fout->mkdir("ttOS_inclusive");
+    //KK
+    TDirectory *OScat =fout->mkdir("tt_categories");
     
     TDirectory *SS0jet =fout->mkdir("ttSS_0jet");
     TDirectory *SSboosted =fout->mkdir("ttSS_boosted");
@@ -981,14 +1000,7 @@ int main(int argc, char** argv) {
         if (tes==-10) postfix="_CMS_htt_dyShape_13TeVDown";
         
         
-        
-        
-//        TDirectory *OS0jet_tt =fout->mkdir("tt_0jet");
-//        TDirectory *OSboosted_tt =fout->mkdir("tt_boosted");
-//        TDirectory *OSvbf_tt =fout->mkdir("tt_vbf");
-        
-        
-        
+                       
         // These will be the final root files
 	// D.Kim
 	TRG_SF->cd();
@@ -1015,9 +1027,6 @@ int main(int argc, char** argv) {
         h2_OS[k]->SetName(name.c_str()+postfix);
         h2_OS[k]->Write();
         
-        
-        
-        
         OS0jet->cd();
         h0_OS[k]->SetName(name.c_str()+postfix);
         h0_OS[k]->Write();
@@ -1034,6 +1043,14 @@ int main(int argc, char** argv) {
         h_OS[k]->SetName(name.c_str()+postfix);
         h_OS[k]->Write();
         
+	//KK
+	OScat->cd();
+	h_0jet->Write();
+	hx_boosted->Write();
+	hy_boosted->Write();
+	hx_vbf->Write();
+	hy_vbf->Write();
+
         SS0jet->cd();
         h0_SS[k]->SetName(name.c_str()+postfix);
         h0_SS[k]->Write();
