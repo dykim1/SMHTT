@@ -78,9 +78,7 @@ int main(int argc, char** argv) {
     PyList_Insert(sysPath, 0, path);
     PyObject* fitFunctions =  PyImport_ImportModule((char *)"FitFunctions");
     // The line below breaks the code
-    std::cout << "Before seg fault" << std::endl;
-    PyObject* compute_sf = PyObject_GetAttrString(fitFunctions,(char *)"compute_SF");
-    std::cout << "After seg fault" << std::endl;
+    PyObject* compute_sf = PyObject_GetAttrString(fitFunctions,"compute_SF");
 
     //Normalization os MC samples
     float xs=1.0; float weight=1.0; float luminosity=35870.0;
@@ -512,7 +510,7 @@ int main(int argc, char** argv) {
     Int_t nentries_wtn = (Int_t) arbre->GetEntries();
     for (Int_t i = 0; i < nentries_wtn; i++) {
       arbre->GetEntry(i);
-      if (i % 10 == 0) fprintf(stdout, "\r  Processed events: %8d of %8d ", i, nentries_wtn);
+      if (i % 1000 == 0) fprintf(stdout, "\r  Processed events: %8d of %8d ", i, nentries_wtn);
       fflush(stdout);
       // DoubleTau trigger
       if (sample=="data_obs" && input=="myntuples/data_H.root") {
