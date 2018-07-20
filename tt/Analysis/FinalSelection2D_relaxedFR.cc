@@ -698,28 +698,15 @@ int main(int argc, char** argv) {
       if (sample=="data_obs") aweight=1.0;
       
       // D.Kim : Separation between L, T and J (for DY, TT, and VV)
-      // for now, don't care about DY categorization. Need to be check with Cécile.
       bool isZTT=false;
       bool isZL=false;
       bool isZJ=false;
-
       if (gen_match_1==5 || gen_match_2==5) isZTT=true;
-      if ((gen_match_1<=5 || gen_match_2<=5) && !isZTT) isZL=true;
-      if (!isZTT || !isZL) isZJ=true;
-
+      if (gen_match_1<6&&gen_match_2<6&&!(gen_match_1==5&&gen_match_2==5)) isZL=true;
+      if (gen_match_2==6 || gen_match_1==6) isZJ=true;
       if ((sample=="ZTT") && !isZTT) continue;
       if ((sample=="ZL") && !isZL) continue;
       if ((sample=="ZJ") && !isZJ) continue;
-
-      /*if ((sample=="ZTT") && (gen_match_1!=5 || gen_match_2!=5)) continue;
-      if ((sample=="ZL") && (gen_match_1>5 || gen_match_2>5 || (gen_match_1==5 && gen_match_2==5))) continue;
-      bool isZJ = true;
-      if (gen_match_1!=5 || gen_match_2!=5) isZJ = false;
-      if (gen_match_1>5 || gen_match_2>5 || (gen_match_1==5 && gen_match_2==5))  isZJ = false;
-      if ((sample=="ZJ") && !isZJ) continue;*/
-      //if ((sample=="ZJ") && !((gen_match_1!=5 || gen_match_2!=5) || (gen_match_1>5 || gen_match_2>5 || (gen_match_1==5 && gen_match_2==5)))) continue;
-      
-
 
       // TT & VV : line 895~897
       if (!(gen_match_1==5 && gen_match_2==5) && (name=="VVT"|| name=="TTT")) continue;
@@ -835,10 +822,10 @@ int main(int argc, char** argv) {
 	bool is_boosted = false;
 	bool is_VBF = false;
 	bool is_VH = false;
-        
-	if(njets>=2 && Higgs.Pt()>100 && std::abs(myjet1.Eta()-myjet2.Eta())>2.5) is_VBF=true;
-	if(njets==1 || !(njets>=2 && Higgs.Pt()>100 && std::abs(myjet1.Eta()-myjet2.Eta())>2.5)) is_boosted=true;
-	if(njets==0) {is_0jet=true; is_boosted=false;}
+
+	if (njets==0) is_0jet=true;
+	if (njets==1 || (njets>=2 && (!(Higgs.Pt()>100 && std::abs(myjet1.Eta()-myjet2.Eta())>2.5)))) is_boosted=true; 
+	if (njets>=2 && Higgs.Pt()>100 && std::abs(myjet1.Eta()-myjet2.Eta())>2.5) is_VBF=true;
 
 	//KK: For some studies
 	//	if(njets>=2 && Higgs.Pt()>100 && mjj > 300) is_VBF=true;
