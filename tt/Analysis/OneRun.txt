@@ -66,6 +66,9 @@
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//W3.root files_nominal//W3.root W W 0
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//W4.root files_nominal//W4.root W W 0
 
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//EWKZ2l.root files_nominal//EWKZ2l.root EWKZLL EWKZ 0
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//EWKZ2nu.root files_nominal//EWKZ2nu.root EWKZNuNu EWKZ 0
+
  python Overflow.py
 
  hadd -f files_nominal//data.root files_nominal//data_*.root
@@ -82,15 +85,17 @@
 
  hadd -f files_nominal//VVJ.root files_nominal//WZ1l1nu2q_J.root files_nominal//WZ1l3nu_J.root files_nominal//WZ1l1nu2q_J.root files_nominal//WZ3l1nu_J.root files_nominal//WZ2l2q_J.root files_nominal//WW1l1nu2q_J.root files_nominal//ZZ4l_J.root files_nominal//ZZ2l2q_J.root files_nominal//VV2l2nu_J.root files_nominal//Tbar-tW_J.root files_nominal//T-tW_J.root files_nominal//Tbar-tchan_J.root files_nominal//T-tchan_J.root 
 
+ hadd -f files_nominal//EWKZ.root files_nominal//EWKZ2l.root files_nominal//EWKZ2nu.root
+
  python Creat_WH.py
 
  python Creat_sig.py
 
  python Creat_QCD.py
 
- hadd -f final_nominal.root files_nominal//SMH.root files_nominal//ZTT.root files_nominal//ZJ.root files_nominal//ZL.root files_nominal//TTT.root files_nominal//TTJ.root  files_nominal//VVT.root files_nominal//VVJ.root  files_nominal//data.root files_nominal//WJets.root files_nominal//QCD.root files_nominal//VBF125.root files_nominal//ggH125.root files_nominal//WH125.root files_nominal//ZH125.root
+ hadd -f final_nominal.root files_nominal//SMH.root files_nominal//ZTT.root files_nominal//ZJ.root files_nominal//ZL.root files_nominal//TTT.root files_nominal//TTJ.root  files_nominal//VVT.root files_nominal//VVJ.root  files_nominal//data.root files_nominal//WJets.root files_nominal//QCD.root files_nominal//VBF125.root files_nominal//ggH125.root files_nominal//WH125.root files_nominal//ZH125.root files_nominal//EWKZ.root
 
- python plot_tt_category.py 
+# python plot_tt_category.py 
 
 
 
