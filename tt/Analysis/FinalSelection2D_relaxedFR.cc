@@ -279,9 +279,14 @@ int main(int argc, char** argv) {
     //    float bins1[] = {0,50,100,150,200,250,300,350,400,450,500}; //fig50 H pT
 
     
-    //Binning for 0jet cat. 1D: Msv. In AN it was 10GeV binning
-    float bins0[] = {0,20,40,60,80,100,120,140,160,180,200,220,240,260,280,300};
-    float bins1[] = {0,20,40,60,80,100,120,140,160,180,200,220,240,260,280,300};
+    // D.Kim : AN line 791~795
+    //Binning for 0jet cat. 1D: Msv. In AN it was 10GeV binning / official data card combined 0~50 as one bin
+    float bins0[] = {0,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200,210,220,230,240,250,260,270,280,290,300};
+    float bins1[] = {0,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200,210,220,230,240,250,260,270,280,290,300};
+    //float bins0[] = {0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200,210,220,230,240,250,260,270,280,290,300};
+    //float bins1[] = {0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200,210,220,230,240,250,260,270,280,290,300};
+    //float bins0[] = {0,20,40,60,80,100,120,140,160,180,200,220,240,260,280,300};
+    //float bins1[] = {0,20,40,60,80,100,120,140,160,180,200,220,240,260,280,300};
     //Binning for 1jet cat, x-axis: HpT
     float bins11[] = {0,100,170,300,10000};
     //Binning for 1jet cat, y-axis: Msv
@@ -600,7 +605,7 @@ int main(int argc, char** argv) {
 
       }
       
-
+      
       // D.Kim : I think we this is Trigger SF for other channel, so we can delete this.
       /*
 	if (sample!="data_obs"){
@@ -698,6 +703,7 @@ int main(int argc, char** argv) {
       if (sample=="data_obs") aweight=1.0;
       
       // D.Kim : Separation between L, T and J (for DY, TT, and VV)
+      // https://github.com/truggles/Z_to_TauTau_13TeV/blob/SM-HTT-2016/analysis1BaselineCuts.py#L444-L457
       bool isZTT=false;
       bool isZL=false;
       bool isZJ=false;
@@ -847,7 +853,7 @@ int main(int argc, char** argv) {
 	
         //            float var = Higgs.Pt(); //Variable to plot
         //	float var = (mytau2+mytau1).M(); //Variable to plot
-	float var = var2;
+	float var = var2; // m_sv
 	float var1_2 = mjj;
 	if (selection){
 	  if (is_0jet && signalRegion && charge1*charge2<0){
