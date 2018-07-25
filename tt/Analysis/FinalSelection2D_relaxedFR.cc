@@ -530,7 +530,7 @@ int main(int argc, char** argv) {
 	if(!matchDoubleTauCmbIso35_1  || !matchDoubleTauCmbIso35_2) continue;
 	if(!filterDoubleTauCmbIso35_1 || !filterDoubleTauCmbIso35_2) continue;
       }
-      if (sample=="data_obs" && input!="myntuples/data_H.root") {
+      if (sample=="data_obs" && input=="myntuples/data_H.root") {
 	if (!passDoubleTau35) continue;
 	if (!matchDoubleTau35_1  || !matchDoubleTau35_2) continue;
 	if (!filterDoubleTau35_1 || !filterDoubleTau35_2) continue;
