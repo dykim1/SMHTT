@@ -82,6 +82,7 @@ float pt_sv_JESUp;
 float m_sv_UncMet_DOWN, m_sv_UncMet_UP, m_sv_ClusteredMet_DOWN, m_sv_ClusteredMet_UP;
 float pt_sv_UncMet_DOWN, pt_sv_UncMet_UP, pt_sv_ClusteredMet_DOWN, pt_sv_ClusteredMet_UP;
 
+float ME_sm_VBF, ME_sm_ggH, ME_bkg, Dbkg_VBF, Dbkg_ggH;
 
 void fillTreeMVA(TTree* BG_Tree, float PT1, float PT2, float ETA1, float ETA2, float PHI1, float PHI2, float M1, float M2, float MET, float METPHI, float METCOV00, float METCOV01, float METCOV11, float MVIS, float TARGET, float WEIGHT) {
   pt_1_=PT1;
