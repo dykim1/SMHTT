@@ -9,13 +9,14 @@ finOFF = ROOT.TFile("../../officialDatacards/htt_input.root","")
 fout = ROOT.TFile("testUnroll.root","recreate")
 dic_cat = {'ttOS_0jet':'htt_tt_1_13TeV', 'ttOS_boosted':'htt_tt_2_13TeV', 'ttOS_vbf':'htt_tt_3_13TeV'}
 dic_sig = {'VBF125':'qqH_htt125', 'WH125':'WH_htt125','ggH125':'ggH_htt125','ZH125':'ZH_htt125'}
+#dic_sig = {'VBF125':'qqH125', 'WH125':'WH125','ggH125':'ggH125','ZH125':'ZH125'}
 c=ROOT.TCanvas("canvas","",0,0,600,600)
 
 
 for key in finKSU.GetListOfKeys():
     tdirName = key.GetName()
     if tdirName in dic_cat.keys():
-        print tdirName
+        #print tdirName
         for histK in finKSU.Get(tdirName).GetListOfKeys():
             histName = histK.GetName()
             hist = finKSU.Get(tdirName).Get(histName)
@@ -27,10 +28,11 @@ for key in finKSU.GetListOfKeys():
             if histName=='SMH':
                 continue
             if histName in dic_sig.keys():
-                    #print 'histName, dic_sig[histName]:',histName, dic_sig[histName]
+                #print 'histName, dic_sig[histName]:',histName, dic_sig[histName]
                 h_off=finOFF.Get(dic_cat[tdirName]).Get(dic_sig[histName])
             else:
                 h_off=finOFF.Get(dic_cat[tdirName]).Get(histName)
+
             # for 1D
             if histDim==1:
                 h_ur=finKSU.Get(tdirName).Get(histName)
@@ -43,20 +45,22 @@ for key in finKSU.GetListOfKeys():
                 h_off.Draw()
                 h_ur.Draw('same')
                 c.SaveAs('unrollPlots/'+tdirName+'_'+histName+'.pdf')
+                print histName
+                print "official datacard yield is ", h_off.Integral()
+                print "KSU datacard yield is ", h_ur.Integral(), '\n'
+
             # for 2D
             if histDim==2:                
                 h_ur=TH1F(tdirName+'_'+histName,"",48,0,48)                 
                 nbinY = hist.GetNbinsY()
-                print histName
+                #print histName
                 for ibin in range(nbinX):
                     for jbin in range(nbinY):         
-                        print " "                   
                         binNo=jbin+ibin*nbinY
-                        print "bin No : ", binNo+1
                         cont = hist.GetBinContent(ibin+1,jbin+1)
-                        print "x,y : (", ibin+1,", " ,jbin+1 ,"), value : " , cont
                         h_ur.SetBinContent(binNo+1,cont)  
-                
+                        #print "\nbin No : ", binNo+1
+                        #print "x,y : (", ibin+1,", " ,jbin+1 ,"), value : " , cont
 
                 fout.cd()
                 h_ur.SetLineColor(2)
@@ -66,7 +70,11 @@ for key in finKSU.GetListOfKeys():
                 h_off.Draw()
                 h_ur.Draw('same')
                 c.SaveAs('unrollPlots/'+tdirName+'_'+histName+'.pdf')
-                
+                print histName
+                print "official datacard yield is ", h_off.Integral()
+                print "KSU datacard yield is ", h_ur.Integral(),'\n'
+
+
 '''
 # loop over all TDirectory
 for key in finKSU.GetListOfKeys():

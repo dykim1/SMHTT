@@ -1,3 +1,4 @@
+ rm files_nominal//*
 
  ./Make.sh FinalSelection2D_relaxedFR.cc 
 
@@ -69,7 +70,7 @@
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//EWKZ2l.root files_nominal//EWKZ2l.root EWKZLL EWKZ 0
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//EWKZ2nu.root files_nominal//EWKZ2nu.root EWKZNuNu EWKZ 0
 
- python Overflow.py
+ # python Overflow.py
 
  hadd -f files_nominal//data.root files_nominal//data_*.root
 
@@ -93,10 +94,10 @@
 
  python Creat_QCD.py
 
- hadd -f final_nominal.root files_nominal//SMH.root files_nominal//ZTT.root files_nominal//ZJ.root files_nominal//ZL.root files_nominal//TTT.root files_nominal//TTJ.root  files_nominal//VVT.root files_nominal//VVJ.root  files_nominal//data.root files_nominal//WJets.root files_nominal//QCD.root files_nominal//VBF125.root files_nominal//ggH125.root files_nominal//WH125.root files_nominal//ZH125.root files_nominal//EWKZ.root
+ hadd -f final_nominal.root files_nominal//data.root files_nominal//SMH.root files_nominal//ZTT.root files_nominal//ZJ.root files_nominal//ZL.root files_nominal//TTT.root files_nominal//TTJ.root  files_nominal//VVT.root files_nominal//VVJ.root files_nominal//WJets.root files_nominal//EWKZ.root files_nominal//QCD.root files_nominal//ggH125.root files_nominal//VBF125.root files_nominal//WH125.root files_nominal//ZH125.root 
 
 # python plot_tt_category.py 
-
+ python UnrollScript.py
 
 
 
