@@ -306,8 +306,12 @@ int main(int argc, char** argv) {
 
     // D.kim : Binning for 2jet cat(MELA): Dbkg_VBF
     float bins23[] = {0.00,0.30,0.60,0.90,1.00};
+      //{0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0};
+
     // D.kim : Binning for 2jet cat(MELA): Dbkg_ggH
-    float bins24[] = {0.0,0.6,0.8,0.9,0.95,0.975,1.0};
+    float bins24[] = {0.0,0.4,0.7,0.8,0.9,0.95,0.975,1.0};
+      //{0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0};
+
     
     //float bins1[] = {0,50,100,150,200,250,300,350,400,450,500};//,550,600,650,700,750,800,850,900,950,1000,1050}; //fig50 H pT
     //float bins0[] = {0,80,160,240,320,400,480,560,640,720,800,880,960,1040,1120,1200,1280,1360};
@@ -764,6 +768,20 @@ int main(int argc, char** argv) {
       
       if (sample=="data_obs") aweight=1.0;
       
+      // D.Kim : https://github.com/cecilecaillol/SMHTT2016/blob/master/mt/Analyze/FinalSelection2D_relaxed.cc#L744-L754
+      //************************ Jet to tau FR shape **************************
+      if (tes==14 && (sample=="TTJ" or sample=="ZJ" or sample=="W") && gen_match_2==6){
+	float jtotau=1-(0.2*mytau.Pt()/100);
+	if (mytau.Pt()>200) jtotau=1-(0.2*200.0/100);
+	aweight=aweight*jtotau;
+      }
+      if (tes==-14 && (sample=="TTJ" or sample=="ZJ" or sample=="W") && gen_match_2==6){
+	float jtotau=1+(0.2*mytau.Pt()/100);
+	if (mytau.Pt()>200) jtotau=1+(0.2*200.0/100);
+	aweight=aweight*jtotau;
+      }
+
+
       // D.Kim : Separation between L, T and J (for DY, TT, and VV)
       // https://github.com/truggles/Z_to_TauTau_13TeV/blob/SM-HTT-2016/analysis1BaselineCuts.py#L444-L457
       bool isZTT=false;
@@ -890,26 +908,18 @@ int main(int argc, char** argv) {
 	bool is_boosted = false;
 	bool is_VBF = false;
 	bool is_VH = false;
+	bool is_2jets = false;
 
 	if (njets==0) is_0jet=true;
 	if (njets==1 || (njets>=2 && (!(Higgs.Pt()>100 && std::abs(myjet1.Eta()-myjet2.Eta())>2.5)))) is_boosted=true; 
 	if (njets>=2 && Higgs.Pt()>100 && std::abs(myjet1.Eta()-myjet2.Eta())>2.5) is_VBF=true;
-
+	if (njets==2) is_2jets=true;
 	//KK: For some studies
 	//	if(njets>=2 && Higgs.Pt()>100 && mjj > 300) is_VBF=true;
 	//	if(njets>=2 && mjj < 300) is_VH=true;
 	//	if(njets==1 || (njets>=2 && mjj > 300 && Higgs.Pt()<100)) is_boosted=true;
         
 	//std::cout << "-------" << is_0jet << is_boosted << is_VBF << is_VH << std::endl;
-        
-	if (!(is_boosted || is_0jet || is_VBF || is_VH)) {
-	  std::cout << std::endl;
-	  std::cout << "-------" << is_0jet << is_boosted << is_VBF << is_VH << std::endl;
-	  std::cout << "hole1 *****************************************"<< std::endl;
-	  std::cout << "njets : " << njets << std::endl;
-	  std::cout << "Higgs.Pt() : " << Higgs.Pt() << std::endl;
-	  std::cout << "std::abs(myjet1.Eta()-myjet2.Eta()) : "<< std::abs(myjet1.Eta()-myjet2.Eta()) << std::endl;
-	}
         
 	//************************* Fill histograms **********************
 	
@@ -931,6 +941,7 @@ int main(int argc, char** argv) {
 	float var1_M3 = ME_bkg;
 	  
 	if (selection){
+	  // ################### signalRegion && OS ####################
 	  if (is_0jet && signalRegion && charge1*charge2<0){
 	    h0_OS[k]->Fill(var,weight2*aweight);
 	    //KK
@@ -938,7 +949,6 @@ int main(int argc, char** argv) {
 	      h_0jet->Fill(var,weight2*aweight);
 	  }
 	  if (is_boosted && signalRegion && charge1*charge2<0){
-	    //	    h1_OS[k]->Fill(var,weight2*aweight); //KK
 	    h1_OS[k]->Fill(var1_1,var2,weight2*aweight);
 	    //KK
 	    if (tes==0){
@@ -946,12 +956,8 @@ int main(int argc, char** argv) {
 	      hy_boosted->Fill(var2,weight2*aweight);
 	    }
 	  }
-	  if (is_VBF && signalRegion && charge1*charge2<0){
-	    //	    h2_OS[k]->Fill(var,weight2*aweight); //KK
+	  if (is_VBF && signalRegion && charge1*charge2<0) {
 	    h2_OS[k]->Fill(var1_2,var2,weight2*aweight);
-	    h2M1_OS[k]->Fill(var1_M1,var2,weight2*aweight);
-	    h2M2_OS[k]->Fill(var1_M2,var2,weight2*aweight);
-	    h2M3_OS[k]->Fill(var1_M3,var2,weight2*aweight);
 	    //KK
 	    if (tes==0){
 	      hx_vbf->Fill(var1_2,weight2*aweight);
@@ -961,73 +967,82 @@ int main(int argc, char** argv) {
 	  if (is_VH && signalRegion && charge1*charge2<0)
 	    //	    h3_OS[k]->Fill(var,weight2*aweight); //KK
 	    h3_OS[k]->Fill(var1_2,var2,weight2*aweight);
+	  if (is_2jets && signalRegion && charge1*charge2<0) {
+	    h2M1_OS[k]->Fill(var1_M1,var2,weight2*aweight);
+	    h2M2_OS[k]->Fill(var1_M2,var2,weight2*aweight);
+	  }
 	  if (signalRegion && charge1*charge2<0)
 	    h_OS[k]->Fill(var,weight2*aweight);
-	  
+
+
+	  // ################### signalRegion && SS ####################
 	  if (is_0jet && signalRegion && charge1*charge2>0)
 	    h0_SS[k]->Fill(var,weight2*aweight);
 	  if (is_boosted && signalRegion && charge1*charge2>0)
-	    //	    h1_SS[k]->Fill(var,weight2*aweight); //KK
 	    h1_SS[k]->Fill(var1_1,var2,weight2*aweight);
-	  if (is_VBF && signalRegion && charge1*charge2>0) {
-	    //	    h2_SS[k]->Fill(var,weight2*aweight); //KK
+	  if (is_VBF && signalRegion && charge1*charge2>0)
 	    h2_SS[k]->Fill(var1_2,var2,weight2*aweight);
-	    h2M1_SS[k]->Fill(var1_M1,var2,weight2*aweight);
-	    h2M2_SS[k]->Fill(var1_M2,var2,weight2*aweight);
-	    h2M3_SS[k]->Fill(var1_M3,var2,weight2*aweight);
-	  }
 	  if (is_VH && signalRegion && charge1*charge2>0)
 	    //	    h3_SS[k]->Fill(var,weight2*aweight); //KK
 	    h3_SS[k]->Fill(var1_2,var2,weight2*aweight); 
+	  if (is_2jets && signalRegion && charge1*charge2>0) {
+	    h2M1_OS[k]->Fill(var1_M1,var2,weight2*aweight);
+	    h2M2_OS[k]->Fill(var1_M2,var2,weight2*aweight);
+	  }
 	  if (signalRegion && charge1*charge2>0)
 	    h_SS[k]->Fill(var,weight2*aweight);
-	  
+
+
+	  // ################### ai-Region && OS ####################
 	  if (is_0jet && charge1*charge2<0 && aiRegion)
 	    h0_AIOS[k]->Fill(var,weight2*aweight);
 	  if (is_boosted && charge1*charge2<0 && aiRegion)
-	    //	    h1_AIOS[k]->Fill(var,weight2*aweight);//KK
 	    h1_AIOS[k]->Fill(var1_1,var2,weight2*aweight);
-	  if (is_VBF && charge1*charge2<0 && aiRegion) {
-	    //	    h2_AIOS[k]->Fill(var,weight2*aweight);//KK
+	  if (is_VBF && charge1*charge2<0 && aiRegion)
 	    h2_AIOS[k]->Fill(var1_2,var2,weight2*aweight);
-	    h2M1_AIOS[k]->Fill(var1_M1,var2,weight2*aweight);
-	    h2M2_AIOS[k]->Fill(var1_M2,var2,weight2*aweight);
-	    h2M3_AIOS[k]->Fill(var1_M3,var2,weight2*aweight);
-	  }
 	  if (is_VH && charge1*charge2<0 && aiRegion)
 	    //	    h3_AIOS[k]->Fill(var,weight2*aweight);//KK
 	    h3_AIOS[k]->Fill(var1_2,var2,weight2*aweight);
+	  if (is_2jets && aiRegion && charge1*charge2<0) {
+	    h2M1_OS[k]->Fill(var1_M1,var2,weight2*aweight);
+	    h2M2_OS[k]->Fill(var1_M2,var2,weight2*aweight);
+	  }
 	  if (charge1*charge2<0 && aiRegion)
 	    h_AIOS[k]->Fill(var,weight2*aweight);
+
 	  
-          
+	  // ################### ai-Region && SS ####################
 	  if (is_0jet && charge1*charge2>0 && aiRegion)
 	    h0_AISS[k]->Fill(var,weight2*aweight);
 	  if (is_boosted && charge1*charge2>0 && aiRegion)
-	    //	    h1_AISS[k]->Fill(var,weight2*aweight);//KK
 	    h1_AISS[k]->Fill(var1_1,var2,weight2*aweight);
-	  if (is_VBF && charge1*charge2>0 && aiRegion) {
-	    //	    h2_AISS[k]->Fill(var,weight2*aweight);//KK
+	  if (is_VBF && charge1*charge2>0 && aiRegion) 
 	    h2_AISS[k]->Fill(var1_2,var2,weight2*aweight);
-	    h2M1_AISS[k]->Fill(var1_M1,var2,weight2*aweight);
-	    h2M2_AISS[k]->Fill(var1_M2,var2,weight2*aweight);
-	    h2M3_AISS[k]->Fill(var1_M3,var2,weight2*aweight);
-	  }
 	  if (is_VH && charge1*charge2>0 && aiRegion)
 	    //	    h3_AISS[k]->Fill(var,weight2*aweight);
 	    h3_AISS[k]->Fill(var1_2,var2,weight2*aweight);
+	  if (is_2jets && aiRegion && charge1*charge2>0) {
+	    h2M1_OS[k]->Fill(var1_M1,var2,weight2*aweight);
+	    h2M2_OS[k]->Fill(var1_M2,var2,weight2*aweight);
+	  }
 	  if (charge1*charge2>0 && aiRegion)
-	    h_AISS[k]->Fill(var,weight2*aweight);
+	    h_AISS[k]->Fill(var,weight2*aweight);	  
 
-	  // D.Kim
+
+	  // ################### trg SF ####################
 	  h_trgSF1[k]->Fill(sf_trgDK1);
 	  h_trgSF2[k]->Fill(sf_trgDK2);
 	  if (gen_match_1==5 && gen_match_2==5) h_trgSF_RR[k]->Fill(sf_trgDK_RR);
 	  if (gen_match_1==6 && gen_match_2==5) h_trgSF_FR[k]->Fill(sf_trgDK_FR);
 	  if (gen_match_1==5 && gen_match_2==6) h_trgSF_RF[k]->Fill(sf_trgDK_RF);
 	  if (gen_match_1==6 && gen_match_2==6) h_trgSF_FF[k]->Fill(sf_trgDK_FF);
-	  h_MELA_VBF[k]->Fill(Dbkg_VBF);
-	  h_MELA_ggH[k]->Fill(Dbkg_ggH);
+
+
+	  // ################### MELA ####################
+	  if (is_2jets && signalRegion && charge1*charge2<0){
+	    h_MELA_VBF[k]->Fill(Dbkg_VBF);
+	    h_MELA_ggH[k]->Fill(Dbkg_ggH);
+	  }
 	}
       }
     } // end of loop over events
@@ -1036,34 +1051,35 @@ int main(int argc, char** argv) {
     fout->cd();
     
     //    TString postfix="";
-    //    TString postfix="";
-    
-    
+    /*
+    TString postfix="";
     for (int k=0; k<nbhist; ++k){
       
-      //        if (tes==100) postfix=postfixJES[k];
-      //        if (tes==1) postfix=postfixTES[k];
-      //        if (tes==16) postfix=postfixDM[k];
-      //        if (tes==17) postfix=postfixZLshape[k];
-      //        if (tes==18) postfix=postfixZLnorm[k];
-      //        if (tes==19) postfix=postfixFakeDM[k];
-      //        if (tes==1000) postfix=postfixWG1[k];
+      if (tes==100) postfix=postfixJES[k];
+      if (tes==1) postfix=postfixTES[k];
+      if (tes==16) postfix=postfixDM[k];
+      if (tes==17) postfix=postfixZLshape[k];
+      if (tes==18) postfix=postfixZLnorm[k];
+      if (tes==19) postfix=postfixFakeDM[k];
+      if (tes==1000) postfix=postfixWG1[k];
       
-      //        fout->cd();
-      //        n70[k]->SetName("n70"+postfix);
-      //        n70[k]->Write();
-      //        n70SS[k]->SetName("n70SS"+postfix);
-      //        n70SS[k]->Write();
+      fout->cd();
+      n70[k]->SetName("n70"+postfix);
+      n70[k]->Write();
+      n70SS[k]->SetName("n70SS"+postfix);
+      n70SS[k]->Write();
     }
-    
+    */
     TDirectory *OS0jet_tt =fout->mkdir("tt_0jet");
     TDirectory *OSboosted_tt =fout->mkdir("tt_boosted");
     TDirectory *OSvbf_tt =fout->mkdir("tt_vbf");
+    TDirectory *OS2jets_tt =fout->mkdir("tt_2jets");
     
     TDirectory *OS0jet =fout->mkdir("ttOS_0jet");
     TDirectory *OSboosted =fout->mkdir("ttOS_boosted");
     TDirectory *OSvbf =fout->mkdir("ttOS_vbf");
     TDirectory *OSvh =fout->mkdir("ttOS_vh");
+    TDirectory *OS2jets =fout->mkdir("ttOS_2jets");
     TDirectory *OS =fout->mkdir("ttOS_inclusive");
     // KK
     TDirectory*  OScat = fout->mkdir("tt_categories");
@@ -1072,18 +1088,21 @@ int main(int argc, char** argv) {
     TDirectory *SSboosted =fout->mkdir("ttSS_boosted");
     TDirectory *SSvbf =fout->mkdir("ttSS_vbf");
     TDirectory *SSvh =fout->mkdir("ttSS_vh");
+    TDirectory *SS2jets =fout->mkdir("ttSS_2jets");
     TDirectory *SS =fout->mkdir("ttSS_inclusive");
     
     TDirectory *AIOS0jet =fout->mkdir("AIOS_0jet");
     TDirectory *AIOSboosted =fout->mkdir("AIOS_boosted");
     TDirectory *AIOSvbf =fout->mkdir("AIOS_vbf");
     TDirectory *AIOSvh =fout->mkdir("AIOS_vh");
+    TDirectory *AIOS2jets =fout->mkdir("AIOS_2jets");
     TDirectory *AIOS =fout->mkdir("AIOS_inclusive");
     
     TDirectory *AISS0jet =fout->mkdir("AISS_0jet");
     TDirectory *AISSboosted =fout->mkdir("AISS_boosted");
     TDirectory *AISSvbf =fout->mkdir("AISS_vbf");
     TDirectory *AISSvh =fout->mkdir("AISS_vh");
+    TDirectory *AISS2jets =fout->mkdir("AISS_2jets");
     TDirectory *AISS =fout->mkdir("AISS_inclusive");
     // D.Kim
     TDirectory *TRG_SF = fout->mkdir("trgSF");
@@ -1091,7 +1110,12 @@ int main(int argc, char** argv) {
 
     for (int k=0; k<nbhist; ++k){
         
-        
+        if (tes==10) postfix="_CMS_htt_dyShape_13TeVUp";
+        if (tes==-10) postfix="_CMS_htt_dyShape_13TeVDown";
+	if (tes==14) postfix="_CMS_htt_jetToTauFake_13TeVUp";
+	if (tes==-14) postfix="_CMS_htt_jetToTauFake_13TeVDown";
+	if (tes==11) postfix="_CMS_htt_ttbarShape_13TeVUp";
+	if (tes==-11) postfix="_CMS_htt_ttbarShape_13TeVDown";        
         if (tes==100) postfix=postfixJES[k];
         if (tes==1) postfix=postfixTES[k];
         if (tes==16) postfix=postfixDM[k];
@@ -1099,17 +1123,12 @@ int main(int argc, char** argv) {
         if (tes==18) postfix=postfixZLnorm[k];
         if (tes==19) postfix=postfixFakeDM[k];
         if (tes==1000) postfix=postfixWG1[k];
-        if (tes==10) postfix="_CMS_htt_dyShape_13TeVUp";
-        if (tes==-10) postfix="_CMS_htt_dyShape_13TeVDown";
-        
-        
+
         
         
 //        TDirectory *OS0jet_tt =fout->mkdir("tt_0jet");
 //        TDirectory *OSboosted_tt =fout->mkdir("tt_boosted");
 //        TDirectory *OSvbf_tt =fout->mkdir("tt_vbf");
-        
-        
         
         // These will be the final root files
 	// D.Kim
@@ -1128,9 +1147,9 @@ int main(int argc, char** argv) {
 	h_trgSF_FF[k]->Write();
 	
 	MELA_OBS->cd();
-	h_MELA_VBF[k]->SetName(name.c_str()+postfix+"Dbkg_VBF");
+	h_MELA_VBF[k]->SetName(name.c_str()+postfix+"_Dbkg_VBF");
 	h_MELA_VBF[k]->Write();
-	h_MELA_ggH[k]->SetName(name.c_str()+postfix+"Dbkg_ggH");
+	h_MELA_ggH[k]->SetName(name.c_str()+postfix+"_Dbkg_ggH");
 	h_MELA_ggH[k]->Write();
 
         OS0jet_tt->cd();
