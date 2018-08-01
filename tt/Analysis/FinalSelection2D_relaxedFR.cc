@@ -770,15 +770,32 @@ int main(int argc, char** argv) {
       
       // D.Kim : https://github.com/cecilecaillol/SMHTT2016/blob/master/mt/Analyze/FinalSelection2D_relaxed.cc#L744-L754
       //************************ Jet to tau FR shape **************************
-      if (tes==14 && (sample=="TTJ" or sample=="ZJ" or sample=="W") && gen_match_2==6){
-	float jtotau=1-(0.2*mytau.Pt()/100);
-	if (mytau.Pt()>200) jtotau=1-(0.2*200.0/100);
-	aweight=aweight*jtotau;
+      if (tes==14 && (sample=="TTJ" or sample=="ZJ" or sample=="W")) {
+	  float jtotau1=1.0;
+	  if (gen_match_1==6) {
+	    jtotau1=1-(0.2*mytau1.Pt()/100);
+	    if (mytau1.Pt()>200) jtotau1=1-(0.2*200.0/100);
+	  }
+	  float jtotau2=1.0;
+	  if (gen_match_2==6) {
+	    jtotau2=1-(0.2*mytau2.Pt()/100);
+	    if (mytau2.Pt()>200) jtotau2=1-(0.2*200.0/100);
+	  }
+	  aweight=aweight*jtotau1*jtotau2;
       }
-      if (tes==-14 && (sample=="TTJ" or sample=="ZJ" or sample=="W") && gen_match_2==6){
-	float jtotau=1+(0.2*mytau.Pt()/100);
-	if (mytau.Pt()>200) jtotau=1+(0.2*200.0/100);
-	aweight=aweight*jtotau;
+
+	if (tes==-14 && (sample=="TTJ" or sample=="ZJ" or sample=="W")) {
+	  float jtotau1=1.0;
+	  if (gen_match_1==6) {
+	    jtotau1=1+(0.2*mytau1.Pt()/100);
+	    if (mytau1.Pt()>200) jtotau1=1+(0.2*200.0/100);
+	  }
+	  float jtotau2=1.0;
+	  if (gen_match_2==6) {
+	    jtotau2=1+(0.2*mytau2.Pt()/100);
+	    if (mytau2.Pt()>200) jtotau2=1+(0.2*200.0/100);
+	  }
+	  aweight=aweight*jtotau1*jtotau2;
       }
 
 
