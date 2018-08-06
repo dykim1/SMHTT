@@ -306,12 +306,11 @@ int main(int argc, char** argv) {
 
     // D.kim : Binning for 2jet cat(MELA): Dbkg_VBF
     float bins23[] = {0.00,0.30,0.60,0.90,1.00};
-      //{0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0};
+    //float bins23[] = {0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0};
 
     // D.kim : Binning for 2jet cat(MELA): Dbkg_ggH
+    //float bins24[] = {0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0};//
     float bins24[] = {0.0,0.4,0.7,0.8,0.9,0.95,0.975,1.0};
-      //{0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0};
-
     
     //float bins1[] = {0,50,100,150,200,250,300,350,400,450,500};//,550,600,650,700,750,800,850,900,950,1000,1050}; //fig50 H pT
     //float bins0[] = {0,80,160,240,320,400,480,560,640,720,800,880,960,1040,1120,1200,1280,1360};
@@ -376,7 +375,7 @@ int main(int argc, char** argv) {
     std::vector<TH1F*> h_AISS;
     */
 
-    // h0_ : 0jet, h1_ : boosted, h2_ : vbf, h3_ : vh, h2M*_ : vbf with MELA, h_ : inclusive
+    // h0_ : 0jet, h1_ : boosted, h2_ : vbf, h3_ : vh, h2M*_ : vbf with MELA, h4M_ : 2jets with MEAL  h_ : inclusive
     std::vector<TH1F*> h0_OS;
     std::vector<TH1F*> h0_SS;
     std::vector<TH1F*> h0_AIOS;
@@ -389,6 +388,7 @@ int main(int argc, char** argv) {
     std::vector<TH2F*> h2_SS;
     std::vector<TH2F*> h2_AIOS;
     std::vector<TH2F*> h2_AISS;
+
     std::vector<TH2F*> h2M1_OS;
     std::vector<TH2F*> h2M1_SS;
     std::vector<TH2F*> h2M1_AIOS;
@@ -401,6 +401,15 @@ int main(int argc, char** argv) {
     std::vector<TH2F*> h2M3_SS;
     std::vector<TH2F*> h2M3_AIOS;
     std::vector<TH2F*> h2M3_AISS;
+    std::vector<TH2F*> h4M1_OS; // in test cate - ex) 2jets
+    std::vector<TH2F*> h4M1_SS;
+    std::vector<TH2F*> h4M1_AIOS;
+    std::vector<TH2F*> h4M1_AISS;
+    std::vector<TH2F*> h4M2_OS;
+    std::vector<TH2F*> h4M2_SS;
+    std::vector<TH2F*> h4M2_AIOS;
+    std::vector<TH2F*> h4M2_AISS;
+
     std::vector<TH2F*> h3_OS;
     std::vector<TH2F*> h3_SS;
     std::vector<TH2F*> h3_AIOS;
@@ -441,6 +450,8 @@ int main(int argc, char** argv) {
       std::ostringstream HNS2M1OS; HNS2M1OS << "h2M1_OS" << k;
       std::ostringstream HNS2M2OS; HNS2M2OS << "h2M2_OS" << k;
       std::ostringstream HNS2M3OS; HNS2M3OS << "h2M3_OS" << k;
+      std::ostringstream HNS4M1OS; HNS4M1OS << "h4M1_OS" << k;
+      std::ostringstream HNS4M2OS; HNS4M2OS << "h4M2_OS" << k;
       std::ostringstream HNS3OS; HNS3OS << "h3_OS" << k;
       std::ostringstream HNSOS; HNS2OS << "h_OS" << k;
 	//KK
@@ -455,8 +466,10 @@ int main(int argc, char** argv) {
         h1_OS.push_back(new TH2F (HNS1OS.str().c_str(),"diTauMa",binnum11,bins11,binnum12,bins12)); h1_OS[k]->Sumw2();
         h2_OS.push_back(new TH2F (HNS2OS.str().c_str(),"diTauMa",binnum21,bins21,binnum22,bins22)); h2_OS[k]->Sumw2();
         h2M1_OS.push_back(new TH2F (HNS2M1OS.str().c_str(),"diTauMa",binnum23,bins23,binnum22,bins22)); h2M1_OS[k]->Sumw2();
-        h2M2_OS.push_back(new TH2F (HNS2M2OS.str().c_str(),"diTauMa",binnum23,bins23,binnum22,bins22)); h2M2_OS[k]->Sumw2();
+        h2M2_OS.push_back(new TH2F (HNS2M2OS.str().c_str(),"diTauMa",binnum24,bins24,binnum22,bins22)); h2M2_OS[k]->Sumw2();
         h2M3_OS.push_back(new TH2F (HNS2M3OS.str().c_str(),"diTauMa",binnum23,bins23,binnum22,bins22)); h2M3_OS[k]->Sumw2();
+        h4M1_OS.push_back(new TH2F (HNS4M1OS.str().c_str(),"diTauMa",binnum23,bins23,binnum22,bins22)); h4M1_OS[k]->Sumw2();
+        h4M2_OS.push_back(new TH2F (HNS4M2OS.str().c_str(),"diTauMa",binnum24,bins24,binnum22,bins22)); h4M2_OS[k]->Sumw2();
         h3_OS.push_back(new TH2F (HNS3OS.str().c_str(),"diTauMa",binnum21,bins21,binnum22,bins22)); h3_OS[k]->Sumw2();
         h_OS.push_back(new TH1F (HNSOS.str().c_str(),"diTauMa",binnum0,bins0)); h_OS[k]->Sumw2();
         
@@ -466,6 +479,8 @@ int main(int argc, char** argv) {
 	std::ostringstream HNS2M1SS; HNS2M1OS << "h2M1_SS" << k;
 	std::ostringstream HNS2M2SS; HNS2M2OS << "h2M2_SS" << k;
 	std::ostringstream HNS2M3SS; HNS2M3OS << "h2M3_SS" << k;
+	std::ostringstream HNS4M1SS; HNS4M1OS << "h4M1_SS" << k;
+	std::ostringstream HNS4M2SS; HNS4M2OS << "h4M2_SS" << k;
 	std::ostringstream HNS3SS; HNS2OS << "h3_SS" << k;
 	std::ostringstream HNSSS; HNSOS << "h_SS" << k;
 	//KK
@@ -481,7 +496,9 @@ int main(int argc, char** argv) {
         h2_SS.push_back(new TH2F (HNS2SS.str().c_str(),"diTauMa",binnum21,bins21,binnum22,bins22)); h2_SS[k]->Sumw2();
         h2M1_SS.push_back(new TH2F (HNS2M1SS.str().c_str(),"diTauMa",binnum23,bins23,binnum22,bins22)); h2M1_SS[k]->Sumw2(); // Dbkg_VBF
         h2M2_SS.push_back(new TH2F (HNS2M2SS.str().c_str(),"diTauMa",binnum24,bins24,binnum22,bins22)); h2M2_SS[k]->Sumw2(); // Dbks_ggH
-        h2M3_SS.push_back(new TH2F (HNS2M3SS.str().c_str(),"diTauMa",binnum23,bins23,binnum22,bins22)); h2M3_SS[k]->Sumw2(); // Not used 
+        h2M3_SS.push_back(new TH2F (HNS2M3SS.str().c_str(),"diTauMa",binnum23,bins23,binnum22,bins22)); h2M3_SS[k]->Sumw2(); // Not used
+        h4M1_SS.push_back(new TH2F (HNS4M1SS.str().c_str(),"diTauMa",binnum23,bins23,binnum22,bins22)); h4M1_SS[k]->Sumw2(); // Dbkg_VBF
+        h4M2_SS.push_back(new TH2F (HNS4M2SS.str().c_str(),"diTauMa",binnum24,bins24,binnum22,bins22)); h4M2_SS[k]->Sumw2(); // Dbks_ggH 
         h3_SS.push_back(new TH2F (HNS3SS.str().c_str(),"diTauMa",binnum21,bins21,binnum22,bins22)); h3_SS[k]->Sumw2();
         h_SS.push_back(new TH1F (HNSSS.str().c_str(),"diTauMa",binnum1,bins1)); h_SS[k]->Sumw2();
         
@@ -491,6 +508,8 @@ int main(int argc, char** argv) {
 	std::ostringstream HNS2M1AIOS; HNS2M1AIOS << "h2M1_AIOS" << k;
 	std::ostringstream HNS2M2AIOS; HNS2M2AIOS << "h2M2_AIOS" << k;
 	std::ostringstream HNS2M3AIOS; HNS2M3AIOS << "h2M3_AIOS" << k;
+	std::ostringstream HNS4M1AIOS; HNS4M1AIOS << "h4M1_AIOS" << k;
+	std::ostringstream HNS4M2AIOS; HNS4M2AIOS << "h4M2_AIOS" << k;
 	std::ostringstream HNS3AIOS; HNS3AIOS << "h3_AIOS" << k;
 	std::ostringstream HNSAIOS; HNSAIOS << "h_AIOS" << k;
 	//KK
@@ -507,6 +526,8 @@ int main(int argc, char** argv) {
         h2M1_AIOS.push_back(new TH2F (HNS2M1AIOS.str().c_str(),"diTauMa",binnum23,bins23,binnum22,bins22)); h2M1_AIOS[k]->Sumw2();
         h2M2_AIOS.push_back(new TH2F (HNS2M2AIOS.str().c_str(),"diTauMa",binnum24,bins24,binnum22,bins22)); h2M2_AIOS[k]->Sumw2();
         h2M3_AIOS.push_back(new TH2F (HNS2M3AIOS.str().c_str(),"diTauMa",binnum23,bins23,binnum22,bins22)); h2M3_AIOS[k]->Sumw2();
+        h4M1_AIOS.push_back(new TH2F (HNS4M1AIOS.str().c_str(),"diTauMa",binnum23,bins23,binnum22,bins22)); h4M1_AIOS[k]->Sumw2();
+        h4M2_AIOS.push_back(new TH2F (HNS4M2AIOS.str().c_str(),"diTauMa",binnum24,bins24,binnum22,bins22)); h4M2_AIOS[k]->Sumw2();
         h3_AIOS.push_back(new TH2F (HNS3AIOS.str().c_str(),"diTauMa",binnum21,bins21,binnum22,bins22)); h3_AIOS[k]->Sumw2();
         h_AIOS.push_back(new TH1F (HNSAIOS.str().c_str(),"diTauMa",binnum0,bins0)); h_AIOS[k]->Sumw2();
         
@@ -516,6 +537,8 @@ int main(int argc, char** argv) {
 	std::ostringstream HNS2M1AISS; HNS2M1AISS << "h2M1_AISS" << k;
 	std::ostringstream HNS2M2AISS; HNS2M2AISS << "h2M2_AISS" << k;
 	std::ostringstream HNS2M3AISS; HNS2M3AISS << "h2M3_AISS" << k;
+	std::ostringstream HNS4M1AISS; HNS4M1AISS << "h4M1_AISS" << k;
+	std::ostringstream HNS4M2AISS; HNS4M2AISS << "h4M2_AISS" << k;
 	std::ostringstream HNS3AISS; HNS3AISS << "h3_AISS" << k;
 	std::ostringstream HNSAISS; HNSAISS << "h_AISS" << k;
 	//KK
@@ -532,6 +555,8 @@ int main(int argc, char** argv) {
         h2M1_AISS.push_back(new TH2F (HNS2M1AISS.str().c_str(),"diTauMa",binnum23,bins23,binnum22,bins22)); h2M1_AISS[k]->Sumw2();
         h2M2_AISS.push_back(new TH2F (HNS2M2AISS.str().c_str(),"diTauMa",binnum24,bins24,binnum22,bins22)); h2M2_AISS[k]->Sumw2();
         h2M3_AISS.push_back(new TH2F (HNS2M3AISS.str().c_str(),"diTauMa",binnum23,bins23,binnum22,bins22)); h2M3_AISS[k]->Sumw2();
+        h4M1_AISS.push_back(new TH2F (HNS4M1AISS.str().c_str(),"diTauMa",binnum23,bins23,binnum22,bins22)); h4M1_AISS[k]->Sumw2();
+        h4M2_AISS.push_back(new TH2F (HNS4M2AISS.str().c_str(),"diTauMa",binnum24,bins24,binnum22,bins22)); h4M2_AISS[k]->Sumw2();
         h3_AISS.push_back(new TH2F (HNS3AISS.str().c_str(),"diTauMa",binnum21,bins21,binnum22,bins22)); h3_AISS[k]->Sumw2();
         h_AISS.push_back(new TH1F (HNSAISS.str().c_str(),"diTauMa",binnum1,bins1)); h_AISS[k]->Sumw2();
 
@@ -972,6 +997,8 @@ int main(int argc, char** argv) {
 	      hx_boosted->Fill(var1_1,weight2*aweight);
 	      hy_boosted->Fill(var2,weight2*aweight);
 	    }
+	    h2M1_OS[k]->Fill(var1_M1,var2,weight2*aweight);
+	    h2M2_OS[k]->Fill(var1_M2,var2,weight2*aweight);
 	  }
 	  if (is_VBF && signalRegion && charge1*charge2<0) {
 	    h2_OS[k]->Fill(var1_2,var2,weight2*aweight);
@@ -985,8 +1012,8 @@ int main(int argc, char** argv) {
 	    //	    h3_OS[k]->Fill(var,weight2*aweight); //KK
 	    h3_OS[k]->Fill(var1_2,var2,weight2*aweight);
 	  if (is_2jets && signalRegion && charge1*charge2<0) {
-	    h2M1_OS[k]->Fill(var1_M1,var2,weight2*aweight);
-	    h2M2_OS[k]->Fill(var1_M2,var2,weight2*aweight);
+	    h4M1_OS[k]->Fill(var1_M1,var2,weight2*aweight);
+	    h4M2_OS[k]->Fill(var1_M2,var2,weight2*aweight);
 	  }
 	  if (signalRegion && charge1*charge2<0)
 	    h_OS[k]->Fill(var,weight2*aweight);
@@ -997,14 +1024,17 @@ int main(int argc, char** argv) {
 	    h0_SS[k]->Fill(var,weight2*aweight);
 	  if (is_boosted && signalRegion && charge1*charge2>0)
 	    h1_SS[k]->Fill(var1_1,var2,weight2*aweight);
-	  if (is_VBF && signalRegion && charge1*charge2>0)
+	  if (is_VBF && signalRegion && charge1*charge2>0) {
 	    h2_SS[k]->Fill(var1_2,var2,weight2*aweight);
+	    h2M1_OS[k]->Fill(var1_M1,var2,weight2*aweight);
+	    h2M2_OS[k]->Fill(var1_M2,var2,weight2*aweight);
+	  }
 	  if (is_VH && signalRegion && charge1*charge2>0)
 	    //	    h3_SS[k]->Fill(var,weight2*aweight); //KK
 	    h3_SS[k]->Fill(var1_2,var2,weight2*aweight); 
 	  if (is_2jets && signalRegion && charge1*charge2>0) {
-	    h2M1_OS[k]->Fill(var1_M1,var2,weight2*aweight);
-	    h2M2_OS[k]->Fill(var1_M2,var2,weight2*aweight);
+	    h4M1_OS[k]->Fill(var1_M1,var2,weight2*aweight);
+	    h4M2_OS[k]->Fill(var1_M2,var2,weight2*aweight);
 	  }
 	  if (signalRegion && charge1*charge2>0)
 	    h_SS[k]->Fill(var,weight2*aweight);
@@ -1033,14 +1063,17 @@ int main(int argc, char** argv) {
 	    h0_AISS[k]->Fill(var,weight2*aweight);
 	  if (is_boosted && charge1*charge2>0 && aiRegion)
 	    h1_AISS[k]->Fill(var1_1,var2,weight2*aweight);
-	  if (is_VBF && charge1*charge2>0 && aiRegion) 
+	  if (is_VBF && charge1*charge2>0 && aiRegion) {
 	    h2_AISS[k]->Fill(var1_2,var2,weight2*aweight);
+	    h2M1_OS[k]->Fill(var1_M1,var2,weight2*aweight);
+	    h2M2_OS[k]->Fill(var1_M2,var2,weight2*aweight);
+	  }
 	  if (is_VH && charge1*charge2>0 && aiRegion)
 	    //	    h3_AISS[k]->Fill(var,weight2*aweight);
 	    h3_AISS[k]->Fill(var1_2,var2,weight2*aweight);
 	  if (is_2jets && aiRegion && charge1*charge2>0) {
-	    h2M1_OS[k]->Fill(var1_M1,var2,weight2*aweight);
-	    h2M2_OS[k]->Fill(var1_M2,var2,weight2*aweight);
+	    h4M1_OS[k]->Fill(var1_M1,var2,weight2*aweight);
+	    h4M2_OS[k]->Fill(var1_M2,var2,weight2*aweight);
 	  }
 	  if (charge1*charge2>0 && aiRegion)
 	    h_AISS[k]->Fill(var,weight2*aweight);	  
@@ -1055,11 +1088,11 @@ int main(int argc, char** argv) {
 	  if (gen_match_1==6 && gen_match_2==6) h_trgSF_FF[k]->Fill(sf_trgDK_FF);
 
 
-	  // ################### MELA ####################
-	  if (is_2jets && signalRegion && charge1*charge2<0){
-	    h_MELA_VBF[k]->Fill(Dbkg_VBF);
-	    h_MELA_ggH[k]->Fill(Dbkg_ggH);
-	  }
+	  // ################### pure MELA ####################
+	  //if (is_2jets && signalRegion && charge1*charge2<0){
+	  h_MELA_VBF[k]->Fill(var1_M1);
+	  h_MELA_ggH[k]->Fill(var1_M2);
+	  //}
 	}
       }
     } // end of loop over events
@@ -1178,12 +1211,17 @@ int main(int argc, char** argv) {
         OSvbf_tt->cd();
         h2_OS[k]->SetName(name.c_str()+postfix);
         h2_OS[k]->Write();        
-	h2M1_OS[k]->SetName(name.c_str()+postfix+"_MELA_VBF");
+	h2M1_OS[k]->SetName(name.c_str()+postfix+"_Dbkg_VBF");
         h2M1_OS[k]->Write();
-        h2M2_OS[k]->SetName(name.c_str()+postfix+"_MELA_ggH");
+        h2M2_OS[k]->SetName(name.c_str()+postfix+"_Dbkg_ggH");
         h2M2_OS[k]->Write();
         h2M3_OS[k]->SetName(name.c_str()+postfix+"_MELA_bkg");
         h2M3_OS[k]->Write();
+	OS2jets_tt->cd();
+	h4M1_OS[k]->SetName(name.c_str()+postfix+"_Dbkg_VBF");
+        h4M1_OS[k]->Write();
+        h4M2_OS[k]->SetName(name.c_str()+postfix+"_Dbkg_ggH");
+        h4M2_OS[k]->Write();
 
         
         OS0jet->cd();
@@ -1195,12 +1233,17 @@ int main(int argc, char** argv) {
         OSvbf->cd();
         h2_OS[k]->SetName(name.c_str()+postfix);
         h2_OS[k]->Write();
-	h2M1_OS[k]->SetName(name.c_str()+postfix+"_MELA_VBF");
+	h2M1_OS[k]->SetName(name.c_str()+postfix+"_Dbkg_VBF");
         h2M1_OS[k]->Write();
-        h2M2_OS[k]->SetName(name.c_str()+postfix+"_MELA_ggH");
+        h2M2_OS[k]->SetName(name.c_str()+postfix+"_Dbkg_ggH");
         h2M2_OS[k]->Write();
         h2M3_OS[k]->SetName(name.c_str()+postfix+"_MELA_bkg");
         h2M3_OS[k]->Write();
+	OS2jets->cd();
+	h4M1_OS[k]->SetName(name.c_str()+postfix+"_Dbkg_VBF");
+        h4M1_OS[k]->Write();
+        h4M2_OS[k]->SetName(name.c_str()+postfix+"_Dbkg_ggH");
+        h4M2_OS[k]->Write();
 	OSvh->cd();
         h3_OS[k]->SetName(name.c_str()+postfix);
         h3_OS[k]->Write();
@@ -1227,12 +1270,17 @@ int main(int argc, char** argv) {
         SSvbf->cd();
         h2_SS[k]->SetName(name.c_str()+postfix);
         h2_SS[k]->Write();
-        h2M1_SS[k]->SetName(name.c_str()+postfix+"_MELA_VBF");
+        h2M1_SS[k]->SetName(name.c_str()+postfix+"_Dbkg_VBF");
         h2M1_SS[k]->Write();
-        h2M2_SS[k]->SetName(name.c_str()+postfix+"_MELA_ggH");
+        h2M2_SS[k]->SetName(name.c_str()+postfix+"_Dbkg_ggH");
         h2M2_SS[k]->Write();
         h2M3_SS[k]->SetName(name.c_str()+postfix+"_MELA_bkg");
         h2M3_SS[k]->Write();
+	SS2jets->cd();
+        h4M1_SS[k]->SetName(name.c_str()+postfix+"_Dbkg_VBF");
+        h4M1_SS[k]->Write();
+        h4M2_SS[k]->SetName(name.c_str()+postfix+"_Dbkg_ggH");
+        h4M2_SS[k]->Write();
         SSvh->cd();
         h3_SS[k]->SetName(name.c_str()+postfix);
         h3_SS[k]->Write();
@@ -1249,12 +1297,17 @@ int main(int argc, char** argv) {
         AIOSvbf->cd();
         h2_AIOS[k]->SetName(name.c_str()+postfix);
         h2_AIOS[k]->Write();
-        h2M1_AIOS[k]->SetName(name.c_str()+postfix+"_MELA_VBF");
+        h2M1_AIOS[k]->SetName(name.c_str()+postfix+"_Dbkg_VBF");
         h2M1_AIOS[k]->Write();
-        h2M2_AIOS[k]->SetName(name.c_str()+postfix+"_MELA_ggH");
+        h2M2_AIOS[k]->SetName(name.c_str()+postfix+"_Dbkg_ggH");
         h2M2_AIOS[k]->Write();
         h2M3_AIOS[k]->SetName(name.c_str()+postfix+"_MELA_bkg");
         h2M3_AIOS[k]->Write();
+	AIOS2jets->cd();
+        h4M1_AIOS[k]->SetName(name.c_str()+postfix+"_Dbkg_VBF");
+        h4M1_AIOS[k]->Write();
+        h4M2_AIOS[k]->SetName(name.c_str()+postfix+"_Dbkg_ggH");
+        h4M2_AIOS[k]->Write();
         AIOSvh->cd();
         h3_AIOS[k]->SetName(name.c_str()+postfix);
         h3_AIOS[k]->Write();
@@ -1271,12 +1324,17 @@ int main(int argc, char** argv) {
         AISSvbf->cd();
         h2_AISS[k]->SetName(name.c_str()+postfix);
         h2_AISS[k]->Write();
-	h2M1_AISS[k]->SetName(name.c_str()+postfix+"_MELA_VBF");
+	h2M1_AISS[k]->SetName(name.c_str()+postfix+"_Dbkg_VBF");
         h2M1_AISS[k]->Write();
-	h2M2_AISS[k]->SetName(name.c_str()+postfix+"_MELA_ggH");
+	h2M2_AISS[k]->SetName(name.c_str()+postfix+"_Dbkg_ggH");
         h2M2_AISS[k]->Write();
 	h2M3_AISS[k]->SetName(name.c_str()+postfix+"_MELA_bkg");
         h2M3_AISS[k]->Write();
+	AISS2jets->cd();
+	h4M1_AISS[k]->SetName(name.c_str()+postfix+"_Dbkg_VBF");
+        h4M1_AISS[k]->Write();
+	h4M2_AISS[k]->SetName(name.c_str()+postfix+"_Dbkg_ggH");
+        h4M2_AISS[k]->Write();
         AISSvh->cd();
         h3_AISS[k]->SetName(name.c_str()+postfix);
         h3_AISS[k]->Write();
