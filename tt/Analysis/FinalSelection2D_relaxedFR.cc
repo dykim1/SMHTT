@@ -305,12 +305,12 @@ int main(int argc, char** argv) {
     float bins22[] = {0,40,60,70,80,90,100,110,120,130,150,200,250};
 
     // D.kim : Binning for 2jet cat(MELA): Dbkg_VBF
-    float bins23[] = {0.00,0.30,0.60,0.90,1.00};
-    //float bins23[] = {0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0};
+    //float bins23[] = {0.00,0.30,0.60,0.90,1.00};
+    float bins23[] = {0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0};
 
     // D.kim : Binning for 2jet cat(MELA): Dbkg_ggH
-    //float bins24[] = {0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0};//
-    float bins24[] = {0.0,0.4,0.7,0.8,0.9,0.95,0.975,1.0};
+    float bins24[] = {0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0};//
+    //float bins24[] = {0.0,0.4,0.7,0.8,0.9,0.95,0.975,1.0};
     
     //float bins1[] = {0,50,100,150,200,250,300,350,400,450,500};//,550,600,650,700,750,800,850,900,950,1000,1050}; //fig50 H pT
     //float bins0[] = {0,80,160,240,320,400,480,560,640,720,800,880,960,1040,1120,1200,1280,1360};
@@ -997,8 +997,6 @@ int main(int argc, char** argv) {
 	      hx_boosted->Fill(var1_1,weight2*aweight);
 	      hy_boosted->Fill(var2,weight2*aweight);
 	    }
-	    h2M1_OS[k]->Fill(var1_M1,var2,weight2*aweight);
-	    h2M2_OS[k]->Fill(var1_M2,var2,weight2*aweight);
 	  }
 	  if (is_VBF && signalRegion && charge1*charge2<0) {
 	    h2_OS[k]->Fill(var1_2,var2,weight2*aweight);
@@ -1007,6 +1005,8 @@ int main(int argc, char** argv) {
 	      hx_vbf->Fill(var1_2,weight2*aweight);
 	      hy_vbf->Fill(var2,weight2*aweight);
 	    }
+	    h2M1_OS[k]->Fill(var1_M1,var2,weight2*aweight);
+	    h2M2_OS[k]->Fill(var1_M2,var2,weight2*aweight);
 	  }
 	  if (is_VH && signalRegion && charge1*charge2<0)
 	    //	    h3_OS[k]->Fill(var,weight2*aweight); //KK
@@ -1026,15 +1026,15 @@ int main(int argc, char** argv) {
 	    h1_SS[k]->Fill(var1_1,var2,weight2*aweight);
 	  if (is_VBF && signalRegion && charge1*charge2>0) {
 	    h2_SS[k]->Fill(var1_2,var2,weight2*aweight);
-	    h2M1_OS[k]->Fill(var1_M1,var2,weight2*aweight);
-	    h2M2_OS[k]->Fill(var1_M2,var2,weight2*aweight);
+	    h2M1_SS[k]->Fill(var1_M1,var2,weight2*aweight);
+	    h2M2_SS[k]->Fill(var1_M2,var2,weight2*aweight);
 	  }
 	  if (is_VH && signalRegion && charge1*charge2>0)
 	    //	    h3_SS[k]->Fill(var,weight2*aweight); //KK
 	    h3_SS[k]->Fill(var1_2,var2,weight2*aweight); 
 	  if (is_2jets && signalRegion && charge1*charge2>0) {
-	    h4M1_OS[k]->Fill(var1_M1,var2,weight2*aweight);
-	    h4M2_OS[k]->Fill(var1_M2,var2,weight2*aweight);
+	    h4M1_SS[k]->Fill(var1_M1,var2,weight2*aweight);
+	    h4M2_SS[k]->Fill(var1_M2,var2,weight2*aweight);
 	  }
 	  if (signalRegion && charge1*charge2>0)
 	    h_SS[k]->Fill(var,weight2*aweight);
@@ -1045,14 +1045,17 @@ int main(int argc, char** argv) {
 	    h0_AIOS[k]->Fill(var,weight2*aweight);
 	  if (is_boosted && charge1*charge2<0 && aiRegion)
 	    h1_AIOS[k]->Fill(var1_1,var2,weight2*aweight);
-	  if (is_VBF && charge1*charge2<0 && aiRegion)
+	  if (is_VBF && charge1*charge2<0 && aiRegion) {
 	    h2_AIOS[k]->Fill(var1_2,var2,weight2*aweight);
+	    h2M1_AIOS[k]->Fill(var1_M1,var2,weight2*aweight);
+	    h2M2_AIOS[k]->Fill(var1_M2,var2,weight2*aweight);
+	  }
 	  if (is_VH && charge1*charge2<0 && aiRegion)
 	    //	    h3_AIOS[k]->Fill(var,weight2*aweight);//KK
 	    h3_AIOS[k]->Fill(var1_2,var2,weight2*aweight);
 	  if (is_2jets && aiRegion && charge1*charge2<0) {
-	    h2M1_OS[k]->Fill(var1_M1,var2,weight2*aweight);
-	    h2M2_OS[k]->Fill(var1_M2,var2,weight2*aweight);
+	    h4M1_AIOS[k]->Fill(var1_M1,var2,weight2*aweight);
+	    h4M2_AIOS[k]->Fill(var1_M2,var2,weight2*aweight);
 	  }
 	  if (charge1*charge2<0 && aiRegion)
 	    h_AIOS[k]->Fill(var,weight2*aweight);
@@ -1065,15 +1068,15 @@ int main(int argc, char** argv) {
 	    h1_AISS[k]->Fill(var1_1,var2,weight2*aweight);
 	  if (is_VBF && charge1*charge2>0 && aiRegion) {
 	    h2_AISS[k]->Fill(var1_2,var2,weight2*aweight);
-	    h2M1_OS[k]->Fill(var1_M1,var2,weight2*aweight);
-	    h2M2_OS[k]->Fill(var1_M2,var2,weight2*aweight);
+	    h2M1_AISS[k]->Fill(var1_M1,var2,weight2*aweight);
+	    h2M2_AISS[k]->Fill(var1_M2,var2,weight2*aweight);
 	  }
 	  if (is_VH && charge1*charge2>0 && aiRegion)
 	    //	    h3_AISS[k]->Fill(var,weight2*aweight);
 	    h3_AISS[k]->Fill(var1_2,var2,weight2*aweight);
 	  if (is_2jets && aiRegion && charge1*charge2>0) {
-	    h4M1_OS[k]->Fill(var1_M1,var2,weight2*aweight);
-	    h4M2_OS[k]->Fill(var1_M2,var2,weight2*aweight);
+	    h4M1_AISS[k]->Fill(var1_M1,var2,weight2*aweight);
+	    h4M2_AISS[k]->Fill(var1_M2,var2,weight2*aweight);
 	  }
 	  if (charge1*charge2>0 && aiRegion)
 	    h_AISS[k]->Fill(var,weight2*aweight);	  
