@@ -343,23 +343,23 @@
  hadd -f files_nominal//ZJ_zmmu.root files_nominal//ZJ0_zmmu.root files_nominal//ZJ1_zmmu.root files_nominal//ZJ2_zmmu.root files_nominal//ZJ3_zmmu.root files_nominal//ZJ4_zmmu.root
  hadd -f files_nominal//EWKZ_zmmu.root files_nominal//EWKZ2l_zmmu.root files_nominal//EWKZ2nu_zmmu.root
 
- ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY.root files_nominal//ZTT0_zmmd.root ZTT ZTT 13
- ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY1.root files_nominal//ZTT1_zmmd.root ZTT ZTT 13
- ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY2.root files_nominal//ZTT2_zmmd.root ZTT ZTT 13
- ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY3.root files_nominal//ZTT3_zmmd.root ZTT ZTT 13
- ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY4.root files_nominal//ZTT4_zmmd.root ZTT ZTT 13
- ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY.root files_nominal//ZL0_zmmd.root ZL ZL 13
- ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY1.root files_nominal//ZL1_zmmd.root ZL ZL 13
- ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY2.root files_nominal//ZL2_zmmd.root ZL ZL 13
- ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY3.root files_nominal//ZL3_zmmd.root ZL ZL 13
- ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY4.root files_nominal//ZL4_zmmd.root ZL  ZL 13
- ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY.root files_nominal//ZJ0_zmmd.root ZJ ZJ 13
- ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY1.root files_nominal//ZJ1_zmmd.root ZJ ZJ 13
- ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY2.root files_nominal//ZJ2_zmmd.root ZJ ZJ 13
- ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY3.root files_nominal//ZJ3_zmmd.root ZJ ZJ 13
- ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY4.root files_nominal//ZJ4_zmmd.root ZJ ZJ 13
- ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//EWKZ2l.root files_nominal//EWKZ2l_zmmd.root EWKZLL EWKZ 13
- ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//EWKZ2nu.root files_nominal//EWKZ2nu_zmmd.root EWKZNuNu EWKZ 13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY.root files_nominal//ZTT0_zmmd.root ZTT ZTT -13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY1.root files_nominal//ZTT1_zmmd.root ZTT ZTT -13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY2.root files_nominal//ZTT2_zmmd.root ZTT ZTT -13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY3.root files_nominal//ZTT3_zmmd.root ZTT ZTT -13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY4.root files_nominal//ZTT4_zmmd.root ZTT ZTT -13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY.root files_nominal//ZL0_zmmd.root ZL ZL -13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY1.root files_nominal//ZL1_zmmd.root ZL ZL -13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY2.root files_nominal//ZL2_zmmd.root ZL ZL -13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY3.root files_nominal//ZL3_zmmd.root ZL ZL -13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY4.root files_nominal//ZL4_zmmd.root ZL  ZL -13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY.root files_nominal//ZJ0_zmmd.root ZJ ZJ -13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY1.root files_nominal//ZJ1_zmmd.root ZJ ZJ -13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY2.root files_nominal//ZJ2_zmmd.root ZJ ZJ -13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY3.root files_nominal//ZJ3_zmmd.root ZJ ZJ -13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY4.root files_nominal//ZJ4_zmmd.root ZJ ZJ -13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//EWKZ2l.root files_nominal//EWKZ2l_zmmd.root EWKZLL EWKZ -13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//EWKZ2nu.root files_nominal//EWKZ2nu_zmmd.root EWKZNuNu EWKZ -13
  hadd -f files_nominal//ZTT_zmmd.root files_nominal//ZTT0_zmmd.root files_nominal//ZTT1_zmmd.root files_nominal//ZTT2_zmmd.root files_nominal//ZTT3_zmmd.root files_nominal//ZTT4_zmmd.root
  hadd -f files_nominal//ZL_zmmd.root files_nominal//ZL0_zmmd.root files_nominal//ZL1_zmmd.root files_nominal//ZL2_zmmd.root files_nominal//ZL3_zmmd.root files_nominal//ZL4_zmmd.root
  hadd -f files_nominal//ZJ_zmmd.root files_nominal//ZJ0_zmmd.root files_nominal//ZJ1_zmmd.root files_nominal//ZJ2_zmmd.root files_nominal//ZJ3_zmmd.root files_nominal//ZJ4_zmmd.root
