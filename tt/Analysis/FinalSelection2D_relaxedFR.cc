@@ -346,6 +346,13 @@ int main(int argc, char** argv) {
     TH1F* hy_vbf = new TH1F ("hy_vbf", "hy_vbf", binnum22, bins22); hy_vbf->Sumw2();
 
     // Categories
+    TH1F* h_0jet = new TH1F ("h_0jet", "h_0jet", binnum0, bins0); h_0jet->Sumw2();
+    TH1F* hx_boosted = new TH1F ("hx_boosted", "hx_boosted", binnum11, bins11); hx_boosted->Sumw2();
+    TH1F* hy_boosted = new TH1F ("hy_boosted", "hy_boosted", binnum12, bins12); hy_boosted->Sumw2();
+    TH1F* hx_vbf = new TH1F ("hx_vbf", "hx_vbf", binnum21, bins21); hx_vbf->Sumw2();
+    TH1F* hy_vbf = new TH1F ("hy_vbf", "hy_vbf", binnum22, bins22); hy_vbf->Sumw2();
+
+    // Categories
     //TH1F* ojet = new TH1F ("ojet", "ojet", 100, -0.10, 0.10); ojet->Sumw2();
     //TH1F* boosted = new TH1F ("boosted", "boosted", 100, -0.10, 0.10); boosted->Sumw2();
     //TH1F* vbf = new TH1F ("vbf", "vbf", 100, -0.10, 0.10); vbf->Sumw2();
@@ -560,6 +567,7 @@ int main(int argc, char** argv) {
         h3_AISS.push_back(new TH2F (HNS3AISS.str().c_str(),"diTauMa",binnum21,bins21,binnum22,bins22)); h3_AISS[k]->Sumw2();
         h_AISS.push_back(new TH1F (HNSAISS.str().c_str(),"diTauMa",binnum1,bins1)); h_AISS[k]->Sumw2();
 
+
 	// D.Kim trgSF
 	std::ostringstream HTRGSF1; HTRGSF1 << "h_trgSF1" << k;
 	std::ostringstream HTRGSF2; HTRGSF2 << "h_trgSF2" << k;
@@ -567,8 +575,9 @@ int main(int argc, char** argv) {
 	std::ostringstream HTRGSFFR; HTRGSFFR << "h_trgSF_FR" << k;
 	std::ostringstream HTRGSFRF; HTRGSFRF << "h_trgSF_RF" << k;
 	std::ostringstream HTRGSFFF; HTRGSFFF << "h_trgSF_FF" << k;
-	h_trgSF1.push_back(new TH1F (HTRGSF1.str().c_str(),"trgSF1", 80,1.00,1.10)); h_trgSF1[k]->Sumw2();
-	h_trgSF2.push_back(new TH1F (HTRGSF2.str().c_str(),"trgSF2", 80,0.97,1.15)); h_trgSF2[k]->Sumw2();
+
+	h_trgSF1.push_back(new TH1F (HTRGSF1.str().c_str(),"trfSF1", 80,1.00,1.10)); h_trgSF1[k]->Sumw2();
+	h_trgSF2.push_back(new TH1F (HTRGSF2.str().c_str(),"trfSF2", 80,0.97,1.15)); h_trgSF2[k]->Sumw2();
 	h_trgSF_RR.push_back(new TH1F (HTRGSFRR.str().c_str(),"trgSF_RR", 100,0.9,1.5)); h_trgSF_RR[k]->Sumw2();
 	h_trgSF_FR.push_back(new TH1F (HTRGSFFR.str().c_str(),"trgSF_FR", 100,0.9,1.5)); h_trgSF_FR[k]->Sumw2();
 	h_trgSF_RF.push_back(new TH1F (HTRGSFRF.str().c_str(),"trgSF_RF", 100,0.9,1.5)); h_trgSF_RF[k]->Sumw2();
@@ -996,8 +1005,7 @@ int main(int argc, char** argv) {
 	//	if(njets>=2 && mjj < 300) is_VH=true;
 	//	if(njets==1 || (njets>=2 && mjj > 300 && Higgs.Pt()<100)) is_boosted=true;
         
-	//std::cout << "-------" << is_0jet << is_boosted << is_VBF << is_VH << std::endl;
-        
+	//std::cout << "-------" << is_0jet << is_boosted << is_VBF << is_VH << std::endl;        
 	//************************* Fill histograms **********************
 	
         //            float var = Higgs.Pt(); //Variable to plot
@@ -1026,6 +1034,7 @@ int main(int argc, char** argv) {
 	      h_0jet->Fill(var,weight2*aweight);
 	  }
 	  if (is_boosted && signalRegion && charge1*charge2<0){
+	    //	    h1_OS[k]->Fill(var,weight2*aweight); //KK
 	    h1_OS[k]->Fill(var1_1,var2,weight2*aweight);
 	    //KK
 	    if (tes==0){
@@ -1290,8 +1299,7 @@ int main(int argc, char** argv) {
         h_OS[k]->SetName(name.c_str()+postfix);
         h_OS[k]->Write();
 
-
-
+      
 	//KK
         OScat->cd();
 	h_0jet->Write();
