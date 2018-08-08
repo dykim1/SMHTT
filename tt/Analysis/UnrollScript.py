@@ -7,8 +7,9 @@ from ROOT import TH1F
 finKSU = ROOT.TFile("final_nominal.root","")
 finOFF = ROOT.TFile("../../officialDatacards/htt_input.root","")
 fout = ROOT.TFile("testUnroll.root","recreate")
-dic_cat = {'ttOS_0jet':'htt_tt_1_13TeV', 'ttOS_boosted':'htt_tt_2_13TeV', 'ttOS_vbf':'htt_tt_3_13TeV'}
+dic_cat = {'tt_0jet':'htt_tt_1_13TeV', 'tt_boosted':'htt_tt_2_13TeV', 'tt_vbf':'htt_tt_3_13TeV'}
 dic_sig = {'VBF125':'qqH_htt125', 'WH125':'WH_htt125','ggH125':'ggH_htt125','ZH125':'ZH_htt125'}
+dic_bkg = ['data_obs', 'ZTT', 'ZJ', 'ZL', 'TTT', 'TTJ', 'VVT', 'VVJ', 'W', 'EWKZ']
 #dic_sig = {'VBF125':'qqH125', 'WH125':'WH125','ggH125':'ggH125','ZH125':'ZH125'}
 c=ROOT.TCanvas("canvas","",0,0,600,600)
 
@@ -25,7 +26,7 @@ for key in finKSU.GetListOfKeys():
 
             # open histogram in official datacard
             finOFF.cd()
-            if histName=='SMH':
+            if histName not in (dic_bkg or dic_sig.keys()):
                 continue
             if histName in dic_sig.keys():
                 #print 'histName, dic_sig[histName]:',histName, dic_sig[histName]

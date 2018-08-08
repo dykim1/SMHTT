@@ -782,6 +782,7 @@ int main(int argc, char** argv) {
 	  aweight=aweight*(1+0.90*(zpt_corr-1));
       }
       
+
       //  Top pT reweighting for ttbar events
       float pttop1=pt_top1;
       if (pttop1>400) pttop1=400;
@@ -956,6 +957,40 @@ int main(int argc, char** argv) {
 	if (njets==1 || (njets>=2 && (!(Higgs.Pt()>100 && std::abs(myjet1.Eta()-myjet2.Eta())>2.5)))) is_boosted=true; 
 	if (njets>=2 && Higgs.Pt()>100 && std::abs(myjet1.Eta()-myjet2.Eta())>2.5) is_VBF=true;
 	if (njets==2) is_2jets=true;
+
+	// Z mumu SF 
+	// https://github.com/truggles/Z_to_TauTau_13TeV/blob/SM-HTT-2016/analysis2IsoJetsAndDups.py#L1193-L1211
+	// https://github.com/truggles/Z_to_TauTau_13TeV/blob/SM-HTT-2016/analysisPlots.py#L293-L312
+	if (is_boosted && (sample=="DY" || sample=="ZTT" || sample=="ZLL" || sample=="ZL" || sample=="ZJ" || sample=="EWKZLL" || sample=="EWKZNuNu")) {
+	  float zmumusf = 1.00;
+	  if (pt_sv<=100) zmumusf = 0.973;
+	  else if (pt_sv<=170) zmumusf = 0.959;
+	  else if (pt_sv<=300) zmumusf = 0.934;
+	  else zmumusf = 0.993;
+	  if (std::abs(tes)!=13) //nominal 
+	    aweight*=zmumusf;
+	  zmumusf-=1.0;
+	  if (tes==13) // up 
+	    aweight*=((1.0+2*zmumusf)/(1.0+zmumusf));
+	  else if (tes==-13) // down  
+	    aweight*=(1.0/(1.0+zmumusf));
+	}
+	if (is_VBF && (sample=="DY" || sample=="ZTT" || sample=="ZLL" || sample=="ZL" || sample=="ZJ" || sample=="EWKZLL" || sample=="EWKZNuNu")) {
+	  float zmumusf = 1.00;
+	  if (mjj<=300) zmumusf = (0.010/2.0)+1.0;
+	  else if (mjj<=500) zmumusf = (0.064/2.0)+1.0;
+	  else if (mjj<=800) zmumusf = (0.088/2.0)+1.0;
+	  else zmumusf = (0.003/2.0)+1.0;
+	  if (std::abs(tes)!=13) //nominal 
+	    aweight*=zmumusf;
+	  zmumusf-=1.0;//((-1.0+zmumusf)/2.0);
+	  if (tes==13) // up 
+	    aweight*=((1.0+2*zmumusf)/(1.0+zmumusf));
+	  else if (tes==-13) // down  
+	    aweight*=(1.0/(1.0+zmumusf));
+	}
+
+
 	//KK: For some studies
 	//	if(njets>=2 && Higgs.Pt()>100 && mjj > 300) is_VBF=true;
 	//	if(njets>=2 && mjj < 300) is_VH=true;
@@ -1176,8 +1211,9 @@ int main(int argc, char** argv) {
         if (tes==18) postfix=postfixZLnorm[k];
         if (tes==19) postfix=postfixFakeDM[k];
         if (tes==1000) postfix=postfixWG1[k];
+	if (tes==13)  postfix="_CMS_htt_zmumuShape_VBF_13TeVUp";        
+	if (tes==-13) postfix="_CMS_htt_zmumuShape_VBF_13TeVDown";
 
-        
         
 //        TDirectory *OS0jet_tt =fout->mkdir("tt_0jet");
 //        TDirectory *OSboosted_tt =fout->mkdir("tt_boosted");
