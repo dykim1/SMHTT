@@ -9,7 +9,7 @@ finOFF = ROOT.TFile("../../officialDatacards/htt_input.root","")
 fout = ROOT.TFile("testUnroll.root","recreate")
 dic_cat = {'tt_0jet':'htt_tt_1_13TeV', 'tt_boosted':'htt_tt_2_13TeV', 'tt_vbf':'htt_tt_3_13TeV'}
 dic_sig = {'VBF125':'qqH_htt125', 'WH125':'WH_htt125','ggH125':'ggH_htt125','ZH125':'ZH_htt125'}
-dic_bkg = ['data_obs', 'ZTT', 'ZJ', 'ZL', 'TTT', 'TTJ', 'VVT', 'VVJ', 'W', 'EWKZ']
+dic_bkg = ['data_obs', 'ZTT', 'ZJ', 'ZL', 'TTT', 'TTJ', 'VVT', 'VVJ', 'W', 'EWKZ','QCD']
 #dic_sig = {'VBF125':'qqH125', 'WH125':'WH125','ggH125':'ggH125','ZH125':'ZH125'}
 c=ROOT.TCanvas("canvas","",0,0,600,600)
 
@@ -18,6 +18,7 @@ for key in finKSU.GetListOfKeys():
     tdirName = key.GetName()
     if tdirName in dic_cat.keys():
         #print tdirName
+        print '#################################################  ', tdirName, '  #################################################\n'
         for histK in finKSU.Get(tdirName).GetListOfKeys():
             histName = histK.GetName()
             hist = finKSU.Get(tdirName).Get(histName)
@@ -26,7 +27,7 @@ for key in finKSU.GetListOfKeys():
 
             # open histogram in official datacard
             finOFF.cd()
-            if histName not in (dic_bkg or dic_sig.keys()):
+            if ((histName not in dic_bkg) and (histName not in dic_sig.keys())):
                 continue
             if histName in dic_sig.keys():
                 #print 'histName, dic_sig[histName]:',histName, dic_sig[histName]
