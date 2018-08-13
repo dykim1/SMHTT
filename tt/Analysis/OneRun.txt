@@ -40,7 +40,6 @@
 
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ1l1nu2q.root files_nominal//WZ1l1nu2q_T.root WZ1L1Nu2Q VVT 0
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ1l3nu.root files_nominal//WZ1l3nu_T.root WZ1L3Nu VVT 0
- ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ1l1nu2q.root files_nominal//WZ1l1nu2q_T.root WZJets VVT 0
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ3l1nu.root files_nominal//WZ3l1nu_T.root WZLLLNu VVT 0
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ2l2q.root files_nominal//WZ2l2q_T.root WZ2L2Q VVT 0
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WW1l1nu2q.root files_nominal//WW1l1nu2q_T.root WW1L1Nu2Q VVT 0 
@@ -54,7 +53,6 @@
 
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ1l1nu2q.root files_nominal//WZ1l1nu2q_J.root WZ1L1Nu2Q VVJ 0
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ1l3nu.root files_nominal//WZ1l3nu_J.root WZ1L3Nu VVJ 0
- ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ1l1nu2q.root files_nominal//WZ1l1nu2q_J.root WZJets VVJ 0
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ3l1nu.root files_nominal//WZ3l1nu_J.root WZLLLNu VVJ 0
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ2l2q.root files_nominal//WZ2l2q_J.root WZ2L2Q VVJ 0
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WW1l1nu2q.root files_nominal//WW1l1nu2q_J.root WW1L1Nu2Q VVJ 0 
@@ -186,7 +184,6 @@
 
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ1l1nu2q.root files_nominal//WZ1l1nu2q_J_jfup.root WZ1L1Nu2Q VVJ 14
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ1l3nu.root files_nominal//WZ1l3nu_J_jfup.root WZ1L3Nu VVJ 14
- ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ1l1nu2q.root files_nominal//WZ1l1nu2q_J_jfup.root WZJets VVJ 14
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ3l1nu.root files_nominal//WZ3l1nu_J_jfup.root WZLLLNu VVJ 14
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ2l2q.root files_nominal//WZ2l2q_J_jfup.root WZ2L2Q VVJ 14
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WW1l1nu2q.root files_nominal//WW1l1nu2q_J_jfup.root WW1L1Nu2Q VVJ 14
@@ -201,7 +198,6 @@
 
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ1l1nu2q.root files_nominal//WZ1l1nu2q_J_jfdown.root WZ1L1Nu2Q VVJ -14
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ1l3nu.root files_nominal//WZ1l3nu_J_jfdown.root WZ1L3Nu VVJ -14
- ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ1l1nu2q.root files_nominal//WZ1l1nu2q_J_jfdown.root WZJets VVJ -14
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ3l1nu.root files_nominal//WZ3l1nu_J_jfdown.root WZLLLNu VVJ -14
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ2l2q.root files_nominal//WZ2l2q_J_jfdown.root WZ2L2Q VVJ -14
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WW1l1nu2q.root files_nominal//WW1l1nu2q_J_jfdown.root WW1L1Nu2Q VVJ -14
@@ -269,7 +265,6 @@
 
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ1l1nu2q.root files_nominal//WZ1l1nu2q_T_tes.root WZ1L1Nu2Q VVT 1
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ1l3nu.root files_nominal//WZ1l3nu_T_tes.root WZ1L3Nu VVT 1
- ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ1l1nu2q.root files_nominal//WZ1l1nu2q_T_tes.root WZJets VVT 1
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ3l1nu.root files_nominal//WZ3l1nu_T_tes.root WZLLLNu VVT 1
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ2l2q.root files_nominal//WZ2l2q_T_tes.root WZ2L2Q VVT 1
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WW1l1nu2q.root files_nominal//WW1l1nu2q_T_tes.root WW1L1Nu2Q VVT 1
@@ -284,7 +279,6 @@
 
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ1l1nu2q.root files_nominal//WZ1l1nu2q_J_tes.root WZ1L1Nu2Q VVJ 1
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ1l3nu.root files_nominal//WZ1l3nu_J_tes.root WZ1L3Nu VVJ 1
- ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ1l1nu2q.root files_nominal//WZ1l1nu2q_J_tes.root WZJets VVJ 1
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ3l1nu.root files_nominal//WZ3l1nu_J_tes.root WZLLLNu VVJ 1
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ2l2q.root files_nominal//WZ2l2q_J_tes.root WZ2L2Q VVJ 1
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WW1l1nu2q.root files_nominal//WW1l1nu2q_J_tes.root WW1L1Nu2Q VVJ 1
@@ -306,6 +300,11 @@
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//EWKWPlus.root files_nominal//EWKWPlus_tes.root EWKWplus W 1
  hadd -f files_nominal//WJets_tes.root files_nominal//W0_tes.root files_nominal//W1_tes.root files_nominal//W2_tes.root files_nominal//W3_tes.root files_nominal//W4_tes.root files_nominal//EWKWMinus_tes.root files_nominal//EWKWPlus_tes.root
 
+
+###################################
+####### Uncertainties WG1  ########
+###################################
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//ggH125.root files_nominal//ggH125_wg1.root ggH125 ggH125 1000
 
 ###################################
 ####### Uncertainties JES  ########
@@ -376,7 +375,7 @@
 ####### hadd final_nominal.root  ########
 #########################################
 
- hadd -f final_nominal.root files_nominal//data.root files_nominal//SMH.root files_nominal//ZTT.root files_nominal//ZJ.root files_nominal//ZL.root files_nominal//TTT.root files_nominal//TTJ.root  files_nominal//VVT.root files_nominal//VVJ.root files_nominal//WJets.root files_nominal//EWKZ.root files_nominal//QCD.root files_nominal//ggH125.root files_nominal//VBF125.root files_nominal//WH125.root files_nominal//ZH125.root files_nominal//ZTT_zptdown.root files_nominal//ZTT_zptup.root files_nominal//ZL_zptdown.root files_nominal//ZL_zptup.root files_nominal//ZJ_zptdown.root files_nominal//ZJ_zptup.root files_nominal//WJets_jfdown.root files_nominal//WJets_jfup.root files_nominal//ZJ_jfdown.root files_nominal//ZJ_jfup.root files_nominal//TTJ_jfdown.root files_nominal//TTJ_jfup.root files_nominal//VVJ_jfup.root files_nominal//VVJ_jfdown.root files_nominal//TTT_shapeup.root files_nominal//TTJ_shapeup.root files_nominal//TTT_shapedown.root files_nominal//TTJ_shapedown.root files_nominal//VBF125_tes.root files_nominal//ggH125_tes.root files_nominal//WH125_tes.root files_nominal//ZH125_tes.root files_nominal//ZTT_tes.root files_nominal//ZJ_tes.root files_nominal//ZL_tes.root files_nominal//EWKZ_tes.root files_nominal//TTT_tes.root files_nominal//TTJ_tes.root files_nominal//VVT_tes.root files_nominal//VVJ_tes.root files_nominal//WJets_tes.root files_nominal//VBF125_jes.root files_nominal//ggH125_jes.root files_nominal//WH125_jes.root files_nominal//ZH125_jes.root files_nominal//ZTT_zmmd.root files_nominal//ZTT_zmmu.root files_nominal//ZL_zmmd.root files_nominal//ZL_zmmu.root files_nominal//ZJ_zmmd.root files_nominal//ZJ_zmmu.root files_nominal//EWKZ_zmmd.root files_nominal//EWKZ_zmmu.root
+ hadd -f final_nominal.root files_nominal//data.root files_nominal//SMH.root files_nominal//ZTT.root files_nominal//ZJ.root files_nominal//ZL.root files_nominal//TTT.root files_nominal//TTJ.root  files_nominal//VVT.root files_nominal//VVJ.root files_nominal//WJets.root files_nominal//EWKZ.root files_nominal//QCD.root files_nominal//ggH125.root files_nominal//VBF125.root files_nominal//WH125.root files_nominal//ZH125.root files_nominal//ZTT_zptdown.root files_nominal//ZTT_zptup.root files_nominal//ZL_zptdown.root files_nominal//ZL_zptup.root files_nominal//ZJ_zptdown.root files_nominal//ZJ_zptup.root files_nominal//WJets_jfdown.root files_nominal//WJets_jfup.root files_nominal//ZJ_jfdown.root files_nominal//ZJ_jfup.root files_nominal//TTJ_jfdown.root files_nominal//TTJ_jfup.root files_nominal//VVJ_jfup.root files_nominal//VVJ_jfdown.root files_nominal//TTT_shapeup.root files_nominal//TTJ_shapeup.root files_nominal//TTT_shapedown.root files_nominal//TTJ_shapedown.root files_nominal//VBF125_tes.root files_nominal//ggH125_tes.root files_nominal//WH125_tes.root files_nominal//ZH125_tes.root files_nominal//ZTT_tes.root files_nominal//ZJ_tes.root files_nominal//ZL_tes.root files_nominal//EWKZ_tes.root files_nominal//TTT_tes.root files_nominal//TTJ_tes.root files_nominal//VVT_tes.root files_nominal//VVJ_tes.root files_nominal//WJets_tes.root files_nominal//ggH125_wg1.root files_nominal//VBF125_jes.root files_nominal//ggH125_jes.root files_nominal//WH125_jes.root files_nominal//ZH125_jes.root files_nominal//ZTT_zmmd.root files_nominal//ZTT_zmmu.root files_nominal//ZL_zmmd.root files_nominal//ZL_zmmu.root files_nominal//ZJ_zmmd.root files_nominal//ZJ_zmmu.root files_nominal//EWKZ_zmmd.root files_nominal//EWKZ_zmmu.root 
 
 
 
