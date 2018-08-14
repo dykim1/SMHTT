@@ -1,3 +1,4 @@
+ rm files_nominal//*
 
  ./Make.sh FinalSelection2D_relaxedFR.cc 
 
@@ -8,11 +9,13 @@
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//data_F.root files_nominal//data_F.root data_obs data_obs 0
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//data_G.root files_nominal//data_G.root data_obs data_obs 0
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//data_H.root files_nominal//data_H.root data_obs data_obs 0
+
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//VBF125.root files_nominal//VBF125.root VBF125  VBF125 0
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//ggH125.root files_nominal//ggH125.root ggH125 ggH125 0
- ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WplusH125.root files_nominal//WplusH125.root WplusH125 WplusH125 0
- ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WminusH125.root files_nominal//WminusH125.root WminusH125 WminusH125 0
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WplusH125.root files_nominal//WplusH125.root WplusH125 WH125 0
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WminusH125.root files_nominal//WminusH125.root WminusH125 WH125 0
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//ZH125.root files_nominal//ZH125.root ZH125  ZH125 0
+
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY.root files_nominal//ZTT0.root ZTT ZTT 0
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY1.root files_nominal//ZTT1.root ZTT ZTT 0
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY2.root files_nominal//ZTT2.root ZTT ZTT 0
@@ -29,12 +32,14 @@
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY3.root files_nominal//ZJ3.root ZJ ZJ 0
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY4.root files_nominal//ZJ4.root ZJ ZJ 0
 
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//EWKZ2l.root files_nominal//EWKZ2l.root EWKZLL EWKZ 0
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//EWKZ2nu.root files_nominal//EWKZ2nu.root EWKZNuNu EWKZ 0
+ 
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//TT.root files_nominal//TTT.root TTT TTT 0
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//TT.root files_nominal//TTJ.root TTJ TTJ 0
 
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ1l1nu2q.root files_nominal//WZ1l1nu2q_T.root WZ1L1Nu2Q VVT 0
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ1l3nu.root files_nominal//WZ1l3nu_T.root WZ1L3Nu VVT 0
- ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ1l1nu2q.root files_nominal//WZ1l1nu2q_T.root WZJets VVT 0
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ3l1nu.root files_nominal//WZ3l1nu_T.root WZLLLNu VVT 0
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ2l2q.root files_nominal//WZ2l2q_T.root WZ2L2Q VVT 0
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WW1l1nu2q.root files_nominal//WW1l1nu2q_T.root WW1L1Nu2Q VVT 0 
@@ -48,7 +53,6 @@
 
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ1l1nu2q.root files_nominal//WZ1l1nu2q_J.root WZ1L1Nu2Q VVJ 0
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ1l3nu.root files_nominal//WZ1l3nu_J.root WZ1L3Nu VVJ 0
- ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ1l1nu2q.root files_nominal//WZ1l1nu2q_J.root WZJets VVJ 0
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ3l1nu.root files_nominal//WZ3l1nu_J.root WZLLLNu VVJ 0
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ2l2q.root files_nominal//WZ2l2q_J.root WZ2L2Q VVJ 0
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WW1l1nu2q.root files_nominal//WW1l1nu2q_J.root WW1L1Nu2Q VVJ 0 
@@ -65,33 +69,326 @@
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//W2.root files_nominal//W2.root W W 0
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//W3.root files_nominal//W3.root W W 0
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//W4.root files_nominal//W4.root W W 0
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//EWKWMinus.root files_nominal//EWKWMinus.root EWKWminus W 0
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//EWKWPlus.root files_nominal//EWKWPlus.root EWKWplus W 0
+ 
 
- python Overflow.py
+ # python Overflow.py
 
  hadd -f files_nominal//data.root files_nominal//data_*.root
 
- hadd -f files_nominal//ZTT.root files_nominal//ZTT?.root
+ hadd -f files_nominal//WH125.root files_nominal//WplusH125.root files_nominal//WminusH125.root
 
- hadd -f files_nominal//ZL.root files_nominal//ZL?.root
+ hadd -f files_nominal//ZTT.root files_nominal//ZTT0.root files_nominal//ZTT1.root files_nominal//ZTT2.root files_nominal//ZTT3.root files_nominal//ZTT4.root
+ hadd -f files_nominal//ZL.root files_nominal//ZL0.root files_nominal//ZL1.root files_nominal//ZL2.root files_nominal//ZL3.root files_nominal//ZL4.root
+ hadd -f files_nominal//ZJ.root files_nominal//ZJ0.root files_nominal//ZJ1.root files_nominal//ZJ2.root files_nominal//ZJ3.root files_nominal//ZJ4.root
 
- hadd -f files_nominal//ZJ.root files_nominal//ZJ?.root
+ hadd -f files_nominal//EWKZ.root files_nominal//EWKZ2l.root files_nominal//EWKZ2nu.root
 
- hadd -f files_nominal//WJets.root files_nominal//W?.root
+ hadd -f files_nominal//WJets.root files_nominal//W0.root files_nominal//W1.root files_nominal//W2.root files_nominal//W3.root files_nominal//W4.root files_nominal//EWKWMinus.root files_nominal//EWKWPlus.root
 
  hadd -f files_nominal//VVT.root files_nominal//WZ1l1nu2q_T.root files_nominal//WZ1l3nu_T.root files_nominal//WZ1l1nu2q_T.root files_nominal//WZ3l1nu_T.root files_nominal//WZ2l2q_T.root files_nominal//WW1l1nu2q_T.root files_nominal//ZZ4l_T.root files_nominal//ZZ2l2q_T.root files_nominal//VV2l2nu_T.root files_nominal//Tbar-tW_T.root files_nominal//T-tW_T.root files_nominal//Tbar-tchan_T.root files_nominal//T-tchan_T.root 
 
  hadd -f files_nominal//VVJ.root files_nominal//WZ1l1nu2q_J.root files_nominal//WZ1l3nu_J.root files_nominal//WZ1l1nu2q_J.root files_nominal//WZ3l1nu_J.root files_nominal//WZ2l2q_J.root files_nominal//WW1l1nu2q_J.root files_nominal//ZZ4l_J.root files_nominal//ZZ2l2q_J.root files_nominal//VV2l2nu_J.root files_nominal//Tbar-tW_J.root files_nominal//T-tW_J.root files_nominal//Tbar-tchan_J.root files_nominal//T-tchan_J.root 
 
- python Creat_WH.py
+# python Creat_WH.py
 
  python Creat_sig.py
 
  python Creat_QCD.py
 
- hadd -f final_nominal.root files_nominal//SMH.root files_nominal//ZTT.root files_nominal//ZJ.root files_nominal//ZL.root files_nominal//TTT.root files_nominal//TTJ.root  files_nominal//VVT.root files_nominal//VVJ.root  files_nominal//data.root files_nominal//WJets.root files_nominal//QCD.root files_nominal//VBF125.root files_nominal//ggH125.root files_nominal//WH125.root files_nominal//ZH125.root
+#########################################
+####### Drell-Yan MC reweighting ########
+####### _CMS_htt_dyShape_13TeV   ########
+#########################################
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY.root files_nominal//ZTT0_zptup.root ZTT ZTT 10
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY1.root files_nominal//ZTT1_zptup.root ZTT ZTT 10
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY2.root files_nominal//ZTT2_zptup.root ZTT ZTT 10
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY3.root files_nominal//ZTT3_zptup.root ZTT ZTT 10
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY4.root files_nominal//ZTT4_zptup.root ZTT ZTT 10
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY.root files_nominal//ZL0_zptup.root ZL ZL 10
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY1.root files_nominal//ZL1_zptup.root ZL ZL 10
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY2.root files_nominal//ZL2_zptup.root ZL ZL 10
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY3.root files_nominal//ZL3_zptup.root ZL ZL 10
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY4.root files_nominal//ZL4_zptup.root ZL  ZL 10
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY.root files_nominal//ZJ0_zptup.root ZJ ZJ 10
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY1.root files_nominal//ZJ1_zptup.root ZJ ZJ 10
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY2.root files_nominal//ZJ2_zptup.root ZJ ZJ 10
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY3.root files_nominal//ZJ3_zptup.root ZJ ZJ 10
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY4.root files_nominal//ZJ4_zptup.root ZJ ZJ 10
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//EWKZ2l.root files_nominal//EWKZ2l_zptup.root EWKZLL EWKZ 10
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//EWKZ2nu.root files_nominal//EWKZ2nu_zptup.root EWKZNuNu EWKZ 10
+ hadd -f files_nominal/ZTT_zptup.root files_nominal//ZTT0_zptup.root files_nominal//ZTT1_zptup.root files_nominal//ZTT2_zptup.root files_nominal//ZTT3_zptup.root files_nominal//ZTT4_zptup.root
+ hadd -f files_nominal/ZL_zptup.root files_nominal//ZL0_zptup.root files_nominal//ZL1_zptup.root files_nominal//ZL2_zptup.root files_nominal//ZL3_zptup.root files_nominal//ZL4_zptup.root
+ hadd -f files_nominal/ZJ_zptup.root files_nominal//ZJ0_zptup.root files_nominal//ZJ1_zptup.root files_nominal//ZJ2_zptup.root files_nominal//ZJ3_zptup.root files_nominal//ZJ4_zptup.root
 
- python plot_tt_category.py 
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY.root files_nominal//ZTT0_zptdown.root ZTT ZTT -10
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY1.root files_nominal//ZTT1_zptdown.root ZTT ZTT -10
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY2.root files_nominal//ZTT2_zptdown.root ZTT ZTT -10
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY3.root files_nominal//ZTT3_zptdown.root ZTT ZTT -10
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY4.root files_nominal//ZTT4_zptdown.root ZTT ZTT -10
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY.root files_nominal//ZL0_zptdown.root ZL ZL -10
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY1.root files_nominal//ZL1_zptdown.root ZL ZL -10
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY2.root files_nominal//ZL2_zptdown.root ZL ZL -10
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY3.root files_nominal//ZL3_zptdown.root ZL ZL -10
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY4.root files_nominal//ZL4_zptdown.root ZL  ZL -10
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY.root files_nominal//ZJ0_zptdown.root ZJ ZJ -10
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY1.root files_nominal//ZJ1_zptdown.root ZJ ZJ -10
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY2.root files_nominal//ZJ2_zptdown.root ZJ ZJ -10
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY3.root files_nominal//ZJ3_zptdown.root ZJ ZJ -10
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY4.root files_nominal//ZJ4_zptdown.root ZJ ZJ -10
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//EWKZ2l.root files_nominal//EWKZ2l_zptdown.root EWKZLL EWKZ -10
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//EWKZ2nu.root files_nominal//EWKZ2nu_zptdown.root EWKZNuNu EWKZ -10
+ hadd -f files_nominal/ZTT_zptdown.root files_nominal//ZTT0_zptdown.root files_nominal//ZTT1_zptdown.root files_nominal//ZTT2_zptdown.root files_nominal//ZTT3_zptdown.root files_nominal//ZTT4_zptdown.root
+ hadd -f files_nominal/ZL_zptdown.root files_nominal//ZL0_zptdown.root files_nominal//ZL1_zptdown.root files_nominal//ZL2_zptdown.root files_nominal//ZL3_zptdown.root files_nominal//ZL4_zptdown.root
+ hadd -f files_nominal/ZJ_zptdown.root files_nominal//ZJ0_zptdown.root files_nominal//ZJ1_zptdown.root files_nominal//ZJ2_zptdown.root files_nominal//ZJ3_zptdown.root files_nominal//ZJ4_zptdown.root
+ 
+###########################################
+####### jet to tauh fake rate       #######
+####### _CMS_htt_jetToTauFake_13TeV #######
+###########################################
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//W.root files_nominal//W0_jfup.root W W 14
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//W1.root files_nominal//W1_jfup.root W W 14
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//W2.root files_nominal//W2_jfup.root W W 14
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//W3.root files_nominal//W3_jfup.root W W 14
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//W4.root files_nominal//W4_jfup.root W W 14
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//EWKWMinus.root files_nominal//EWKWMinus_jfup.root EWKWminus W 14
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//EWKWPlus.root files_nominal//EWKWPlus_jfup.root EWKWplus W 14
+ hadd -f files_nominal//WJets_jfup.root files_nominal//W0_jfup.root files_nominal//W1_jfup.root files_nominal//W2_jfup.root files_nominal//W3_jfup.root files_nominal//W4_jfup.root files_nominal//EWKWMinus_jfup.root files_nominal//EWKWPlus_jfup.root
 
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//W.root files_nominal//W0_jfdown.root W W -14
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//W1.root files_nominal//W1_jfdown.root W W -14
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//W2.root files_nominal//W2_jfdown.root W W -14
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//W3.root files_nominal//W3_jfdown.root W W -14
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//W4.root files_nominal//W4_jfdown.root W W -14
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//EWKWMinus.root files_nominal//EWKWMinus_jfdown.root EWKWminus W -14
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//EWKWPlus.root files_nominal//EWKWPlus_jfdown.root EWKWplus W -14
+ hadd -f files_nominal//WJets_jfdown.root files_nominal//W0_jfdown.root files_nominal//W1_jfdown.root files_nominal//W2_jfdown.root files_nominal//W3_jfdown.root files_nominal//W4_jfdown.root files_nominal//EWKWMinus_jfdown.root files_nominal//EWKWPlus_jfdown.root
+
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY.root files_nominal//ZJ0_jfup.root ZJ ZJ 14
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY1.root files_nominal//ZJ1_jfup.root ZJ ZJ 14
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY2.root files_nominal//ZJ2_jfup.root ZJ ZJ 14
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY3.root files_nominal//ZJ3_jfup.root ZJ ZJ 14
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY4.root files_nominal//ZJ4_jfup.root ZJ ZJ 14
+ hadd -f files_nominal//ZJ_jfup.root files_nominal//ZJ0_jfup.root files_nominal//ZJ1_jfup.root files_nominal//ZJ2_jfup.root files_nominal//ZJ3_jfup.root files_nominal//ZJ4_jfup.root
+
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY.root files_nominal//ZJ0_jfdown.root ZJ ZJ -14
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY1.root files_nominal//ZJ1_jfdown.root ZJ ZJ -14
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY2.root files_nominal//ZJ2_jfdown.root ZJ ZJ -14
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY3.root files_nominal//ZJ3_jfdown.root ZJ ZJ -14
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY4.root files_nominal//ZJ4_jfdown.root ZJ ZJ -14
+ hadd -f files_nominal//ZJ_jfdown.root files_nominal//ZJ0_jfdown.root files_nominal//ZJ1_jfdown.root files_nominal//ZJ2_jfdown.root files_nominal//ZJ3_jfdown.root files_nominal//ZJ4_jfdown.root
+
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//TT.root files_nominal//TTJ_jfup.root TTJ TTJ 14
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//TT.root files_nominal//TTJ_jfdown.root TTJ TTJ -14
+
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ1l1nu2q.root files_nominal//WZ1l1nu2q_J_jfup.root WZ1L1Nu2Q VVJ 14
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ1l3nu.root files_nominal//WZ1l3nu_J_jfup.root WZ1L3Nu VVJ 14
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ3l1nu.root files_nominal//WZ3l1nu_J_jfup.root WZLLLNu VVJ 14
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ2l2q.root files_nominal//WZ2l2q_J_jfup.root WZ2L2Q VVJ 14
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WW1l1nu2q.root files_nominal//WW1l1nu2q_J_jfup.root WW1L1Nu2Q VVJ 14
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//ZZ4l.root files_nominal//ZZ4l_J_jfup.root ZZ4L VVJ 14
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//ZZ2l2q.root files_nominal//ZZ2l2q_J_jfup.root ZZ2L2Q VVJ 14
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//VV2l2nu.root files_nominal//VV2l2nu_J_jfup.root VV2L2Nu VVJ 14
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//Tbar-tW.root files_nominal//Tbar-tW_J_jfup.root ST_tW_antitop VVJ 14
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//T-tW.root files_nominal//T-tW_J_jfup.root ST_tW_top VVJ 14
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//Tbar-tchan.root files_nominal//Tbar-tchan_J_jfup.root ST_t_antitop VVJ 14
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//T-tchan.root files_nominal//T-tchan_J_jfup.root ST_t_top VVJ 14
+ hadd -f files_nominal//VVJ_jfup.root files_nominal//WZ1l1nu2q_J_jfup.root files_nominal//WZ1l3nu_J_jfup.root files_nominal//WZ1l1nu2q_J_jfup.root files_nominal//WZ3l1nu_J_jfup.root files_nominal//WZ2l2q_J_jfup.root files_nominal//WW1l1nu2q_J_jfup.root files_nominal//ZZ4l_J_jfup.root files_nominal//ZZ2l2q_J_jfup.root files_nominal//VV2l2nu_J_jfup.root files_nominal//Tbar-tW_J_jfup.root files_nominal//T-tW_J_jfup.root files_nominal//Tbar-tchan_J_jfup.root files_nominal//T-tchan_J_jfup.root 
+
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ1l1nu2q.root files_nominal//WZ1l1nu2q_J_jfdown.root WZ1L1Nu2Q VVJ -14
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ1l3nu.root files_nominal//WZ1l3nu_J_jfdown.root WZ1L3Nu VVJ -14
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ3l1nu.root files_nominal//WZ3l1nu_J_jfdown.root WZLLLNu VVJ -14
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ2l2q.root files_nominal//WZ2l2q_J_jfdown.root WZ2L2Q VVJ -14
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WW1l1nu2q.root files_nominal//WW1l1nu2q_J_jfdown.root WW1L1Nu2Q VVJ -14
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//ZZ4l.root files_nominal//ZZ4l_J_jfdown.root ZZ4L VVJ -14
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//ZZ2l2q.root files_nominal//ZZ2l2q_J_jfdown.root ZZ2L2Q VVJ -14
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//VV2l2nu.root files_nominal//VV2l2nu_J_jfdown.root VV2L2Nu VVJ -14
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//Tbar-tW.root files_nominal//Tbar-tW_J_jfdown.root ST_tW_antitop VVJ -14
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//T-tW.root files_nominal//T-tW_J_jfdown.root ST_tW_top VVJ -14
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//Tbar-tchan.root files_nominal//Tbar-tchan_J_jfdown.root ST_t_antitop VVJ -14
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//T-tchan.root files_nominal//T-tchan_J_jfdown.root ST_t_top VVJ -14
+ hadd -f files_nominal//VVJ_jfdown.root files_nominal//WZ1l1nu2q_J_jfdown.root files_nominal//WZ1l3nu_J_jfdown.root files_nominal//WZ1l1nu2q_J_jfdown.root files_nominal//WZ3l1nu_J_jfdown.root files_nominal//WZ2l2q_J_jfdown.root files_nominal//WW1l1nu2q_J_jfdown.root files_nominal//ZZ4l_J_jfdown.root files_nominal//ZZ2l2q_J_jfdown.root files_nominal//VV2l2nu_J_jfdown.root files_nominal//Tbar-tW_J_jfdown.root files_nominal//T-tW_J_jfdown.root files_nominal//Tbar-tchan_J_jfdown.root files_nominal//T-tchan_J_jfdown.root 
+
+##################################################
+####### *_CMS_htt_tt_tt_0jet_13TeV_*_bin_# #######  for QCD, W, ZJ, ZTT
+##################################################  Not listed on AN 
+
+
+#########################################
+####### Top pT reweighting        #######
+####### _CMS_htt_ttbarShape_13TeV ####### 
+#########################################
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//TT.root files_nominal//TTT_shapeup.root TTT TTT 11
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//TT.root files_nominal//TTJ_shapeup.root TTJ TTJ 11
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//TT.root files_nominal//TTT_shapedown.root TTT TTT -11
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//TT.root files_nominal//TTJ_shapedown.root TTJ TTJ -11
+
+
+###################################
+####### Uncertainties TES  ########
+###################################
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//VBF125.root files_nominal//VBF125_tes.root VBF125  VBF125 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//ggH125.root files_nominal//ggH125_tes.root ggH125 ggH125 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WplusH125.root files_nominal//WplusH125_tes.root WplusH125 WH125 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WminusH125.root files_nominal//WminusH125_tes.root WminusH125 WH125 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//ZH125.root files_nominal//ZH125_tes.root ZH125  ZH125 1
+ # Creat_WH.py need  // FIXME -also need to be added final_nomianl.root
+ hadd -f files_nominal//WH125_tes.root files_nominal//WplusH125_tes.root files_nominal//WminusH125_tes.root
+
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY.root files_nominal//ZTT0_tes.root ZTT ZTT 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY1.root files_nominal//ZTT1_tes.root ZTT ZTT 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY2.root files_nominal//ZTT2_tes.root ZTT ZTT 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY3.root files_nominal//ZTT3_tes.root ZTT ZTT 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY4.root files_nominal//ZTT4_tes.root ZTT ZTT 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY.root files_nominal//ZL0_tes.root ZL ZL 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY1.root files_nominal//ZL1_tes.root ZL ZL 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY2.root files_nominal//ZL2_tes.root ZL ZL 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY3.root files_nominal//ZL3_tes.root ZL ZL 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY4.root files_nominal//ZL4_tes.root ZL  ZL 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY.root files_nominal//ZJ0_tes.root ZJ ZJ 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY1.root files_nominal//ZJ1_tes.root ZJ ZJ 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY2.root files_nominal//ZJ2_tes.root ZJ ZJ 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY3.root files_nominal//ZJ3_tes.root ZJ ZJ 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY4.root files_nominal//ZJ4_tes.root ZJ ZJ 1
+ hadd -f files_nominal//ZTT_tes.root files_nominal//ZTT0_tes.root files_nominal//ZTT1_tes.root files_nominal//ZTT2_tes.root files_nominal//ZTT3_tes.root files_nominal//ZTT4_tes.root
+ hadd -f files_nominal//ZL_tes.root files_nominal//ZL0_tes.root files_nominal//ZL1_tes.root files_nominal//ZL2_tes.root files_nominal//ZL3_tes.root files_nominal//ZL4_tes.root
+ hadd -f files_nominal//ZJ_tes.root files_nominal//ZJ0_tes.root files_nominal//ZJ1_tes.root files_nominal//ZJ2_tes.root files_nominal//ZJ3_tes.root files_nominal//ZJ4_tes.root
+
+
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//EWKZ2l.root files_nominal//EWKZ2l_tes.root EWKZLL EWKZ 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//EWKZ2nu.root files_nominal//EWKZ2nu_tes.root EWKZNuNu EWKZ 1
+ hadd -f files_nominal//EWKZ_tes.root files_nominal//EWKZ2l_tes.root files_nominal//EWKZ2nu_tes.root
+
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//TT.root files_nominal//TTT_tes.root TTT TTT 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//TT.root files_nominal//TTJ_tes.root TTJ TTJ 1
+
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ1l1nu2q.root files_nominal//WZ1l1nu2q_T_tes.root WZ1L1Nu2Q VVT 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ1l3nu.root files_nominal//WZ1l3nu_T_tes.root WZ1L3Nu VVT 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ3l1nu.root files_nominal//WZ3l1nu_T_tes.root WZLLLNu VVT 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ2l2q.root files_nominal//WZ2l2q_T_tes.root WZ2L2Q VVT 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WW1l1nu2q.root files_nominal//WW1l1nu2q_T_tes.root WW1L1Nu2Q VVT 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//ZZ4l.root files_nominal//ZZ4l_T_tes.root ZZ4L VVT 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//ZZ2l2q.root files_nominal//ZZ2l2q_T_tes.root ZZ2L2Q VVT 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//VV2l2nu.root files_nominal//VV2l2nu_T_tes.root VV2L2Nu VVT 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//Tbar-tW.root files_nominal//Tbar-tW_T_tes.root ST_tW_antitop VVT 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//T-tW.root files_nominal//T-tW_T_tes.root ST_tW_top VVT 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//Tbar-tchan.root files_nominal//Tbar-tchan_T_tes.root ST_t_antitop VVT 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//T-tchan.root files_nominal//T-tchan_T_tes.root ST_t_top VVT 1
+ hadd -f files_nominal//VVT_tes.root files_nominal//WZ1l1nu2q_T_tes.root files_nominal//WZ1l3nu_T_tes.root files_nominal//WZ1l1nu2q_T_tes.root files_nominal//WZ3l1nu_T_tes.root files_nominal//WZ2l2q_T_tes.root files_nominal//WW1l1nu2q_T_tes.root files_nominal//ZZ4l_T_tes.root files_nominal//ZZ2l2q_T_tes.root files_nominal//VV2l2nu_T_tes.root files_nominal//Tbar-tW_T_tes.root files_nominal//T-tW_T_tes.root files_nominal//Tbar-tchan_T_tes.root files_nominal//T-tchan_T_tes.root  
+
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ1l1nu2q.root files_nominal//WZ1l1nu2q_J_tes.root WZ1L1Nu2Q VVJ 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ1l3nu.root files_nominal//WZ1l3nu_J_tes.root WZ1L3Nu VVJ 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ3l1nu.root files_nominal//WZ3l1nu_J_tes.root WZLLLNu VVJ 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WZ2l2q.root files_nominal//WZ2l2q_J_tes.root WZ2L2Q VVJ 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WW1l1nu2q.root files_nominal//WW1l1nu2q_J_tes.root WW1L1Nu2Q VVJ 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//ZZ4l.root files_nominal//ZZ4l_J_tes.root ZZ4L VVJ 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//ZZ2l2q.root files_nominal//ZZ2l2q_J_tes.root ZZ2L2Q VVJ 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//VV2l2nu.root files_nominal//VV2l2nu_J_tes.root VV2L2Nu VVJ 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//Tbar-tW.root files_nominal//Tbar-tW_J_tes.root ST_tW_antitop VVJ 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//T-tW.root files_nominal//T-tW_J_tes.root ST_tW_top VVJ 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//Tbar-tchan.root files_nominal//Tbar-tchan_J_tes.root ST_t_antitop VVJ 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//T-tchan.root files_nominal//T-tchan_J_tes.root ST_t_top VVJ 1
+ hadd -f files_nominal//VVJ_tes.root files_nominal//WZ1l1nu2q_J_tes.root files_nominal//WZ1l3nu_J_tes.root files_nominal//WZ1l1nu2q_J_tes.root files_nominal//WZ3l1nu_J_tes.root files_nominal//WZ2l2q_J_tes.root files_nominal//WW1l1nu2q_J_tes.root files_nominal//ZZ4l_J_tes.root files_nominal//ZZ2l2q_J_tes.root files_nominal//VV2l2nu_J_tes.root files_nominal//Tbar-tW_J_tes.root files_nominal//T-tW_J_tes.root files_nominal//Tbar-tchan_J_tes.root files_nominal//T-tchan_J_tes.root 
+
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//W.root files_nominal//W0_tes.root W W 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//W1.root files_nominal//W1_tes.root W W 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//W2.root files_nominal//W2_tes.root W W 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//W3.root files_nominal//W3_tes.root W W 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//W4.root files_nominal//W4_tes.root W W 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//EWKWMinus.root files_nominal//EWKWMinus_tes.root EWKWminus W 1
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//EWKWPlus.root files_nominal//EWKWPlus_tes.root EWKWplus W 1
+ hadd -f files_nominal//WJets_tes.root files_nominal//W0_tes.root files_nominal//W1_tes.root files_nominal//W2_tes.root files_nominal//W3_tes.root files_nominal//W4_tes.root files_nominal//EWKWMinus_tes.root files_nominal//EWKWPlus_tes.root
+
+
+###################################
+####### Uncertainties WG1  ########
+###################################
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//ggH125.root files_nominal//ggH125_wg1.root ggH125 ggH125 1000
+
+###################################
+####### Uncertainties JES  ########
+###################################
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//VBF125.root files_nominal//VBF125_jes.root VBF125  VBF125 100
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//ggH125.root files_nominal//ggH125_jes.root ggH125 ggH125 100
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WplusH125.root files_nominal//WplusH125_jes.root WplusH125 WH125 100
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//WminusH125.root files_nominal//WminusH125_jes.root WminusH125 WH125 100
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//ZH125.root files_nominal//ZH125_jes.root ZH125  ZH125 100
+ hadd -f files_nominal//WH125_jes.root files_nominal//WplusH125_jes.root files_nominal//WminusH125_jes.root
+
+##############################################
+####### DY description in VBF         ########   >> it seems like AN is outdated.
+####### _CMS_htt_zmumuShape_VBF_13TeV ########
+##############################################
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY.root files_nominal//ZTT0_zmmu.root ZTT ZTT 13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY1.root files_nominal//ZTT1_zmmu.root ZTT ZTT 13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY2.root files_nominal//ZTT2_zmmu.root ZTT ZTT 13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY3.root files_nominal//ZTT3_zmmu.root ZTT ZTT 13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY4.root files_nominal//ZTT4_zmmu.root ZTT ZTT 13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY.root files_nominal//ZL0_zmmu.root ZL ZL 13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY1.root files_nominal//ZL1_zmmu.root ZL ZL 13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY2.root files_nominal//ZL2_zmmu.root ZL ZL 13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY3.root files_nominal//ZL3_zmmu.root ZL ZL 13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY4.root files_nominal//ZL4_zmmu.root ZL  ZL 13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY.root files_nominal//ZJ0_zmmu.root ZJ ZJ 13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY1.root files_nominal//ZJ1_zmmu.root ZJ ZJ 13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY2.root files_nominal//ZJ2_zmmu.root ZJ ZJ 13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY3.root files_nominal//ZJ3_zmmu.root ZJ ZJ 13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY4.root files_nominal//ZJ4_zmmu.root ZJ ZJ 13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//EWKZ2l.root files_nominal//EWKZ2l_zmmu.root EWKZLL EWKZ 13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//EWKZ2nu.root files_nominal//EWKZ2nu_zmmu.root EWKZNuNu EWKZ 13
+ hadd -f files_nominal//ZTT_zmmu.root files_nominal//ZTT0_zmmu.root files_nominal//ZTT1_zmmu.root files_nominal//ZTT2_zmmu.root files_nominal//ZTT3_zmmu.root files_nominal//ZTT4_zmmu.root
+ hadd -f files_nominal//ZL_zmmu.root files_nominal//ZL0_zmmu.root files_nominal//ZL1_zmmu.root files_nominal//ZL2_zmmu.root files_nominal//ZL3_zmmu.root files_nominal//ZL4_zmmu.root
+ hadd -f files_nominal//ZJ_zmmu.root files_nominal//ZJ0_zmmu.root files_nominal//ZJ1_zmmu.root files_nominal//ZJ2_zmmu.root files_nominal//ZJ3_zmmu.root files_nominal//ZJ4_zmmu.root
+ hadd -f files_nominal//EWKZ_zmmu.root files_nominal//EWKZ2l_zmmu.root files_nominal//EWKZ2nu_zmmu.root
+
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY.root files_nominal//ZTT0_zmmd.root ZTT ZTT -13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY1.root files_nominal//ZTT1_zmmd.root ZTT ZTT -13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY2.root files_nominal//ZTT2_zmmd.root ZTT ZTT -13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY3.root files_nominal//ZTT3_zmmd.root ZTT ZTT -13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY4.root files_nominal//ZTT4_zmmd.root ZTT ZTT -13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY.root files_nominal//ZL0_zmmd.root ZL ZL -13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY1.root files_nominal//ZL1_zmmd.root ZL ZL -13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY2.root files_nominal//ZL2_zmmd.root ZL ZL -13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY3.root files_nominal//ZL3_zmmd.root ZL ZL -13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY4.root files_nominal//ZL4_zmmd.root ZL  ZL -13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY.root files_nominal//ZJ0_zmmd.root ZJ ZJ -13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY1.root files_nominal//ZJ1_zmmd.root ZJ ZJ -13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY2.root files_nominal//ZJ2_zmmd.root ZJ ZJ -13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY3.root files_nominal//ZJ3_zmmd.root ZJ ZJ -13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY4.root files_nominal//ZJ4_zmmd.root ZJ ZJ -13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//EWKZ2l.root files_nominal//EWKZ2l_zmmd.root EWKZLL EWKZ -13
+ ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//EWKZ2nu.root files_nominal//EWKZ2nu_zmmd.root EWKZNuNu EWKZ -13
+ hadd -f files_nominal//ZTT_zmmd.root files_nominal//ZTT0_zmmd.root files_nominal//ZTT1_zmmd.root files_nominal//ZTT2_zmmd.root files_nominal//ZTT3_zmmd.root files_nominal//ZTT4_zmmd.root
+ hadd -f files_nominal//ZL_zmmd.root files_nominal//ZL0_zmmd.root files_nominal//ZL1_zmmd.root files_nominal//ZL2_zmmd.root files_nominal//ZL3_zmmd.root files_nominal//ZL4_zmmd.root
+ hadd -f files_nominal//ZJ_zmmd.root files_nominal//ZJ0_zmmd.root files_nominal//ZJ1_zmmd.root files_nominal//ZJ2_zmmd.root files_nominal//ZJ3_zmmd.root files_nominal//ZJ4_zmmd.root
+ hadd -f files_nominal//EWKZ_zmmd.root files_nominal//EWKZ2l_zmmd.root files_nominal//EWKZ2nu_zmmd.root
+
+
+
+###################################
+####### Uncertainties   ########
+###################################
+
+
+#########################################
+####### hadd final_nominal.root  ########
+#########################################
+
+ hadd -f final_nominal.root files_nominal//data.root files_nominal//SMH.root files_nominal//ZTT.root files_nominal//ZJ.root files_nominal//ZL.root files_nominal//TTT.root files_nominal//TTJ.root  files_nominal//VVT.root files_nominal//VVJ.root files_nominal//WJets.root files_nominal//EWKZ.root files_nominal//QCD.root files_nominal//ggH125.root files_nominal//VBF125.root files_nominal//WH125.root files_nominal//ZH125.root files_nominal//ZTT_zptdown.root files_nominal//ZTT_zptup.root files_nominal//ZL_zptdown.root files_nominal//ZL_zptup.root files_nominal//ZJ_zptdown.root files_nominal//ZJ_zptup.root files_nominal//WJets_jfdown.root files_nominal//WJets_jfup.root files_nominal//ZJ_jfdown.root files_nominal//ZJ_jfup.root files_nominal//TTJ_jfdown.root files_nominal//TTJ_jfup.root files_nominal//VVJ_jfup.root files_nominal//VVJ_jfdown.root files_nominal//TTT_shapeup.root files_nominal//TTJ_shapeup.root files_nominal//TTT_shapedown.root files_nominal//TTJ_shapedown.root files_nominal//VBF125_tes.root files_nominal//ggH125_tes.root files_nominal//WH125_tes.root files_nominal//ZH125_tes.root files_nominal//ZTT_tes.root files_nominal//ZJ_tes.root files_nominal//ZL_tes.root files_nominal//EWKZ_tes.root files_nominal//TTT_tes.root files_nominal//TTJ_tes.root files_nominal//VVT_tes.root files_nominal//VVJ_tes.root files_nominal//WJets_tes.root files_nominal//ggH125_wg1.root files_nominal//VBF125_jes.root files_nominal//ggH125_jes.root files_nominal//WH125_jes.root files_nominal//ZH125_jes.root files_nominal//ZTT_zmmd.root files_nominal//ZTT_zmmu.root files_nominal//ZL_zmmd.root files_nominal//ZL_zmmu.root files_nominal//ZJ_zmmd.root files_nominal//ZJ_zmmu.root files_nominal//EWKZ_zmmd.root files_nominal//EWKZ_zmmu.root 
+
+
+
+
+
+
+
+
+
+
+
+# python plot_tt_category.py 
+ python UnrollScript.py
 
 
 
