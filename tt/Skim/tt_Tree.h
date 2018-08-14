@@ -12,6 +12,7 @@
 #include "TFile.h"
 #include "TSystem.h"
 #include "HTauTauTree_tt.h"
+#include "RecoilCorrector.h"
 //#include "myHelper.h"
 
 using namespace std;
@@ -294,6 +295,32 @@ void fillTree(TTree *Run_Tree, HTauTauTree_tt *tree, int entry_tree, bool ismc){
     float pfmetcorr_ey=mymet.Py();
 
     mymet.SetPxPyPzE(pfmetcorr_ex,pfmetcorr_ey,0,sqrt(pfmetcorr_ex*pfmetcorr_ex+pfmetcorr_ey*pfmetcorr_ey));
+
+    if (recoil == 1) {
+      recoilPFMetCorrector.CorrectByMeanResolution(
+          mymet.Px(),          // uncorrected type I pf met px (float)
+          mymet.Py(),          // uncorrected type I pf met py (float)
+          tree->genpX,         // generator Z/W/Higgs px (float)
+          tree->genpY,         // generator Z/W/Higgs py (float)
+          tree->vispX,         // generator visible Z/W/Higgs px (float)
+          tree->vispY,         // generator visible Z/W/Higgs py (float)
+          tree->jetVeto30 + 1, // number of jets (hadronic jet multiplicity) (int)
+          pfmetcorr_ex,        // corrected type I pf met px (float)
+          pfmetcorr_ey         // corrected type I pf met py (float)
+      );
+    } else if (recoil == 2) {
+      recoilPFMetCorrector.CorrectByMeanResolution(
+          mymet.Px(),      // uncorrected type I pf met px (float)
+          mymet.Py(),      // uncorrected type I pf met py (float)
+          tree->genpX,     // generator Z/W/Higgs px (float)
+          tree->genpY,     // generator Z/W/Higgs py (float)
+          tree->vispX,     // generator visible Z/W/Higgs px (float)
+          tree->vispY,     // generator visible Z/W/Higgs py (float)
+          tree->jetVeto30, // number of jets (hadronic jet multiplicity) (int)
+          pfmetcorr_ex,    // corrected type I pf met px (float)
+          pfmetcorr_ey     // corrected type I pf met py (float)
+      );
+    }
 
     if (ismc && tree->t1DecayMode==0 && tree->t2DecayMode==0) mymet=mymet+(tau1+tau2)-0.982*(tau1+tau2);
     else if (ismc && tree->t1DecayMode==0 && tree->t2DecayMode==1) mymet=mymet+(tau1+tau2)-0.982*tau1-1.010*tau2;
