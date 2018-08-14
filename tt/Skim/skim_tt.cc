@@ -39,6 +39,17 @@ int main(int argc, char** argv) {
     string inname= in;
     TFile *fIn = TFile::Open(inname.c_str());
 
+    int recoil(0);
+    std::string recoilType("None");
+    if (*(argv + 4) != NULL) {
+      recoilType = *(argv + 4);
+    }
+
+    if (recoilType.find("W") != std::string::npos) {
+      recoil = 1;
+    } else if (recoilType.find("Z") != std::string::npos) {
+      recoil = 2;
+    }
     // Get tree and couple of other histograms
     TTree* treePtr = (TTree*) fIn->Get("tt/final/Ntuple");
     TH1F *evCounter = (TH1F*) fIn->Get("tt/eventCount");
@@ -465,7 +476,7 @@ int main(int argc, char** argv) {
       //   since it is new event, do we have the best entry to save? If yes, save it!
 	if ( bestEntry > -1 )
 	  // this is the code that actually saves branches etc.
-	  fillTree(Run_Tree,tree,bestEntry,isMC);
+	  fillTree(Run_Tree,tree,bestEntry,recoil,isMC);
 	
 	//  this is a new event, so the first tau pair is the best! :)
 	bestEntry=iEntry;
@@ -509,7 +520,7 @@ int main(int argc, char** argv) {
     
     // save the best pair from the last event
     if (bestEntry>-1)
-      fillTree(Run_Tree,tree,bestEntry,isMC);
+      fillTree(Run_Tree,tree,bestEntry,recoil,isMC);
     
     // done!
     fout->cd();
