@@ -248,6 +248,10 @@ public :
    Float_t         metcov01;
    Float_t         metcov10;
    Float_t         metcov11;
+   Float_t         metcov00_DESYlike;
+   Float_t         metcov01_DESYlike;
+   Float_t         metcov10_DESYlike;
+   Float_t         metcov11_DESYlike;
    Float_t         muGlbIsoVetoPt10;
    Float_t         muVetoPt15IsoIdVtx;
    Float_t         muVetoPt5;
@@ -1243,11 +1247,15 @@ public :
    TBranch        *b_jetVeto30_JetTotalUp;   //!
    TBranch        *b_lumi;   //!
    TBranch        *b_metSig;   //!
-   TBranch        *b_metcov00;   //!
-   TBranch        *b_metcov01;   //!
-   TBranch        *b_metcov10;   //!
-   TBranch        *b_metcov11;   //!
-   TBranch        *b_muGlbIsoVetoPt10;   //!
+   TBranch        *b_metcov00;        //!
+   TBranch        *b_metcov01;        //!
+   TBranch        *b_metcov10;        //!
+   TBranch        *b_metcov11;        //!
+   TBranch        *b_metcov00_DESYlike; //!
+   TBranch        *b_metcov01_DESYlike; //!
+   TBranch        *b_metcov10_DESYlike; //!
+   TBranch        *b_metcov11_DESYlike; //!
+   TBranch        *b_muGlbIsoVetoPt10;            //!
    TBranch        *b_muVetoPt15IsoIdVtx;   //!
    TBranch        *b_muVetoPt5;   //!
    TBranch        *b_muVetoPt5IsoIdVtx;   //!
@@ -2293,6 +2301,10 @@ void HTauTauTree_tt::Init(TTree *tree)
    fChain->SetBranchAddress("metcov01", &metcov01, &b_metcov01);
    fChain->SetBranchAddress("metcov10", &metcov10, &b_metcov10);
    fChain->SetBranchAddress("metcov11", &metcov11, &b_metcov11);
+   fChain->SetBranchAddress("metcov00_DESYlike", &metcov00_DESYlike, &b_metcov00_DESYlike);
+   fChain->SetBranchAddress("metcov01_DESYlike", &metcov01_DESYlike, &b_metcov01_DESYlike);
+   fChain->SetBranchAddress("metcov10_DESYlike", &metcov10_DESYlike, &b_metcov10_DESYlike);
+   fChain->SetBranchAddress("metcov11_DESYlike", &metcov11_DESYlike, &b_metcov11_DESYlike);
    fChain->SetBranchAddress("muGlbIsoVetoPt10", &muGlbIsoVetoPt10, &b_muGlbIsoVetoPt10);
    fChain->SetBranchAddress("muVetoPt15IsoIdVtx", &muVetoPt15IsoIdVtx, &b_muVetoPt15IsoIdVtx);
    fChain->SetBranchAddress("muVetoPt5", &muVetoPt5, &b_muVetoPt5);
