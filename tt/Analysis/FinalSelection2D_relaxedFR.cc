@@ -243,24 +243,12 @@ int main(int argc, char** argv) {
     arbre->SetBranchAddress("bflavor_2",&bflavor_2);
     
     arbre->SetBranchAddress("m_sv",&m_sv);
-    
+    //KK
     arbre->SetBranchAddress("m_sv_DOWN", &m_sv_DOWN);
     arbre->SetBranchAddress("m_sv_UP", &m_sv_UP);
     arbre->SetBranchAddress("pt_sv", &pt_sv);
     arbre->SetBranchAddress("pt_sv_DOWN", &pt_sv_DOWN);
     arbre->SetBranchAddress("pt_sv_UP", &pt_sv_UP);
-    //KK: Replace following lines
-    /*
-    arbre->SetBranchAddress("m_sv_UESDown", &m_sv_UESDown);
-    arbre->SetBranchAddress("m_sv_UESUp", &m_sv_UESUp);
-    arbre->SetBranchAddress("m_sv_JESDown", &m_sv_JESDown);
-    arbre->SetBranchAddress("m_sv_JESUp", &m_sv_JESUp);
-    arbre->SetBranchAddress("pt_sv_UESDown", &pt_sv_UESDown);
-    arbre->SetBranchAddress("pt_sv_UESUp", &pt_sv_UESUp);
-    arbre->SetBranchAddress("pt_sv_JESDown", &pt_sv_JESDown);
-    arbre->SetBranchAddress("pt_sv_JESUp", &pt_sv_JESUp);
-    */
-    //KK: with:
     arbre->SetBranchAddress("m_sv_UncMet_DOWN", &m_sv_UncMet_DOWN);
     arbre->SetBranchAddress("m_sv_UncMet_UP", &m_sv_UncMet_UP);
     arbre->SetBranchAddress("m_sv_ClusteredMet_DOWN", &m_sv_ClusteredMet_DOWN);
@@ -269,16 +257,14 @@ int main(int argc, char** argv) {
     arbre->SetBranchAddress("pt_sv_UncMet_UP", &pt_sv_UncMet_UP);
     arbre->SetBranchAddress("pt_sv_ClusteredMet_DOWN", &pt_sv_ClusteredMet_DOWN);
     arbre->SetBranchAddress("pt_sv_ClusteredMet_UP", &pt_sv_ClusteredMet_UP);
-
-    // D.Kim MELA obs
+    //D.Kim
     arbre->SetBranchAddress("ME_sm_VBF",&ME_sm_VBF);
     arbre->SetBranchAddress("ME_sm_ggH",&ME_sm_ggH);
     arbre->SetBranchAddress("ME_bkg",&ME_bkg);
     arbre->SetBranchAddress("Dbkg_VBF",&Dbkg_VBF);
-    arbre->SetBranchAddress("Dbkg_ggH",&Dbkg_ggH);
+    arbre->SetBranchAddress("Dbkg_ggH",&Dbkg_ggH);  
 
     
-
     //float bins0[] = {0, 40, 60, 70, 80, 90, 100, 110, 120, 130, 150, 200, 250}; //VBF
     //float bins1[] = {0, 40, 60, 70, 80, 90, 100, 110, 120, 130, 150, 200, 250}; //VBF
     //float bins0[] = {0,10,20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240, 250, 260, 270, 280, 290, 300}; //VBF
@@ -301,28 +287,22 @@ int main(int argc, char** argv) {
     float bins12[] = {0,40,60,70,80,90,100,110,120,130,150,200,250};
     //Binning for 2jet cat, x-axis: Mjj
     float bins21[] = {0,300,500,800,10000};
+    //binning for 2jet cat, x-axis: Dbkg_VBF
+    //float bins21[] = {0.0,0.3,0.6,0.9,1.0};
     //Binning for 2jet cat, y-axis: Msv
     float bins22[] = {0,40,60,70,80,90,100,110,120,130,150,200,250};
 
-    // D.kim : Binning for 2jet cat(MELA): Dbkg_VBF
-    //float bins23[] = {0.00,0.30,0.60,0.90,1.00};
-    float bins23[] = {0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0};
-
-    // D.kim : Binning for 2jet cat(MELA): Dbkg_ggH
-    float bins24[] = {0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0};//
-    //float bins24[] = {0.0,0.4,0.7,0.8,0.9,0.95,0.975,1.0};
-    
     //float bins1[] = {0,50,100,150,200,250,300,350,400,450,500};//,550,600,650,700,750,800,850,900,950,1000,1050}; //fig50 H pT
     //float bins0[] = {0,80,160,240,320,400,480,560,640,720,800,880,960,1040,1120,1200,1280,1360};
     //float bins1[] = {0,80,160,240,320,400,480,560,640,720,800,880,960,1040,1120,1200,1280,1360};
     //float bins0[] = {0,25,50,75,100,120,140,160,180,200,225,250,275,300,324,350,375,400,425,450,475,500,550};//,600,650,700,750,800};//,850,900,950,1000,1050,1100,1150,1200,1250,1300}; // mjj 800
     //float bins1[] = {0,25,50,75,100,120,140,160,180,200,225,250,275,300,324,350,375,400,425,450,475,500,550};//,600,650,700,750,800};//,850,900,950,1000,1050,1100,1150,1200,1250,1300}; // mjj 800
     
-    
     //float bins0[] = {-5.0,-4.5,-4.0,-3.5,-3.0,-2.5,-2.0,-1.5,-1.0,-0.5,0.0,0.5,1.0,1.5,2.0,2.5,3.0,3.5,4.0,4.5,5.0};
     //float bins1[] = {-5.0,-4.5,-4.0,-3.5,-3.0,-2.5,-2.0,-1.5,-1.0,-0.5,0.0,0.5,1.0,1.5,2.0,2.5,3.0,3.5,4.0,4.5,5.0};
     //float bins0[] = {0,30,60,90,120,150,180,210,240,270,300,330,360,390};
     //float bins1[] = {0,30,60,90,120,150,180,210,240,270,300,330,360,390};
+
     std::cout<<"bins0 : "<<bins0<<std::endl;
     std::cout<<"size of bins0 : "<<sizeof(bins0)<<std::endl;
     std::cout<<"size of Float_t : "<<sizeof(Float_t)<<std::endl;
@@ -334,9 +314,6 @@ int main(int argc, char** argv) {
     int  binnum12 = sizeof(bins12)/sizeof(Float_t) - 1;
     int  binnum21 = sizeof(bins21)/sizeof(Float_t) - 1;
     int  binnum22 = sizeof(bins22)/sizeof(Float_t) - 1;
-    // D.Kim
-    int  binnum23 = sizeof(bins23)/sizeof(Float_t) - 1;
-    int  binnum24 = sizeof(bins24)/sizeof(Float_t) - 1;
 
     // Categories
     TH1F* h_0jet = new TH1F ("h_0jet", "h_0jet", binnum0, bins0); h_0jet->Sumw2();
@@ -389,6 +366,7 @@ int main(int argc, char** argv) {
     std::vector<TH2F*> h2_AIOS;
     std::vector<TH2F*> h2_AISS;
 
+    /*
     std::vector<TH2F*> h2M1_OS;
     std::vector<TH2F*> h2M1_SS;
     std::vector<TH2F*> h2M1_AIOS;
@@ -409,6 +387,7 @@ int main(int argc, char** argv) {
     std::vector<TH2F*> h4M2_SS;
     std::vector<TH2F*> h4M2_AIOS;
     std::vector<TH2F*> h4M2_AISS;
+    */
 
     std::vector<TH2F*> h3_OS;
     std::vector<TH2F*> h3_SS;
@@ -425,10 +404,13 @@ int main(int argc, char** argv) {
     std::vector<TH1F*> h_trgSF_FR;
     std::vector<TH1F*> h_trgSF_RF;
     std::vector<TH1F*> h_trgSF_FF;
+
+    /*
     // D.Kim : MELA 1D
     std::vector<TH1F*> h_MELA_VBF;
     std::vector<TH1F*> h_MELA_ggH;
-    
+    */
+
     TString postfix="";
     //For shape systematics
     int nbhist=1;
@@ -442,7 +424,8 @@ int main(int argc, char** argv) {
     if (tes==17) nbhist=12;
     if (tes==18) nbhist=4;
     if (tes==19) nbhist=6;
-    
+    if (tes==1000) nbhist=18;
+
     for (int k=0; k<nbhist; ++k){
       std::ostringstream HNS0OS; HNS0OS << "h0_OS" << k;
       std::ostringstream HNS1OS; HNS1OS << "h1_OS" << k;
@@ -454,150 +437,65 @@ int main(int argc, char** argv) {
       std::ostringstream HNS4M2OS; HNS4M2OS << "h4M2_OS" << k;
       std::ostringstream HNS3OS; HNS3OS << "h3_OS" << k;
       std::ostringstream HNSOS; HNS2OS << "h_OS" << k;
-	//KK
-	/*
-        h0_OS.push_back(new TH1F (HNS0OS.str().c_str(),"diTauMa",binnum0,bins0)); h0_OS[k]->Sumw2();
-        h1_OS.push_back(new TH1F (HNS1OS.str().c_str(),"diTauMa",binnum0,bins0)); h1_OS[k]->Sumw2();
-        h2_OS.push_back(new TH1F (HNS2OS.str().c_str(),"diTauMa",binnum0,bins0)); h2_OS[k]->Sumw2();
-        h3_OS.push_back(new TH1F (HNS3OS.str().c_str(),"diTauMa",binnum0,bins0)); h3_OS[k]->Sumw2();
-        h_OS.push_back(new TH1F (HNSOS.str().c_str(),"diTauMa",binnum0,bins0)); h_OS[k]->Sumw2();
-	*/
-        h0_OS.push_back(new TH1F (HNS0OS.str().c_str(),"diTauMa",binnum0,bins0)); h0_OS[k]->Sumw2();
-        h1_OS.push_back(new TH2F (HNS1OS.str().c_str(),"diTauMa",binnum11,bins11,binnum12,bins12)); h1_OS[k]->Sumw2();
-        h2_OS.push_back(new TH2F (HNS2OS.str().c_str(),"diTauMa",binnum21,bins21,binnum22,bins22)); h2_OS[k]->Sumw2();
-        h2M1_OS.push_back(new TH2F (HNS2M1OS.str().c_str(),"diTauMa",binnum23,bins23,binnum22,bins22)); h2M1_OS[k]->Sumw2();
-        h2M2_OS.push_back(new TH2F (HNS2M2OS.str().c_str(),"diTauMa",binnum24,bins24,binnum22,bins22)); h2M2_OS[k]->Sumw2();
-        h2M3_OS.push_back(new TH2F (HNS2M3OS.str().c_str(),"diTauMa",binnum23,bins23,binnum22,bins22)); h2M3_OS[k]->Sumw2();
-        h4M1_OS.push_back(new TH2F (HNS4M1OS.str().c_str(),"diTauMa",binnum23,bins23,binnum22,bins22)); h4M1_OS[k]->Sumw2();
-        h4M2_OS.push_back(new TH2F (HNS4M2OS.str().c_str(),"diTauMa",binnum24,bins24,binnum22,bins22)); h4M2_OS[k]->Sumw2();
-        h3_OS.push_back(new TH2F (HNS3OS.str().c_str(),"diTauMa",binnum21,bins21,binnum22,bins22)); h3_OS[k]->Sumw2();
-        h_OS.push_back(new TH1F (HNSOS.str().c_str(),"diTauMa",binnum0,bins0)); h_OS[k]->Sumw2();
-        
-	std::ostringstream HNS0SS; HNS0OS << "h0_SS" << k;
-	std::ostringstream HNS1SS; HNS1OS << "h1_SS" << k;
-	std::ostringstream HNS2SS; HNS2OS << "h2_SS" << k;
-	std::ostringstream HNS2M1SS; HNS2M1OS << "h2M1_SS" << k;
-	std::ostringstream HNS2M2SS; HNS2M2OS << "h2M2_SS" << k;
-	std::ostringstream HNS2M3SS; HNS2M3OS << "h2M3_SS" << k;
-	std::ostringstream HNS4M1SS; HNS4M1OS << "h4M1_SS" << k;
-	std::ostringstream HNS4M2SS; HNS4M2OS << "h4M2_SS" << k;
-	std::ostringstream HNS3SS; HNS2OS << "h3_SS" << k;
-	std::ostringstream HNSSS; HNSOS << "h_SS" << k;
-	//KK
-	/*
-        h0_SS.push_back(new TH1F (HNS0SS.str().c_str(),"diTauMa",binnum1,bins1)); h0_SS[k]->Sumw2();
-        h1_SS.push_back(new TH1F (HNS1SS.str().c_str(),"diTauMa",binnum1,bins1)); h1_SS[k]->Sumw2();
-        h2_SS.push_back(new TH1F (HNS2SS.str().c_str(),"diTauMa",binnum1,bins1)); h2_SS[k]->Sumw2();
-        h3_SS.push_back(new TH1F (HNS3SS.str().c_str(),"diTauMa",binnum1,bins1)); h3_SS[k]->Sumw2();
-        h_SS.push_back(new TH1F (HNSSS.str().c_str(),"diTauMa",binnum1,bins1)); h_SS[k]->Sumw2();
-	*/
-        h0_SS.push_back(new TH1F (HNS0SS.str().c_str(),"diTauMa",binnum1,bins1)); h0_SS[k]->Sumw2();
-        h1_SS.push_back(new TH2F (HNS1SS.str().c_str(),"diTauMa",binnum11,bins11,binnum12,bins12)); h1_SS[k]->Sumw2();
-        h2_SS.push_back(new TH2F (HNS2SS.str().c_str(),"diTauMa",binnum21,bins21,binnum22,bins22)); h2_SS[k]->Sumw2();
-        h2M1_SS.push_back(new TH2F (HNS2M1SS.str().c_str(),"diTauMa",binnum23,bins23,binnum22,bins22)); h2M1_SS[k]->Sumw2(); // Dbkg_VBF
-        h2M2_SS.push_back(new TH2F (HNS2M2SS.str().c_str(),"diTauMa",binnum24,bins24,binnum22,bins22)); h2M2_SS[k]->Sumw2(); // Dbks_ggH
-        h2M3_SS.push_back(new TH2F (HNS2M3SS.str().c_str(),"diTauMa",binnum23,bins23,binnum22,bins22)); h2M3_SS[k]->Sumw2(); // Not used
-        h4M1_SS.push_back(new TH2F (HNS4M1SS.str().c_str(),"diTauMa",binnum23,bins23,binnum22,bins22)); h4M1_SS[k]->Sumw2(); // Dbkg_VBF
-        h4M2_SS.push_back(new TH2F (HNS4M2SS.str().c_str(),"diTauMa",binnum24,bins24,binnum22,bins22)); h4M2_SS[k]->Sumw2(); // Dbks_ggH 
-        h3_SS.push_back(new TH2F (HNS3SS.str().c_str(),"diTauMa",binnum21,bins21,binnum22,bins22)); h3_SS[k]->Sumw2();
-        h_SS.push_back(new TH1F (HNSSS.str().c_str(),"diTauMa",binnum1,bins1)); h_SS[k]->Sumw2();
-        
-	std::ostringstream HNS0AIOS; HNS0AIOS << "h0_AIOS" << k;
-	std::ostringstream HNS1AIOS; HNS1AIOS << "h1_AIOS" << k;
-	std::ostringstream HNS2AIOS; HNS2AIOS << "h2_AIOS" << k;
-	std::ostringstream HNS2M1AIOS; HNS2M1AIOS << "h2M1_AIOS" << k;
-	std::ostringstream HNS2M2AIOS; HNS2M2AIOS << "h2M2_AIOS" << k;
-	std::ostringstream HNS2M3AIOS; HNS2M3AIOS << "h2M3_AIOS" << k;
-	std::ostringstream HNS4M1AIOS; HNS4M1AIOS << "h4M1_AIOS" << k;
-	std::ostringstream HNS4M2AIOS; HNS4M2AIOS << "h4M2_AIOS" << k;
-	std::ostringstream HNS3AIOS; HNS3AIOS << "h3_AIOS" << k;
-	std::ostringstream HNSAIOS; HNSAIOS << "h_AIOS" << k;
-	//KK
-	/*
-        h0_AIOS.push_back(new TH1F (HNS0AIOS.str().c_str(),"diTauMa",binnum0,bins0)); h0_AIOS[k]->Sumw2();
-        h1_AIOS.push_back(new TH1F (HNS1AIOS.str().c_str(),"diTauMa",binnum0,bins0)); h1_AIOS[k]->Sumw2();
-        h2_AIOS.push_back(new TH1F (HNS2AIOS.str().c_str(),"diTauMa",binnum0,bins0)); h2_AIOS[k]->Sumw2();
-        h3_AIOS.push_back(new TH1F (HNS3AIOS.str().c_str(),"diTauMa",binnum0,bins0)); h3_AIOS[k]->Sumw2();
-        h_AIOS.push_back(new TH1F (HNSAIOS.str().c_str(),"diTauMa",binnum0,bins0)); h_AIOS[k]->Sumw2();
-	*/
-        h0_AIOS.push_back(new TH1F (HNS0AIOS.str().c_str(),"diTauMa",binnum0,bins0)); h0_AIOS[k]->Sumw2();
-        h1_AIOS.push_back(new TH2F (HNS1AIOS.str().c_str(),"diTauMa",binnum11,bins11,binnum12,bins12)); h1_AIOS[k]->Sumw2();
-        h2_AIOS.push_back(new TH2F (HNS2AIOS.str().c_str(),"diTauMa",binnum21,bins21,binnum22,bins22)); h2_AIOS[k]->Sumw2();
-        h2M1_AIOS.push_back(new TH2F (HNS2M1AIOS.str().c_str(),"diTauMa",binnum23,bins23,binnum22,bins22)); h2M1_AIOS[k]->Sumw2();
-        h2M2_AIOS.push_back(new TH2F (HNS2M2AIOS.str().c_str(),"diTauMa",binnum24,bins24,binnum22,bins22)); h2M2_AIOS[k]->Sumw2();
-        h2M3_AIOS.push_back(new TH2F (HNS2M3AIOS.str().c_str(),"diTauMa",binnum23,bins23,binnum22,bins22)); h2M3_AIOS[k]->Sumw2();
-        h4M1_AIOS.push_back(new TH2F (HNS4M1AIOS.str().c_str(),"diTauMa",binnum23,bins23,binnum22,bins22)); h4M1_AIOS[k]->Sumw2();
-        h4M2_AIOS.push_back(new TH2F (HNS4M2AIOS.str().c_str(),"diTauMa",binnum24,bins24,binnum22,bins22)); h4M2_AIOS[k]->Sumw2();
-        h3_AIOS.push_back(new TH2F (HNS3AIOS.str().c_str(),"diTauMa",binnum21,bins21,binnum22,bins22)); h3_AIOS[k]->Sumw2();
-        h_AIOS.push_back(new TH1F (HNSAIOS.str().c_str(),"diTauMa",binnum0,bins0)); h_AIOS[k]->Sumw2();
-        
-	std::ostringstream HNS0AISS; HNS0AISS << "h0_AISS" << k;
-	std::ostringstream HNS1AISS; HNS1AISS << "h1_AISS" << k;
-	std::ostringstream HNS2AISS; HNS2AISS << "h2_AISS" << k;
-	std::ostringstream HNS2M1AISS; HNS2M1AISS << "h2M1_AISS" << k;
-	std::ostringstream HNS2M2AISS; HNS2M2AISS << "h2M2_AISS" << k;
-	std::ostringstream HNS2M3AISS; HNS2M3AISS << "h2M3_AISS" << k;
-	std::ostringstream HNS4M1AISS; HNS4M1AISS << "h4M1_AISS" << k;
-	std::ostringstream HNS4M2AISS; HNS4M2AISS << "h4M2_AISS" << k;
-	std::ostringstream HNS3AISS; HNS3AISS << "h3_AISS" << k;
-	std::ostringstream HNSAISS; HNSAISS << "h_AISS" << k;
-	//KK
-	/*
-        h0_AISS.push_back(new TH1F (HNS0AISS.str().c_str(),"diTauMa",binnum1,bins1)); h0_AISS[k]->Sumw2();
-        h1_AISS.push_back(new TH1F (HNS1AISS.str().c_str(),"diTauMa",binnum1,bins1)); h1_AISS[k]->Sumw2();
-        h2_AISS.push_back(new TH1F (HNS2AISS.str().c_str(),"diTauMa",binnum1,bins1)); h2_AISS[k]->Sumw2();
-        h3_AISS.push_back(new TH1F (HNS3AISS.str().c_str(),"diTauMa",binnum1,bins1)); h3_AISS[k]->Sumw2();
-        h_AISS.push_back(new TH1F (HNSAISS.str().c_str(),"diTauMa",binnum1,bins1)); h_AISS[k]->Sumw2();
-	*/
-        h0_AISS.push_back(new TH1F (HNS0AISS.str().c_str(),"diTauMa",binnum1,bins1)); h0_AISS[k]->Sumw2();
-        h1_AISS.push_back(new TH2F (HNS1AISS.str().c_str(),"diTauMa",binnum11,bins11,binnum12,bins12)); h1_AISS[k]->Sumw2();
-        h2_AISS.push_back(new TH2F (HNS2AISS.str().c_str(),"diTauMa",binnum21,bins21,binnum22,bins22)); h2_AISS[k]->Sumw2();
-        h2M1_AISS.push_back(new TH2F (HNS2M1AISS.str().c_str(),"diTauMa",binnum23,bins23,binnum22,bins22)); h2M1_AISS[k]->Sumw2();
-        h2M2_AISS.push_back(new TH2F (HNS2M2AISS.str().c_str(),"diTauMa",binnum24,bins24,binnum22,bins22)); h2M2_AISS[k]->Sumw2();
-        h2M3_AISS.push_back(new TH2F (HNS2M3AISS.str().c_str(),"diTauMa",binnum23,bins23,binnum22,bins22)); h2M3_AISS[k]->Sumw2();
-        h4M1_AISS.push_back(new TH2F (HNS4M1AISS.str().c_str(),"diTauMa",binnum23,bins23,binnum22,bins22)); h4M1_AISS[k]->Sumw2();
-        h4M2_AISS.push_back(new TH2F (HNS4M2AISS.str().c_str(),"diTauMa",binnum24,bins24,binnum22,bins22)); h4M2_AISS[k]->Sumw2();
-        h3_AISS.push_back(new TH2F (HNS3AISS.str().c_str(),"diTauMa",binnum21,bins21,binnum22,bins22)); h3_AISS[k]->Sumw2();
-        h_AISS.push_back(new TH1F (HNSAISS.str().c_str(),"diTauMa",binnum1,bins1)); h_AISS[k]->Sumw2();
+      
+      h0_OS.push_back(new TH1F (HNS0OS.str().c_str(),"diTauMa",binnum0,bins0)); h0_OS[k]->Sumw2();
+      h1_OS.push_back(new TH2F (HNS1OS.str().c_str(),"diTauMa",binnum11,bins11,binnum12,bins12)); h1_OS[k]->Sumw2();
+      h2_OS.push_back(new TH2F (HNS2OS.str().c_str(),"diTauMa",binnum21,bins21,binnum22,bins22)); h2_OS[k]->Sumw2();
+      
+      h3_OS.push_back(new TH2F (HNS3OS.str().c_str(),"diTauMa",binnum21,bins21,binnum22,bins22)); h3_OS[k]->Sumw2();
+      h_OS.push_back(new TH1F (HNSOS.str().c_str(),"diTauMa",binnum0,bins0)); h_OS[k]->Sumw2();
+      
+      std::ostringstream HNS0SS; HNS0OS << "h0_SS" << k;
+      std::ostringstream HNS1SS; HNS1OS << "h1_SS" << k;
+      std::ostringstream HNS2SS; HNS2OS << "h2_SS" << k;
+      std::ostringstream HNS3SS; HNS2OS << "h3_SS" << k;
+      std::ostringstream HNSSS; HNSOS << "h_SS" << k;
 
-	// D.Kim trgSF
-	std::ostringstream HTRGSF1; HTRGSF1 << "h_trgSF1" << k;
-	std::ostringstream HTRGSF2; HTRGSF2 << "h_trgSF2" << k;
-	std::ostringstream HTRGSFRR; HTRGSFRR << "h_trgSF_RR" << k;
-	std::ostringstream HTRGSFFR; HTRGSFFR << "h_trgSF_FR" << k;
-	std::ostringstream HTRGSFRF; HTRGSFRF << "h_trgSF_RF" << k;
-	std::ostringstream HTRGSFFF; HTRGSFFF << "h_trgSF_FF" << k;
-	h_trgSF1.push_back(new TH1F (HTRGSF1.str().c_str(),"trgSF1", 80,1.00,1.10)); h_trgSF1[k]->Sumw2();
-	h_trgSF2.push_back(new TH1F (HTRGSF2.str().c_str(),"trgSF2", 80,0.97,1.15)); h_trgSF2[k]->Sumw2();
-	h_trgSF_RR.push_back(new TH1F (HTRGSFRR.str().c_str(),"trgSF_RR", 100,0.9,1.5)); h_trgSF_RR[k]->Sumw2();
-	h_trgSF_FR.push_back(new TH1F (HTRGSFFR.str().c_str(),"trgSF_FR", 100,0.9,1.5)); h_trgSF_FR[k]->Sumw2();
-	h_trgSF_RF.push_back(new TH1F (HTRGSFRF.str().c_str(),"trgSF_RF", 100,0.9,1.5)); h_trgSF_RF[k]->Sumw2();
-	h_trgSF_FF.push_back(new TH1F (HTRGSFFF.str().c_str(),"trgSF_FF", 100,0.9,1.5)); h_trgSF_FF[k]->Sumw2();
+      h0_SS.push_back(new TH1F (HNS0SS.str().c_str(),"diTauMa",binnum1,bins1)); h0_SS[k]->Sumw2();
+      h1_SS.push_back(new TH2F (HNS1SS.str().c_str(),"diTauMa",binnum11,bins11,binnum12,bins12)); h1_SS[k]->Sumw2();
+      h2_SS.push_back(new TH2F (HNS2SS.str().c_str(),"diTauMa",binnum21,bins21,binnum22,bins22)); h2_SS[k]->Sumw2();
+      h3_SS.push_back(new TH2F (HNS3SS.str().c_str(),"diTauMa",binnum21,bins21,binnum22,bins22)); h3_SS[k]->Sumw2();
+      h_SS.push_back(new TH1F (HNSSS.str().c_str(),"diTauMa",binnum1,bins1)); h_SS[k]->Sumw2();
+      
+      std::ostringstream HNS0AIOS; HNS0AIOS << "h0_AIOS" << k;
+      std::ostringstream HNS1AIOS; HNS1AIOS << "h1_AIOS" << k;
+      std::ostringstream HNS2AIOS; HNS2AIOS << "h2_AIOS" << k;
+      std::ostringstream HNS3AIOS; HNS3AIOS << "h3_AIOS" << k;
+      std::ostringstream HNSAIOS; HNSAIOS << "h_AIOS" << k;
 
-	// D.Kim MELA observbable
-	std::ostringstream HMELAVBF; HMELAVBF << "h_MELA_VBF" << k;
-	std::ostringstream HMELAggH; HMELAggH << "h_MELA_ggH" << k;	
-	h_MELA_VBF.push_back(new TH1F (HMELAVBF.str().c_str(),"Dbkg_VBF", binnum23, bins23)); h_MELA_VBF[k]->Sumw2();
-	h_MELA_ggH.push_back(new TH1F (HMELAggH.str().c_str(),"Dbkg_ggH", binnum24, bins24)); h_MELA_ggH[k]->Sumw2();
+      h0_AIOS.push_back(new TH1F (HNS0AIOS.str().c_str(),"diTauMa",binnum0,bins0)); h0_AIOS[k]->Sumw2();
+      h1_AIOS.push_back(new TH2F (HNS1AIOS.str().c_str(),"diTauMa",binnum11,bins11,binnum12,bins12)); h1_AIOS[k]->Sumw2();
+      h2_AIOS.push_back(new TH2F (HNS2AIOS.str().c_str(),"diTauMa",binnum21,bins21,binnum22,bins22)); h2_AIOS[k]->Sumw2();
+      h3_AIOS.push_back(new TH2F (HNS3AIOS.str().c_str(),"diTauMa",binnum21,bins21,binnum22,bins22)); h3_AIOS[k]->Sumw2();
+      h_AIOS.push_back(new TH1F (HNSAIOS.str().c_str(),"diTauMa",binnum0,bins0)); h_AIOS[k]->Sumw2();
+        
+      std::ostringstream HNS0AISS; HNS0AISS << "h0_AISS" << k;
+      std::ostringstream HNS1AISS; HNS1AISS << "h1_AISS" << k;
+      std::ostringstream HNS2AISS; HNS2AISS << "h2_AISS" << k;
+      std::ostringstream HNS3AISS; HNS3AISS << "h3_AISS" << k;
+      std::ostringstream HNSAISS; HNSAISS << "h_AISS" << k;
+
+      h0_AISS.push_back(new TH1F (HNS0AISS.str().c_str(),"diTauMa",binnum1,bins1)); h0_AISS[k]->Sumw2();
+      h1_AISS.push_back(new TH2F (HNS1AISS.str().c_str(),"diTauMa",binnum11,bins11,binnum12,bins12)); h1_AISS[k]->Sumw2();
+      h2_AISS.push_back(new TH2F (HNS2AISS.str().c_str(),"diTauMa",binnum21,bins21,binnum22,bins22)); h2_AISS[k]->Sumw2();
+      h3_AISS.push_back(new TH2F (HNS3AISS.str().c_str(),"diTauMa",binnum21,bins21,binnum22,bins22)); h3_AISS[k]->Sumw2();
+      h_AISS.push_back(new TH1F (HNSAISS.str().c_str(),"diTauMa",binnum1,bins1)); h_AISS[k]->Sumw2();
+      
+      // D.Kim trgSF
+      std::ostringstream HTRGSF1; HTRGSF1 << "h_trgSF1" << k;
+      std::ostringstream HTRGSF2; HTRGSF2 << "h_trgSF2" << k;
+      std::ostringstream HTRGSFRR; HTRGSFRR << "h_trgSF_RR" << k;
+      std::ostringstream HTRGSFFR; HTRGSFFR << "h_trgSF_FR" << k;
+      std::ostringstream HTRGSFRF; HTRGSFRF << "h_trgSF_RF" << k;
+      std::ostringstream HTRGSFFF; HTRGSFFF << "h_trgSF_FF" << k;
+      h_trgSF1.push_back(new TH1F (HTRGSF1.str().c_str(),"trgSF1", 80,1.00,1.10)); h_trgSF1[k]->Sumw2();
+      h_trgSF2.push_back(new TH1F (HTRGSF2.str().c_str(),"trgSF2", 80,0.97,1.15)); h_trgSF2[k]->Sumw2();
+      h_trgSF_RR.push_back(new TH1F (HTRGSFRR.str().c_str(),"trgSF_RR", 100,0.9,1.5)); h_trgSF_RR[k]->Sumw2();
+      h_trgSF_FR.push_back(new TH1F (HTRGSFFR.str().c_str(),"trgSF_FR", 100,0.9,1.5)); h_trgSF_FR[k]->Sumw2();
+      h_trgSF_RF.push_back(new TH1F (HTRGSFRF.str().c_str(),"trgSF_RF", 100,0.9,1.5)); h_trgSF_RF[k]->Sumw2();
+      h_trgSF_FF.push_back(new TH1F (HTRGSFFF.str().c_str(),"trgSF_FF", 100,0.9,1.5)); h_trgSF_FF[k]->Sumw2();
+      
     }
-    /*
-     ScaleFactor * myScaleFactor_trgMu23 = new ScaleFactor();
-     myScaleFactor_trgMu23->init_ScaleFactor("LeptonEfficiencies/Muon/Run2016BtoH/Muon_Mu23leg_2016BtoH_eff.root");
-     ScaleFactor * myScaleFactor_trgMu8 = new ScaleFactor();
-     myScaleFactor_trgMu8->init_ScaleFactor("LeptonEfficiencies/Muon/Run2016BtoH/Muon_Mu8leg_2016BtoH_eff.root");
-     ScaleFactor * myScaleFactor_trgEle12 = new ScaleFactor();
-     myScaleFactor_trgEle12->init_ScaleFactor("LeptonEfficiencies/Electron/Run2016BtoH/Electron_Ele12leg_eff.root");
-     ScaleFactor * myScaleFactor_trgEle23 = new ScaleFactor();
-     myScaleFactor_trgEle23->init_ScaleFactor("LeptonEfficiencies/Electron/Run2016BtoH/Electron_Ele23leg_eff.root");
-     
-     ScaleFactor * myScaleFactor_trg = new ScaleFactor();
-     myScaleFactor_trg->init_ScaleFactor("LeptonEfficiencies/Electron/Run2016BtoH/Electron_Ele25_eta2p1_WPTight_eff.root");
-     ScaleFactor * myScaleFactor_idEle = new ScaleFactor();
-     myScaleFactor_idEle->init_ScaleFactor("LeptonEfficiencies/Electron/Run2016BtoH/Electron_IdIso_IsoLt0p15_eff.root");
-     ScaleFactor * myScaleFactor_idMu = new ScaleFactor();
-     myScaleFactor_idMu->init_ScaleFactor("LeptonEfficiencies/Muon/Run2016BtoH/Muon_IdIso_IsoLt0p15_2016BtoH_eff.root");
-     */
-    
     
     TString postfixTES[12]={"_CMS_scale_t_13TeVDown","_CMS_scale_t_13TeVUp","_CMS_scale_t_1prong_13TeVDown","_CMS_scale_t_1prong_13TeVUp","_CMS_scale_t_1prong1pizero_13TeVDown","_CMS_scale_t_1prong1pizero_13TeVUp","_CMS_scale_t_3prong_13TeVDown","_CMS_scale_t_3prong_13TeVUp","_CMS_scale_met_unclustered_13TeVDown","_CMS_scale_met_unclustered_13TeVUp","_CMS_scale_met_clustered_13TeVDown","_CMS_scale_met_clustered_13TeVUp"};
     TString postfixDM[6]={"_CMS_tauDMReco_1prong_13TeVUp","_CMS_tauDMReco_1prong_13TeVDown","_CMS_tauDMReco_1prong1pizero_13TeVUp","_CMS_tauDMReco_1prong1pizero_13TeVDown","_CMS_tauDMReco_3prong_13TeVUp","_CMS_tauDMReco_3prong_13TeVDown"};
@@ -606,7 +504,6 @@ int main(int argc, char** argv) {
     TString postfixZLnorm[4]={"_CMS_mFakeTau_1prong_13TeVUp","_CMS_mFakeTau_1prong_13TeVDown","_CMS_mFakeTau_1prong1pizero_13TeVUp","_CMS_mFakeTau_1prong1pizero_13TeVDown"};
     TString postfixJES[56]={"_CMS_scale_j_13TeVDown","_CMS_scale_j_13TeVUp","_CMS_scale_j_AbsoluteFlavMap_13TeVDown","_CMS_scale_j_AbsoluteFlavMap_13TeVUp","_CMS_scale_j_AbsoluteMPFBias_13TeVDown","_CMS_scale_j_AbsoluteMPFBias_13TeVUp","_CMS_scale_j_AbsoluteScale_13TeVDown","_CMS_scale_j_AbsoluteScale_13TeVUp","_CMS_scale_j_AbsoluteStat_13TeVDown","_CMS_scale_j_AbsoluteStat_13TeVUp","_CMS_scale_j_FlavorQCD_13TeVDown","_CMS_scale_j_FlavorQCD_13TeVUp","_CMS_scale_j_Fragmentation_13TeVDown","_CMS_scale_j_Fragmentation_13TeVUp","_CMS_scale_j_PileUpDataMC_13TeVDown","_CMS_scale_j_PileUpDataMC_13TeVUp","_CMS_scale_j_PileUpPtBB_13TeVDown","_CMS_scale_j_PileUpPtBB_13TeVUp","_CMS_scale_j_PileUpPtEC1_13TeVDown","_CMS_scale_j_PileUpPtEC1_13TeVUp","_CMS_scale_j_PileUpPtEC2_13TeVDown","_CMS_scale_j_PileUpPtEC2_13TeVUp","_CMS_scale_j_PileUpPtHF_13TeVDown","_CMS_scale_j_PileUpPtHF_13TeVUp","_CMS_scale_j_PileUpPtRef_13TeVDown","_CMS_scale_j_PileUpPtRef_13TeVUp","_CMS_scale_j_RelativeBal_13TeVDown","_CMS_scale_j_RelativeBal_13TeVUp","_CMS_scale_j_RelativeFSR_13TeVDown","_CMS_scale_j_RelativeFSR_13TeVUp","_CMS_scale_j_RelativeJEREC1_13TeVDown","_CMS_scale_j_RelativeJEREC1_13TeVUp","_CMS_scale_j_RelativeJEREC2_13TeVDown","_CMS_scale_j_RelativeJEREC2_13TeVUp","_CMS_scale_j_RelativeJERHF_13TeVDown","_CMS_scale_j_RelativeJERHF_13TeVUp","_CMS_scale_j_RelativePtBB_13TeVDown","_CMS_scale_j_RelativePtBB_13TeVUp","_CMS_scale_j_RelativePtEC1_13TeVDown","_CMS_scale_j_RelativePtEC1_13TeVUp","_CMS_scale_j_RelativePtEC2_13TeVDown","_CMS_scale_j_RelativePtEC2_13TeVUp","_CMS_scale_j_RelativePtHF_13TeVDown","_CMS_scale_j_RelativePtHF_13TeVUp","_CMS_scale_j_RelativeStatEC_13TeVDown","_CMS_scale_j_RelativeStatEC_13TeVUp","_CMS_scale_j_RelativeStatFSR_13TeVDown","_CMS_scale_j_RelativeStatFSR_13TeVUp","_CMS_scale_j_RelativeStatHF_13TeVDown","_CMS_scale_j_RelativeStatHF_13TeVUp","_CMS_scale_j_SinglePionECAL_13TeVDown","_CMS_scale_j_SinglePionECAL_13TeVUp","_CMS_scale_j_SinglePionHCAL_13TeVDown","_CMS_scale_j_SinglePionHCAL_13TeVUp","_CMS_scale_j_TimePtEta_13TeVDown","_CMS_scale_j_TimePtEta_13TeVUp"};
     TString postfixWG1[18]={"_THU_ggH_Mu_13TeVUp","_THU_ggH_Mu_13TeVDown","_THU_ggH_Res_13TeVUp","_THU_ggH_Res_13TeVDown","_THU_ggH_Mig01_13TeVUp","_THU_ggH_Mig01_13TeVDown","_THU_ggH_Mig12_13TeVUp","_THU_ggH_Mig12_13TeVDown","_THU_ggH_VBF2j_13TeVUp","_THU_ggH_VBF2j_13TeVDown","_THU_ggH_VBF3j_13TeVUp","_THU_ggH_VBF3j_13TeVDown","_THU_ggH_PT60_13TeVUp","_THU_ggH_PT60_13TeVDown","_THU_ggH_PT120_13TeVUp","_THU_ggH_PT120_13TeVDown","_THU_ggH_qmtop_13TeVUp","_THU_ggH_qmtop_13TeVDown"};
-    
     
     
     std::cout << "2" << std::endl;    
@@ -661,54 +558,41 @@ int main(int argc, char** argv) {
       //float eff_tau=1.0;
 
       // D.Kim : Trigger SF
-      float sf_trgDK1 = 1.0;
-      float sf_trgDK2 = 1.0;
-      float sf_trgDK_RR = 1.0;
-      float sf_trgDK_FR = 1.0;
-      float sf_trgDK_RF = 1.0;
-      float sf_trgDK_FF = 1.0;
+      float sf_trg1 = 1.0;
+      float sf_trg2 = 1.0;
+      float sf_trg_RR = 1.0;
+      float sf_trg_FR = 1.0;
+      float sf_trg_RF = 1.0;
+      float sf_trg_FF = 1.0;
       PyObject* trgSF = PyObject_CallFunction(compute_sf,(char*)"[f,i]",0.0,0);
       if (sample!="data_obs"){
 	if (t1_decayMode==0) trgSF = PyObject_CallFunction(compute_sf,(char*)"[f,i]",mytau1.Pt(),0);
 	else if (t1_decayMode==1) trgSF = PyObject_CallFunction(compute_sf,(char*)"[f,i]",mytau1.Pt(),1);
 	else if (t1_decayMode==10) trgSF = PyObject_CallFunction(compute_sf,(char*)"[f,i]",mytau1.Pt(),10);
-	sf_trgDK1 = PyFloat_AsDouble(trgSF);
+	sf_trg1 = PyFloat_AsDouble(trgSF);
 	if (gen_match_1==5)  {
-	  sf_trgDK_RR = PyFloat_AsDouble(trgSF);
-	  sf_trgDK_RF = PyFloat_AsDouble(trgSF);
+	  sf_trg_RR = PyFloat_AsDouble(trgSF);
+	  sf_trg_RF = PyFloat_AsDouble(trgSF);
 	}
 	if (gen_match_1==6) {
-	  sf_trgDK_FR = PyFloat_AsDouble(trgSF);
-	  sf_trgDK_FF = PyFloat_AsDouble(trgSF);
+	  sf_trg_FR = PyFloat_AsDouble(trgSF);
+	  sf_trg_FF = PyFloat_AsDouble(trgSF);
 	}
 	if (t2_decayMode==0) trgSF = PyObject_CallFunction(compute_sf,(char*)"[f,i]",mytau2.Pt(),0);
 	else if (t2_decayMode==1) trgSF = PyObject_CallFunction(compute_sf,(char*)"[f,i]",mytau2.Pt(),1);
 	else if (t2_decayMode==10) trgSF = PyObject_CallFunction(compute_sf,(char*)"[f,i]",mytau2.Pt(),10);
-	sf_trgDK2 = PyFloat_AsDouble(trgSF);
+	sf_trg2 = PyFloat_AsDouble(trgSF);
 	if (gen_match_2==5)  {
-	  sf_trgDK_RR = sf_trgDK_RR*PyFloat_AsDouble(trgSF);
-          sf_trgDK_FR = sf_trgDK_FR*PyFloat_AsDouble(trgSF);
+	  sf_trg_RR = sf_trg_RR*PyFloat_AsDouble(trgSF);
+          sf_trg_FR = sf_trg_FR*PyFloat_AsDouble(trgSF);
         }
         if (gen_match_2==6) {
-          sf_trgDK_RF = sf_trgDK_RF*PyFloat_AsDouble(trgSF);
-          sf_trgDK_FF = sf_trgDK_FF*PyFloat_AsDouble(trgSF);
+          sf_trg_RF = sf_trg_RF*PyFloat_AsDouble(trgSF);
+          sf_trg_FF = sf_trg_FF*PyFloat_AsDouble(trgSF);
 	}
 
       }
-      
-      
-      // D.Kim : I think we this is Trigger SF for other channel, so we can delete this.
-      /*
-	if (sample!="data_obs"){
-	//sf_id=myScaleFactor_idMu->get_ScaleFactor(mytau1.Pt(),mytau1.Eta())*myScaleFactor_idMu->get_ScaleFactor(mytau2.Pt(),mytau2.Eta());
-	w->var("m_pt")->setVal(mytau1.Pt());
-	w->var("m_eta")->setVal(mytau1.Eta());
-	sf_id=sf_id*w->function("m_trk_ratio")->getVal();
-	w->var("m_pt")->setVal(mytau2.Pt());
-	w->var("m_eta")->setVal(mytau2.Eta());
-	sf_id=sf_id*w->function("m_trk_ratio")->getVal();
-	}*/
-      
+          
       // Regions
       float signalRegion = byTightIsolationMVArun2v1DBoldDMwLT_1 && byTightIsolationMVArun2v1DBoldDMwLT_2;
       float aiRegion = ((byMediumIsolationMVArun2v1DBoldDMwLT_1 && !byTightIsolationMVArun2v1DBoldDMwLT_2 && byLooseIsolationMVArun2v1DBoldDMwLT_2) || (byMediumIsolationMVArun2v1DBoldDMwLT_2 && !byTightIsolationMVArun2v1DBoldDMwLT_1 && byLooseIsolationMVArun2v1DBoldDMwLT_1));
@@ -782,7 +666,6 @@ int main(int argc, char** argv) {
 	  aweight=aweight*(1+0.90*(zpt_corr-1));
       }
       
-
       //  Top pT reweighting for ttbar events
       float pttop1=pt_top1;
       if (pttop1>400) pttop1=400;
@@ -841,7 +724,6 @@ int main(int argc, char** argv) {
       if (!(gen_match_1==5 && gen_match_2==5) && (name=="VVT"|| name=="TTT")) continue;
       if ((gen_match_1==5 && gen_match_2==5) && (name=="VVJ" || name=="TTJ")) continue;
 
-      
       //KK Added for future. For now we need only first two variables
       int nombrejets[56]={njets_JESDown,njets_JESUp,njets_JetAbsoluteFlavMapDown,njets_JetAbsoluteFlavMapUp,njets_JetAbsoluteMPFBiasDown,njets_JetAbsoluteMPFBiasUp,njets_JetAbsoluteScaleDown,njets_JetAbsoluteScaleUp,njets_JetAbsoluteStatDown,njets_JetAbsoluteStatUp,njets_JetFlavorQCDDown,njets_JetFlavorQCDUp,njets_JetFragmentationDown,njets_JetFragmentationUp,njets_JetPileUpDataMCDown,njets_JetPileUpDataMCUp,njets_JetPileUpPtBBDown,njets_JetPileUpPtBBUp,njets_JetPileUpPtEC1Down,njets_JetPileUpPtEC1Up,njets_JetPileUpPtEC2Down,njets_JetPileUpPtEC2Up,njets_JetPileUpPtHFDown,njets_JetPileUpPtHFUp,njets_JetPileUpPtRefDown,njets_JetPileUpPtRefUp,njets_JetRelativeBalDown,njets_JetRelativeBalUp,njets_JetRelativeFSRDown,njets_JetRelativeFSRUp,njets_JetRelativeJEREC1Down,njets_JetRelativeJEREC1Up,njets_JetRelativeJEREC2Down,njets_JetRelativeJEREC2Up,njets_JetRelativeJERHFDown,njets_JetRelativeJERHFUp,njets_JetRelativePtBBDown,njets_JetRelativePtBBUp,njets_JetRelativePtEC1Down,njets_JetRelativePtEC1Up,njets_JetRelativePtEC2Down,njets_JetRelativePtEC2Up,njets_JetRelativePtHFDown,njets_JetRelativePtHFUp,njets_JetRelativeStatECDown,njets_JetRelativeStatECUp,njets_JetRelativeStatFSRDown,njets_JetRelativeStatFSRUp,njets_JetRelativeStatHFDown,njets_JetRelativeStatHFUp,njets_JetSinglePionECALDown,njets_JetSinglePionECALUp,njets_JetSinglePionHCALDown,njets_JetSinglePionHCALUp,njets_JetTimePtEtaDown,njets_JetTimePtEtaUp};
       
@@ -851,24 +733,26 @@ int main(int argc, char** argv) {
 	
 	float var2=m_sv; 
 	float var1_1=pt_sv;
-	//	float var1_2=mjj; //KK: This variable should be defined here eventually
 
+	TLorentzVector myjet1;
+	myjet1.SetPtEtaPhiM(jpt_1,jeta_1,jphi_1,0);
+	TLorentzVector myjet2;
+	myjet2.SetPtEtaPhiM(jpt_2,jeta_2,jphi_2,0);
+	TLorentzVector jets=myjet2+myjet1;
+	mjj = jets.M();
+
+	float var1_2=mjj;//ME_sm_VBF/(ME_sm_VBF+45*ME_bkg);  //Dbkg_VBF;//mjj; 
+	std::cout << "var1_2 is " << var1_2 << std::endl;
 	TLorentzVector myrawmet;
 	myrawmet.SetPtEtaPhiM(met,0,metphi,0);
 	TLorentzVector mymet=myrawmet;
-	//std::cout << mymet.M() << std::endl;
-	// Apply uncertainty shifts ( NOT ADDED YET )	  
 	
-	
-	//AM
-	//This is for tau ES uncertainty up and down
 	//KK: added "&& gen_match_1==5"
 	if (tes==1 && gen_match_2==5 && gen_match_1==5){	    
 	  
 	  if (k==0){ var1_1=pt_sv_DOWN; var2=m_sv_DOWN; mytau1*=0.988; mytau2*=0.988;  mymet=mymet+(0.012/0.988)*mytau1+(0.012/0.988)*mytau2;}
 	  if (k==1){ var1_1=pt_sv_UP;   var2=m_sv_UP;   mytau1*=1.012; mytau2*=1.012;  mymet=mymet-(0.012/1.012)*mytau1-(0.012/1.012)*mytau2;}
-          
-          
+                   
 	  if (k==2 && t2_decayMode==0){ var1_1=pt_sv_DOWN; var2=m_sv_DOWN; mytau2*=0.988; mymet=mymet+(0.012/0.988)*mytau2;}
 	  if (k==3 && t2_decayMode==0){ var1_1=pt_sv_UP; var2=m_sv_UP; mytau2*=1.012; mymet=mymet-(0.012/1.012)*mytau2;}
 	  if (k==4 && t2_decayMode==1){ var1_1=pt_sv_DOWN; var2=m_sv_DOWN; mytau2*=0.988; mymet=mymet+(0.012/0.988)*mytau2;}
@@ -903,29 +787,7 @@ int main(int argc, char** argv) {
 	  njets = nombrejets[k];
 	  //	  var1_2 = massejets[k]; //KK for now not available in trees
 	}
-	
-	
-	
-	//KK: Combine two loops over nbhist
-	/*
-	  }
-	  
-	  // #################################
-	  // # Loop over uncertainty sources #
-	  // #################################
-	  for (int k=0; k<nbhist; ++k){
-	*/
-	// for each iteration start from the nominal objets
-	
-	// pT, Eta cuts for the leptons
-	//KK 07/08/2018: Change from
-	/*
-	if (mytau1.Pt() > mytau2.Pt() )
-	  if (mytau1.Pt() < 40 || mytau2.Pt() < 40 ) continue;
-	if (mytau1.Pt() < mytau2.Pt() )
-	  if (mytau2.Pt() < 40 || mytau1.Pt() < 40 ) continue;
-	*/
-	//KK: to
+
 	if (mytau1.Pt() < 40 || mytau2.Pt() < 40 ) continue;
 	if (mytau1.Pt() < 50) continue;
 	
@@ -933,18 +795,12 @@ int main(int argc, char** argv) {
 
 	float weight2=1.0;	  
 	// D.Kim
-	weight2=weight2*sf_trgDK1*sf_trgDK2;
+	weight2=weight2*sf_trg1*sf_trg2;
 	if (sample=="data_obs") {aweight=1.0; weight2=1.0;}
         
 	// Additional selections
 	bool selection =true;
-	TLorentzVector myjet1;
-	myjet1.SetPtEtaPhiM(jpt_1,jeta_1,jphi_1,0);
-	TLorentzVector myjet2;
-	myjet2.SetPtEtaPhiM(jpt_2,jeta_2,jphi_2,0);
 	TLorentzVector Higgs = mytau1+mytau2+mymet;
-	TLorentzVector jets=myjet2+myjet1;
-	mjj = jets.M();
 	
 	// Categories
 	bool is_0jet = false;
@@ -991,7 +847,7 @@ int main(int argc, char** argv) {
 	}
 
 
-	//KK: For some studies
+	//KK: For some studies, definitions of categories
 	//	if(njets>=2 && Higgs.Pt()>100 && mjj > 300) is_VBF=true;
 	//	if(njets>=2 && mjj < 300) is_VH=true;
 	//	if(njets==1 || (njets>=2 && mjj > 300 && Higgs.Pt()<100)) is_boosted=true;
@@ -1012,22 +868,21 @@ int main(int argc, char** argv) {
 	   var1_M* : vbf -> MELA obs
 	*/
 	float var = var2; 
-	float var1_2 = mjj;
+	/*
+	float var1_2 = ME_sm_VBF;//mjj;
 	float var1_M1 = Dbkg_VBF;//ME_sm_VBF;
 	float var1_M2 = Dbkg_ggH;//ME_sm_ggH;
 	float var1_M3 = ME_bkg;
-	  
+	*/
 	if (selection){
 	  // ################### signalRegion && OS ####################
 	  if (is_0jet && signalRegion && charge1*charge2<0){
 	    h0_OS[k]->Fill(var,weight2*aweight);
-	    //KK
 	    if (tes==0)
 	      h_0jet->Fill(var,weight2*aweight);
 	  }
 	  if (is_boosted && signalRegion && charge1*charge2<0){
 	    h1_OS[k]->Fill(var1_1,var2,weight2*aweight);
-	    //KK
 	    if (tes==0){
 	      hx_boosted->Fill(var1_1,weight2*aweight);
 	      hy_boosted->Fill(var2,weight2*aweight);
@@ -1035,25 +890,17 @@ int main(int argc, char** argv) {
 	  }
 	  if (is_VBF && signalRegion && charge1*charge2<0) {
 	    h2_OS[k]->Fill(var1_2,var2,weight2*aweight);
-	    //KK
 	    if (tes==0){
 	      hx_vbf->Fill(var1_2,weight2*aweight);
 	      hy_vbf->Fill(var2,weight2*aweight);
 	    }
-	    h2M1_OS[k]->Fill(var1_M1,var2,weight2*aweight);
-	    h2M2_OS[k]->Fill(var1_M2,var2,weight2*aweight);
 	  }
 	  if (is_VH && signalRegion && charge1*charge2<0)
-	    //	    h3_OS[k]->Fill(var,weight2*aweight); //KK
 	    h3_OS[k]->Fill(var1_2,var2,weight2*aweight);
-	  if (is_2jets && signalRegion && charge1*charge2<0) {
-	    h4M1_OS[k]->Fill(var1_M1,var2,weight2*aweight);
-	    h4M2_OS[k]->Fill(var1_M2,var2,weight2*aweight);
-	  }
 	  if (signalRegion && charge1*charge2<0)
 	    h_OS[k]->Fill(var,weight2*aweight);
-
-
+	  
+	  
 	  // ################### signalRegion && SS ####################
 	  if (is_0jet && signalRegion && charge1*charge2>0)
 	    h0_SS[k]->Fill(var,weight2*aweight);
@@ -1061,16 +908,9 @@ int main(int argc, char** argv) {
 	    h1_SS[k]->Fill(var1_1,var2,weight2*aweight);
 	  if (is_VBF && signalRegion && charge1*charge2>0) {
 	    h2_SS[k]->Fill(var1_2,var2,weight2*aweight);
-	    h2M1_SS[k]->Fill(var1_M1,var2,weight2*aweight);
-	    h2M2_SS[k]->Fill(var1_M2,var2,weight2*aweight);
 	  }
 	  if (is_VH && signalRegion && charge1*charge2>0)
-	    //	    h3_SS[k]->Fill(var,weight2*aweight); //KK
 	    h3_SS[k]->Fill(var1_2,var2,weight2*aweight); 
-	  if (is_2jets && signalRegion && charge1*charge2>0) {
-	    h4M1_SS[k]->Fill(var1_M1,var2,weight2*aweight);
-	    h4M2_SS[k]->Fill(var1_M2,var2,weight2*aweight);
-	  }
 	  if (signalRegion && charge1*charge2>0)
 	    h_SS[k]->Fill(var,weight2*aweight);
 
@@ -1082,16 +922,9 @@ int main(int argc, char** argv) {
 	    h1_AIOS[k]->Fill(var1_1,var2,weight2*aweight);
 	  if (is_VBF && charge1*charge2<0 && aiRegion) {
 	    h2_AIOS[k]->Fill(var1_2,var2,weight2*aweight);
-	    h2M1_AIOS[k]->Fill(var1_M1,var2,weight2*aweight);
-	    h2M2_AIOS[k]->Fill(var1_M2,var2,weight2*aweight);
 	  }
 	  if (is_VH && charge1*charge2<0 && aiRegion)
-	    //	    h3_AIOS[k]->Fill(var,weight2*aweight);//KK
 	    h3_AIOS[k]->Fill(var1_2,var2,weight2*aweight);
-	  if (is_2jets && aiRegion && charge1*charge2<0) {
-	    h4M1_AIOS[k]->Fill(var1_M1,var2,weight2*aweight);
-	    h4M2_AIOS[k]->Fill(var1_M2,var2,weight2*aweight);
-	  }
 	  if (charge1*charge2<0 && aiRegion)
 	    h_AIOS[k]->Fill(var,weight2*aweight);
 
@@ -1103,34 +936,21 @@ int main(int argc, char** argv) {
 	    h1_AISS[k]->Fill(var1_1,var2,weight2*aweight);
 	  if (is_VBF && charge1*charge2>0 && aiRegion) {
 	    h2_AISS[k]->Fill(var1_2,var2,weight2*aweight);
-	    h2M1_AISS[k]->Fill(var1_M1,var2,weight2*aweight);
-	    h2M2_AISS[k]->Fill(var1_M2,var2,weight2*aweight);
 	  }
 	  if (is_VH && charge1*charge2>0 && aiRegion)
-	    //	    h3_AISS[k]->Fill(var,weight2*aweight);
 	    h3_AISS[k]->Fill(var1_2,var2,weight2*aweight);
-	  if (is_2jets && aiRegion && charge1*charge2>0) {
-	    h4M1_AISS[k]->Fill(var1_M1,var2,weight2*aweight);
-	    h4M2_AISS[k]->Fill(var1_M2,var2,weight2*aweight);
-	  }
 	  if (charge1*charge2>0 && aiRegion)
 	    h_AISS[k]->Fill(var,weight2*aweight);	  
 
 
 	  // ################### trg SF ####################
-	  h_trgSF1[k]->Fill(sf_trgDK1);
-	  h_trgSF2[k]->Fill(sf_trgDK2);
-	  if (gen_match_1==5 && gen_match_2==5) h_trgSF_RR[k]->Fill(sf_trgDK_RR);
-	  if (gen_match_1==6 && gen_match_2==5) h_trgSF_FR[k]->Fill(sf_trgDK_FR);
-	  if (gen_match_1==5 && gen_match_2==6) h_trgSF_RF[k]->Fill(sf_trgDK_RF);
-	  if (gen_match_1==6 && gen_match_2==6) h_trgSF_FF[k]->Fill(sf_trgDK_FF);
+	  h_trgSF1[k]->Fill(sf_trg1);
+	  h_trgSF2[k]->Fill(sf_trg2);
+	  if (gen_match_1==5 && gen_match_2==5) h_trgSF_RR[k]->Fill(sf_trg_RR);
+	  if (gen_match_1==6 && gen_match_2==5) h_trgSF_FR[k]->Fill(sf_trg_FR);
+	  if (gen_match_1==5 && gen_match_2==6) h_trgSF_RF[k]->Fill(sf_trg_RF);
+	  if (gen_match_1==6 && gen_match_2==6) h_trgSF_FF[k]->Fill(sf_trg_FF);
 
-
-	  // ################### pure MELA ####################
-	  //if (is_2jets && signalRegion && charge1*charge2<0){
-	  h_MELA_VBF[k]->Fill(var1_M1);
-	  h_MELA_ggH[k]->Fill(var1_M2);
-	  //}
 	}
       }
     } // end of loop over events
@@ -1161,13 +981,13 @@ int main(int argc, char** argv) {
     TDirectory *OS0jet_tt =fout->mkdir("tt_0jet");
     TDirectory *OSboosted_tt =fout->mkdir("tt_boosted");
     TDirectory *OSvbf_tt =fout->mkdir("tt_vbf");
-    TDirectory *OS2jets_tt =fout->mkdir("tt_2jets");
+    //TDirectory *OS2jets_tt =fout->mkdir("tt_2jets");
     
     TDirectory *OS0jet =fout->mkdir("ttOS_0jet");
     TDirectory *OSboosted =fout->mkdir("ttOS_boosted");
     TDirectory *OSvbf =fout->mkdir("ttOS_vbf");
     TDirectory *OSvh =fout->mkdir("ttOS_vh");
-    TDirectory *OS2jets =fout->mkdir("ttOS_2jets");
+    //TDirectory *OS2jets =fout->mkdir("ttOS_2jets");
     TDirectory *OS =fout->mkdir("ttOS_inclusive");
     // KK
     TDirectory*  OScat = fout->mkdir("tt_categories");
@@ -1176,210 +996,144 @@ int main(int argc, char** argv) {
     TDirectory *SSboosted =fout->mkdir("ttSS_boosted");
     TDirectory *SSvbf =fout->mkdir("ttSS_vbf");
     TDirectory *SSvh =fout->mkdir("ttSS_vh");
-    TDirectory *SS2jets =fout->mkdir("ttSS_2jets");
+    //TDirectory *SS2jets =fout->mkdir("ttSS_2jets");
     TDirectory *SS =fout->mkdir("ttSS_inclusive");
     
     TDirectory *AIOS0jet =fout->mkdir("AIOS_0jet");
     TDirectory *AIOSboosted =fout->mkdir("AIOS_boosted");
     TDirectory *AIOSvbf =fout->mkdir("AIOS_vbf");
     TDirectory *AIOSvh =fout->mkdir("AIOS_vh");
-    TDirectory *AIOS2jets =fout->mkdir("AIOS_2jets");
+    //TDirectory *AIOS2jets =fout->mkdir("AIOS_2jets");
     TDirectory *AIOS =fout->mkdir("AIOS_inclusive");
     
     TDirectory *AISS0jet =fout->mkdir("AISS_0jet");
     TDirectory *AISSboosted =fout->mkdir("AISS_boosted");
     TDirectory *AISSvbf =fout->mkdir("AISS_vbf");
     TDirectory *AISSvh =fout->mkdir("AISS_vh");
-    TDirectory *AISS2jets =fout->mkdir("AISS_2jets");
+    //TDirectory *AISS2jets =fout->mkdir("AISS_2jets");
     TDirectory *AISS =fout->mkdir("AISS_inclusive");
     // D.Kim
     TDirectory *TRG_SF = fout->mkdir("trgSF");
-    TDirectory *MELA_OBS = fout->mkdir("MELA");
 
     for (int k=0; k<nbhist; ++k){
-        
-        if (tes==10) postfix="_CMS_htt_dyShape_13TeVUp";
-        if (tes==-10) postfix="_CMS_htt_dyShape_13TeVDown";
-	if (tes==14) postfix="_CMS_htt_jetToTauFake_13TeVUp";
-	if (tes==-14) postfix="_CMS_htt_jetToTauFake_13TeVDown";
-	if (tes==11) postfix="_CMS_htt_ttbarShape_13TeVUp";
-	if (tes==-11) postfix="_CMS_htt_ttbarShape_13TeVDown";        
-        if (tes==100) postfix=postfixJES[k];
-        if (tes==1) postfix=postfixTES[k];
-        if (tes==16) postfix=postfixDM[k];
-        if (tes==17) postfix=postfixZLshape[k];
-        if (tes==18) postfix=postfixZLnorm[k];
-        if (tes==19) postfix=postfixFakeDM[k];
-        if (tes==1000) postfix=postfixWG1[k];
-	if (tes==13)  postfix="_CMS_htt_zmumuShape_VBF_13TeVUp";        
-	if (tes==-13) postfix="_CMS_htt_zmumuShape_VBF_13TeVDown";
+      if (tes==10) postfix="_CMS_htt_dyShape_13TeVUp";
+      if (tes==-10) postfix="_CMS_htt_dyShape_13TeVDown";
+      if (tes==14) postfix="_CMS_htt_jetToTauFake_13TeVUp";
+      if (tes==-14) postfix="_CMS_htt_jetToTauFake_13TeVDown";
+      if (tes==11) postfix="_CMS_htt_ttbarShape_13TeVUp";
+      if (tes==-11) postfix="_CMS_htt_ttbarShape_13TeVDown";        
+      if (tes==100) postfix=postfixJES[k];
+      if (tes==1) postfix=postfixTES[k];
+      if (tes==16) postfix=postfixDM[k];
+      if (tes==17) postfix=postfixZLshape[k];
+      if (tes==18) postfix=postfixZLnorm[k];
+      if (tes==19) postfix=postfixFakeDM[k];
+      if (tes==1000) postfix=postfixWG1[k];
+      if (tes==13)  postfix="_CMS_htt_zmumuShape_VBF_13TeVUp";        
+      if (tes==-13) postfix="_CMS_htt_zmumuShape_VBF_13TeVDown";
+      std::cout << "\nnbhist = " << nbhist << ", tes = " << tes << ", postfix = " << postfix  << std::endl;
+      
+      // These will be the final root files
+      // D.Kim
+      TRG_SF->cd();
+      h_trgSF1[k]->SetName("trgSF1");
+      h_trgSF1[k]->Write();
+      h_trgSF2[k]->SetName("trgSF2");
+      h_trgSF2[k]->Write();
+      h_trgSF_RR[k]->SetName("trgSF_RR");
+      h_trgSF_RR[k]->Write();
+      h_trgSF_FR[k]->SetName("trgSF_FR");
+      h_trgSF_FR[k]->Write();
+      h_trgSF_RF[k]->SetName("trgSF_RF");
+      h_trgSF_RF[k]->Write();
+      h_trgSF_FF[k]->SetName("trgSF_FF");
+      h_trgSF_FF[k]->Write();
 
-        
-//        TDirectory *OS0jet_tt =fout->mkdir("tt_0jet");
-//        TDirectory *OSboosted_tt =fout->mkdir("tt_boosted");
-//        TDirectory *OSvbf_tt =fout->mkdir("tt_vbf");
-        
-        // These will be the final root files
-	// D.Kim
-	TRG_SF->cd();
-	h_trgSF1[k]->SetName("trgSF1");
-	h_trgSF1[k]->Write();
-	h_trgSF2[k]->SetName("trgSF2");
-	h_trgSF2[k]->Write();
-	h_trgSF_RR[k]->SetName("trgSF_RR");
-	h_trgSF_RR[k]->Write();
-	h_trgSF_FR[k]->SetName("trgSF_FR");
-	h_trgSF_FR[k]->Write();
-	h_trgSF_RF[k]->SetName("trgSF_RF");
-	h_trgSF_RF[k]->Write();
-	h_trgSF_FF[k]->SetName("trgSF_FF");
-	h_trgSF_FF[k]->Write();
-	
-	MELA_OBS->cd();
-	h_MELA_VBF[k]->SetName(name.c_str()+postfix+"_Dbkg_VBF");
-	h_MELA_VBF[k]->Write();
-	h_MELA_ggH[k]->SetName(name.c_str()+postfix+"_Dbkg_ggH");
-	h_MELA_ggH[k]->Write();
+      OS0jet_tt->cd();
+      h0_OS[k]->SetName(name.c_str()+postfix);
+      h0_OS[k]->Write();
+      OSboosted_tt->cd();
+      h1_OS[k]->SetName(name.c_str()+postfix);
+      h1_OS[k]->Write();
+      OSvbf_tt->cd();
+      h2_OS[k]->SetName(name.c_str()+postfix);
+      h2_OS[k]->Write();        
+      
+      OS0jet->cd();
+      h0_OS[k]->SetName(name.c_str()+postfix);
+      h0_OS[k]->Write();
+      OSboosted->cd();
+      h1_OS[k]->SetName(name.c_str()+postfix);
+      h1_OS[k]->Write();
+      OSvbf->cd();
+      h2_OS[k]->SetName(name.c_str()+postfix);
+      h2_OS[k]->Write();
 
-        OS0jet_tt->cd();
-        h0_OS[k]->SetName(name.c_str()+postfix);
-        h0_OS[k]->Write();
-        OSboosted_tt->cd();
-        h1_OS[k]->SetName(name.c_str()+postfix);
-        h1_OS[k]->Write();
-        OSvbf_tt->cd();
-        h2_OS[k]->SetName(name.c_str()+postfix);
-        h2_OS[k]->Write();        
-	h2M1_OS[k]->SetName(name.c_str()+postfix+"_Dbkg_VBF");
-        h2M1_OS[k]->Write();
-        h2M2_OS[k]->SetName(name.c_str()+postfix+"_Dbkg_ggH");
-        h2M2_OS[k]->Write();
-        h2M3_OS[k]->SetName(name.c_str()+postfix+"_MELA_bkg");
-        h2M3_OS[k]->Write();
-	OS2jets_tt->cd();
-	h4M1_OS[k]->SetName(name.c_str()+postfix+"_Dbkg_VBF");
-        h4M1_OS[k]->Write();
-        h4M2_OS[k]->SetName(name.c_str()+postfix+"_Dbkg_ggH");
-        h4M2_OS[k]->Write();
+      OSvh->cd();
+      h3_OS[k]->SetName(name.c_str()+postfix);
+      h3_OS[k]->Write();
+      OS->cd();
+      h_OS[k]->SetName(name.c_str()+postfix);
+      h_OS[k]->Write();
+      
+      //KK
+      OScat->cd();
+      h_0jet->Write();
+      hx_boosted->Write();
+      hy_boosted->Write();
+      hx_vbf->Write();
+      hy_vbf->Write();
+      
+      SS0jet->cd();
+      h0_SS[k]->SetName(name.c_str()+postfix);
+      h0_SS[k]->Write();
+      SSboosted->cd();
+      h1_SS[k]->SetName(name.c_str()+postfix);
+      h1_SS[k]->Write();
+      SSvbf->cd();
+      h2_SS[k]->SetName(name.c_str()+postfix);
+      h2_SS[k]->Write();
 
-        
-        OS0jet->cd();
-        h0_OS[k]->SetName(name.c_str()+postfix);
-        h0_OS[k]->Write();
-        OSboosted->cd();
-        h1_OS[k]->SetName(name.c_str()+postfix);
-        h1_OS[k]->Write();
-        OSvbf->cd();
-        h2_OS[k]->SetName(name.c_str()+postfix);
-        h2_OS[k]->Write();
-	h2M1_OS[k]->SetName(name.c_str()+postfix+"_Dbkg_VBF");
-        h2M1_OS[k]->Write();
-        h2M2_OS[k]->SetName(name.c_str()+postfix+"_Dbkg_ggH");
-        h2M2_OS[k]->Write();
-        h2M3_OS[k]->SetName(name.c_str()+postfix+"_MELA_bkg");
-        h2M3_OS[k]->Write();
-	OS2jets->cd();
-	h4M1_OS[k]->SetName(name.c_str()+postfix+"_Dbkg_VBF");
-        h4M1_OS[k]->Write();
-        h4M2_OS[k]->SetName(name.c_str()+postfix+"_Dbkg_ggH");
-        h4M2_OS[k]->Write();
-	OSvh->cd();
-        h3_OS[k]->SetName(name.c_str()+postfix);
-        h3_OS[k]->Write();
-        OS->cd();
-        h_OS[k]->SetName(name.c_str()+postfix);
-        h_OS[k]->Write();
+      SSvh->cd();
+      h3_SS[k]->SetName(name.c_str()+postfix);
+      h3_SS[k]->Write();
+      SS->cd();
+      h_SS[k]->SetName(name.c_str()+postfix);
+      h_SS[k]->Write();
+      
+      AIOS0jet->cd();
+      h0_AIOS[k]->SetName(name.c_str()+postfix);
+      h0_AIOS[k]->Write();
+      AIOSboosted->cd();
+      h1_AIOS[k]->SetName(name.c_str()+postfix);
+      h1_AIOS[k]->Write();
+      AIOSvbf->cd();
+      h2_AIOS[k]->SetName(name.c_str()+postfix);
+      h2_AIOS[k]->Write();
 
+      AIOSvh->cd();
+      h3_AIOS[k]->SetName(name.c_str()+postfix);
+      h3_AIOS[k]->Write();
+      AIOS->cd();
+      h_AIOS[k]->SetName(name.c_str()+postfix);
+      h_AIOS[k]->Write();
+      
+      AISS0jet->cd();
+      h0_AISS[k]->SetName(name.c_str()+postfix);
+      h0_AISS[k]->Write();
+      AISSboosted->cd();
+      h1_AISS[k]->SetName(name.c_str()+postfix);
+      h1_AISS[k]->Write();
+      AISSvbf->cd();
+      h2_AISS[k]->SetName(name.c_str()+postfix);
+      h2_AISS[k]->Write();
 
-
-	//KK
-        OScat->cd();
-	h_0jet->Write();
-        hx_boosted->Write();
-        hy_boosted->Write();
-        hx_vbf->Write();
-        hy_vbf->Write();
-
-        SS0jet->cd();
-        h0_SS[k]->SetName(name.c_str()+postfix);
-        h0_SS[k]->Write();
-        SSboosted->cd();
-        h1_SS[k]->SetName(name.c_str()+postfix);
-        h1_SS[k]->Write();
-        SSvbf->cd();
-        h2_SS[k]->SetName(name.c_str()+postfix);
-        h2_SS[k]->Write();
-        h2M1_SS[k]->SetName(name.c_str()+postfix+"_Dbkg_VBF");
-        h2M1_SS[k]->Write();
-        h2M2_SS[k]->SetName(name.c_str()+postfix+"_Dbkg_ggH");
-        h2M2_SS[k]->Write();
-        h2M3_SS[k]->SetName(name.c_str()+postfix+"_MELA_bkg");
-        h2M3_SS[k]->Write();
-	SS2jets->cd();
-        h4M1_SS[k]->SetName(name.c_str()+postfix+"_Dbkg_VBF");
-        h4M1_SS[k]->Write();
-        h4M2_SS[k]->SetName(name.c_str()+postfix+"_Dbkg_ggH");
-        h4M2_SS[k]->Write();
-        SSvh->cd();
-        h3_SS[k]->SetName(name.c_str()+postfix);
-        h3_SS[k]->Write();
-        SS->cd();
-        h_SS[k]->SetName(name.c_str()+postfix);
-        h_SS[k]->Write();
-        
-        AIOS0jet->cd();
-        h0_AIOS[k]->SetName(name.c_str()+postfix);
-        h0_AIOS[k]->Write();
-        AIOSboosted->cd();
-        h1_AIOS[k]->SetName(name.c_str()+postfix);
-        h1_AIOS[k]->Write();
-        AIOSvbf->cd();
-        h2_AIOS[k]->SetName(name.c_str()+postfix);
-        h2_AIOS[k]->Write();
-        h2M1_AIOS[k]->SetName(name.c_str()+postfix+"_Dbkg_VBF");
-        h2M1_AIOS[k]->Write();
-        h2M2_AIOS[k]->SetName(name.c_str()+postfix+"_Dbkg_ggH");
-        h2M2_AIOS[k]->Write();
-        h2M3_AIOS[k]->SetName(name.c_str()+postfix+"_MELA_bkg");
-        h2M3_AIOS[k]->Write();
-	AIOS2jets->cd();
-        h4M1_AIOS[k]->SetName(name.c_str()+postfix+"_Dbkg_VBF");
-        h4M1_AIOS[k]->Write();
-        h4M2_AIOS[k]->SetName(name.c_str()+postfix+"_Dbkg_ggH");
-        h4M2_AIOS[k]->Write();
-        AIOSvh->cd();
-        h3_AIOS[k]->SetName(name.c_str()+postfix);
-        h3_AIOS[k]->Write();
-        AIOS->cd();
-        h_AIOS[k]->SetName(name.c_str()+postfix);
-        h_AIOS[k]->Write();
-        
-        AISS0jet->cd();
-        h0_AISS[k]->SetName(name.c_str()+postfix);
-        h0_AISS[k]->Write();
-        AISSboosted->cd();
-        h1_AISS[k]->SetName(name.c_str()+postfix);
-        h1_AISS[k]->Write();
-        AISSvbf->cd();
-        h2_AISS[k]->SetName(name.c_str()+postfix);
-        h2_AISS[k]->Write();
-	h2M1_AISS[k]->SetName(name.c_str()+postfix+"_Dbkg_VBF");
-        h2M1_AISS[k]->Write();
-	h2M2_AISS[k]->SetName(name.c_str()+postfix+"_Dbkg_ggH");
-        h2M2_AISS[k]->Write();
-	h2M3_AISS[k]->SetName(name.c_str()+postfix+"_MELA_bkg");
-        h2M3_AISS[k]->Write();
-	AISS2jets->cd();
-	h4M1_AISS[k]->SetName(name.c_str()+postfix+"_Dbkg_VBF");
-        h4M1_AISS[k]->Write();
-	h4M2_AISS[k]->SetName(name.c_str()+postfix+"_Dbkg_ggH");
-        h4M2_AISS[k]->Write();
-        AISSvh->cd();
-        h3_AISS[k]->SetName(name.c_str()+postfix);
-        h3_AISS[k]->Write();
-        AISS->cd();
-        h_AISS[k]->SetName(name.c_str()+postfix);
-        h_AISS[k]->Write();
+      AISSvh->cd();
+      h3_AISS[k]->SetName(name.c_str()+postfix);
+      h3_AISS[k]->Write();
+      AISS->cd();
+      h_AISS[k]->SetName(name.c_str()+postfix);
+      h_AISS[k]->Write();
     }
     fout->Close();
     // D.Kim
