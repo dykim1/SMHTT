@@ -116,8 +116,8 @@
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY2.root files_nominal//ZJ2_zptup.root ZJ ZJ 10
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY3.root files_nominal//ZJ3_zptup.root ZJ ZJ 10
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY4.root files_nominal//ZJ4_zptup.root ZJ ZJ 10
- ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//EWKZ2l.root files_nominal//EWKZ2l_zptup.root EWKZLL EWKZ 10
- ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//EWKZ2nu.root files_nominal//EWKZ2nu_zptup.root EWKZNuNu EWKZ 10
+ #./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//EWKZ2l.root files_nominal//EWKZ2l_zptup.root EWKZLL EWKZ 10
+ #./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//EWKZ2nu.root files_nominal//EWKZ2nu_zptup.root EWKZNuNu EWKZ 10
  hadd -f files_nominal/ZTT_zptup.root files_nominal//ZTT0_zptup.root files_nominal//ZTT1_zptup.root files_nominal//ZTT2_zptup.root files_nominal//ZTT3_zptup.root files_nominal//ZTT4_zptup.root
  hadd -f files_nominal/ZL_zptup.root files_nominal//ZL0_zptup.root files_nominal//ZL1_zptup.root files_nominal//ZL2_zptup.root files_nominal//ZL3_zptup.root files_nominal//ZL4_zptup.root
  hadd -f files_nominal/ZJ_zptup.root files_nominal//ZJ0_zptup.root files_nominal//ZJ1_zptup.root files_nominal//ZJ2_zptup.root files_nominal//ZJ3_zptup.root files_nominal//ZJ4_zptup.root
@@ -137,8 +137,8 @@
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY2.root files_nominal//ZJ2_zptdown.root ZJ ZJ -10
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY3.root files_nominal//ZJ3_zptdown.root ZJ ZJ -10
  ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//DY4.root files_nominal//ZJ4_zptdown.root ZJ ZJ -10
- ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//EWKZ2l.root files_nominal//EWKZ2l_zptdown.root EWKZLL EWKZ -10
- ./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//EWKZ2nu.root files_nominal//EWKZ2nu_zptdown.root EWKZNuNu EWKZ -10
+ #./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//EWKZ2l.root files_nominal//EWKZ2l_zptdown.root EWKZLL EWKZ -10
+ #./FinalSelection2D_relaxedFR.exe myntuples/July17_v2//EWKZ2nu.root files_nominal//EWKZ2nu_zptdown.root EWKZNuNu EWKZ -10
  hadd -f files_nominal/ZTT_zptdown.root files_nominal//ZTT0_zptdown.root files_nominal//ZTT1_zptdown.root files_nominal//ZTT2_zptdown.root files_nominal//ZTT3_zptdown.root files_nominal//ZTT4_zptdown.root
  hadd -f files_nominal/ZL_zptdown.root files_nominal//ZL0_zptdown.root files_nominal//ZL1_zptdown.root files_nominal//ZL2_zptdown.root files_nominal//ZL3_zptdown.root files_nominal//ZL4_zptdown.root
  hadd -f files_nominal/ZJ_zptdown.root files_nominal//ZJ0_zptdown.root files_nominal//ZJ1_zptdown.root files_nominal//ZJ2_zptdown.root files_nominal//ZJ3_zptdown.root files_nominal//ZJ4_zptdown.root
