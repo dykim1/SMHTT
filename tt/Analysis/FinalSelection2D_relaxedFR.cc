@@ -742,7 +742,6 @@ int main(int argc, char** argv) {
 	mjj = jets.M();
 
 	float var1_2=mjj;//ME_sm_VBF/(ME_sm_VBF+45*ME_bkg);  //Dbkg_VBF;//mjj; 
-	std::cout << "var1_2 is " << var1_2 << std::endl;
 	TLorentzVector myrawmet;
 	myrawmet.SetPtEtaPhiM(met,0,metphi,0);
 	TLorentzVector mymet=myrawmet;
@@ -785,7 +784,7 @@ int main(int argc, char** argv) {
 	//KK: Added njet and mjj variables affected by JES
 	if (tes==100){
 	  njets = nombrejets[k];
-	  //	  var1_2 = massejets[k]; //KK for now not available in trees
+	  var1_2 = massejets[k]; //KK for now not available in trees
 	}
 
 	if (mytau1.Pt() < 40 || mytau2.Pt() < 40 ) continue;
@@ -893,6 +892,7 @@ int main(int argc, char** argv) {
 	    if (tes==0){
 	      hx_vbf->Fill(var1_2,weight2*aweight);
 	      hy_vbf->Fill(var2,weight2*aweight);
+	      //std::cout << "var1_2 is " << var1_2 << std::endl;
 	    }
 	  }
 	  if (is_VH && signalRegion && charge1*charge2<0)
