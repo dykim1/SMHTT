@@ -82,7 +82,10 @@ float pt_sv_JESUp;
 float m_sv_UncMet_DOWN, m_sv_UncMet_UP, m_sv_ClusteredMet_DOWN, m_sv_ClusteredMet_UP;
 float pt_sv_UncMet_DOWN, pt_sv_UncMet_UP, pt_sv_ClusteredMet_DOWN, pt_sv_ClusteredMet_UP;
 
-float ME_sm_VBF, ME_sm_ggH, ME_bkg, Dbkg_VBF, Dbkg_ggH;
+float ME_sm_VBF, ME_sm_ggH, ME_bkg, Dbkg_VBF, Dbkg_ggH, NN_disc;
+//float Dbkg_VBF_DOWN, Dbkg_VBF_UP, Dbkg_VBF_UncMet_DOWN, Dbkg_VBF_UncMet_UP,Dbkg_VBF_ClusteredMet_DOWN, Dbkg_VBF_ClusteredMet_UP;
+float ME_sm_VBF_DOWN,ME_sm_VBF_UP,ME_sm_VBF_UncMet_DOWN, ME_sm_VBF_UncMet_UP,ME_sm_VBF_ClusteredMet_DOWN,ME_sm_VBF_ClusteredMet_UP;
+float ME_bkg_DOWN,ME_bkg_UP,ME_bkg_UncMet_DOWN,ME_bkg_UncMet_UP,ME_bkg_ClusteredMet_DOWN,ME_bkg_ClusteredMet_UP;
 
 void fillTreeMVA(TTree* BG_Tree, float PT1, float PT2, float ETA1, float ETA2, float PHI1, float PHI2, float M1, float M2, float MET, float METPHI, float METCOV00, float METCOV01, float METCOV11, float MVIS, float TARGET, float WEIGHT) {
   pt_1_=PT1;

@@ -258,11 +258,28 @@ int main(int argc, char** argv) {
     arbre->SetBranchAddress("pt_sv_ClusteredMet_DOWN", &pt_sv_ClusteredMet_DOWN);
     arbre->SetBranchAddress("pt_sv_ClusteredMet_UP", &pt_sv_ClusteredMet_UP);
     //D.Kim
-    arbre->SetBranchAddress("ME_sm_VBF",&ME_sm_VBF);
+    arbre->SetBranchAddress("ME_sm_VBF",&ME_sm_VBF); // What we actually use.
     arbre->SetBranchAddress("ME_sm_ggH",&ME_sm_ggH);
-    arbre->SetBranchAddress("ME_bkg",&ME_bkg);
+    arbre->SetBranchAddress("ME_bkg",&ME_bkg); // What we actually use.
     arbre->SetBranchAddress("Dbkg_VBF",&Dbkg_VBF);
     arbre->SetBranchAddress("Dbkg_ggH",&Dbkg_ggH);  
+
+    arbre->SetBranchAddress("ME_sm_VBF_DOWN",&ME_sm_VBF_DOWN); 
+    arbre->SetBranchAddress("ME_sm_VBF_UP",&ME_sm_VBF_UP); 
+    arbre->SetBranchAddress("ME_sm_VBF_UncMet_DOWN",&ME_sm_VBF_UncMet_DOWN); 
+    arbre->SetBranchAddress("ME_sm_VBF_UncMet_UP",&ME_sm_VBF_UncMet_UP); 
+    arbre->SetBranchAddress("ME_sm_VBF_ClusteredMet_DOWN",&ME_sm_VBF_ClusteredMet_DOWN); 
+    arbre->SetBranchAddress("ME_sm_VBF_ClusteredMet_UP",&ME_sm_VBF_ClusteredMet_UP); 
+
+    arbre->SetBranchAddress("ME_bkg_DOWN",&ME_bkg_DOWN); 
+    arbre->SetBranchAddress("ME_bkg_UP",&ME_bkg_UP); 
+    arbre->SetBranchAddress("ME_bkg_UncMet_DOWN",&ME_bkg_UncMet_DOWN); 
+    arbre->SetBranchAddress("ME_bkg_UncMet_UP",&ME_bkg_UncMet_UP); 
+    arbre->SetBranchAddress("ME_bkg_ClusteredMet_DOWN",&ME_bkg_ClusteredMet_DOWN); 
+    arbre->SetBranchAddress("ME_bkg_ClusteredMet_UP",&ME_bkg_ClusteredMet_UP); 
+
+
+    arbre->SetBranchAddress("NN_disc",&NN_disc);
 
     
     //float bins0[] = {0, 40, 60, 70, 80, 90, 100, 110, 120, 130, 150, 200, 250}; //VBF
@@ -285,10 +302,14 @@ int main(int argc, char** argv) {
     float bins11[] = {0,100,170,300,10000};
     //Binning for 1jet cat, y-axis: Msv
     float bins12[] = {0,40,60,70,80,90,100,110,120,130,150,200,250};
+
     //Binning for 2jet cat, x-axis: Mjj
-    float bins21[] = {0,300,500,800,10000};
+    //float bins21[] = {0,300,500,800,10000};
     //binning for 2jet cat, x-axis: Dbkg_VBF
-    //float bins21[] = {0.0,0.3,0.6,0.9,1.0};
+    float bins21[] = {0.0,0.3,0.6,0.9,1.0};
+    //Binning for 2jet cat, x-axis: NN_disc
+    //float bins21[] = {0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0};
+    //float bins21[] = {0.0,0.5,0.7,0.8,1.0};
     //Binning for 2jet cat, y-axis: Msv
     float bins22[] = {0,40,60,70,80,90,100,110,120,130,150,200,250};
 
@@ -505,7 +526,7 @@ int main(int argc, char** argv) {
     TString postfixJES[56]={"_CMS_scale_j_13TeVDown","_CMS_scale_j_13TeVUp","_CMS_scale_j_AbsoluteFlavMap_13TeVDown","_CMS_scale_j_AbsoluteFlavMap_13TeVUp","_CMS_scale_j_AbsoluteMPFBias_13TeVDown","_CMS_scale_j_AbsoluteMPFBias_13TeVUp","_CMS_scale_j_AbsoluteScale_13TeVDown","_CMS_scale_j_AbsoluteScale_13TeVUp","_CMS_scale_j_AbsoluteStat_13TeVDown","_CMS_scale_j_AbsoluteStat_13TeVUp","_CMS_scale_j_FlavorQCD_13TeVDown","_CMS_scale_j_FlavorQCD_13TeVUp","_CMS_scale_j_Fragmentation_13TeVDown","_CMS_scale_j_Fragmentation_13TeVUp","_CMS_scale_j_PileUpDataMC_13TeVDown","_CMS_scale_j_PileUpDataMC_13TeVUp","_CMS_scale_j_PileUpPtBB_13TeVDown","_CMS_scale_j_PileUpPtBB_13TeVUp","_CMS_scale_j_PileUpPtEC1_13TeVDown","_CMS_scale_j_PileUpPtEC1_13TeVUp","_CMS_scale_j_PileUpPtEC2_13TeVDown","_CMS_scale_j_PileUpPtEC2_13TeVUp","_CMS_scale_j_PileUpPtHF_13TeVDown","_CMS_scale_j_PileUpPtHF_13TeVUp","_CMS_scale_j_PileUpPtRef_13TeVDown","_CMS_scale_j_PileUpPtRef_13TeVUp","_CMS_scale_j_RelativeBal_13TeVDown","_CMS_scale_j_RelativeBal_13TeVUp","_CMS_scale_j_RelativeFSR_13TeVDown","_CMS_scale_j_RelativeFSR_13TeVUp","_CMS_scale_j_RelativeJEREC1_13TeVDown","_CMS_scale_j_RelativeJEREC1_13TeVUp","_CMS_scale_j_RelativeJEREC2_13TeVDown","_CMS_scale_j_RelativeJEREC2_13TeVUp","_CMS_scale_j_RelativeJERHF_13TeVDown","_CMS_scale_j_RelativeJERHF_13TeVUp","_CMS_scale_j_RelativePtBB_13TeVDown","_CMS_scale_j_RelativePtBB_13TeVUp","_CMS_scale_j_RelativePtEC1_13TeVDown","_CMS_scale_j_RelativePtEC1_13TeVUp","_CMS_scale_j_RelativePtEC2_13TeVDown","_CMS_scale_j_RelativePtEC2_13TeVUp","_CMS_scale_j_RelativePtHF_13TeVDown","_CMS_scale_j_RelativePtHF_13TeVUp","_CMS_scale_j_RelativeStatEC_13TeVDown","_CMS_scale_j_RelativeStatEC_13TeVUp","_CMS_scale_j_RelativeStatFSR_13TeVDown","_CMS_scale_j_RelativeStatFSR_13TeVUp","_CMS_scale_j_RelativeStatHF_13TeVDown","_CMS_scale_j_RelativeStatHF_13TeVUp","_CMS_scale_j_SinglePionECAL_13TeVDown","_CMS_scale_j_SinglePionECAL_13TeVUp","_CMS_scale_j_SinglePionHCAL_13TeVDown","_CMS_scale_j_SinglePionHCAL_13TeVUp","_CMS_scale_j_TimePtEta_13TeVDown","_CMS_scale_j_TimePtEta_13TeVUp"};
     TString postfixWG1[18]={"_THU_ggH_Mu_13TeVUp","_THU_ggH_Mu_13TeVDown","_THU_ggH_Res_13TeVUp","_THU_ggH_Res_13TeVDown","_THU_ggH_Mig01_13TeVUp","_THU_ggH_Mig01_13TeVDown","_THU_ggH_Mig12_13TeVUp","_THU_ggH_Mig12_13TeVDown","_THU_ggH_VBF2j_13TeVUp","_THU_ggH_VBF2j_13TeVDown","_THU_ggH_VBF3j_13TeVUp","_THU_ggH_VBF3j_13TeVDown","_THU_ggH_PT60_13TeVUp","_THU_ggH_PT60_13TeVDown","_THU_ggH_PT120_13TeVUp","_THU_ggH_PT120_13TeVDown","_THU_ggH_qmtop_13TeVUp","_THU_ggH_qmtop_13TeVDown"};
     
-    
+    bool text=true;    
     std::cout << "2" << std::endl;    
     Int_t nentries_wtn = (Int_t) arbre->GetEntries();
     for (Int_t i = 0; i < nentries_wtn; i++) {
@@ -740,8 +761,9 @@ int main(int argc, char** argv) {
 	myjet2.SetPtEtaPhiM(jpt_2,jeta_2,jphi_2,0);
 	TLorentzVector jets=myjet2+myjet1;
 	mjj = jets.M();
+	float normMELA = ME_sm_VBF/(ME_sm_VBF+45*ME_bkg);
 
-	float var1_2=mjj;//ME_sm_VBF/(ME_sm_VBF+45*ME_bkg);  //Dbkg_VBF;//mjj; 
+	float var1_2=normMELA;  //Dbkg_VBF;//mjj; 
 	TLorentzVector myrawmet;
 	myrawmet.SetPtEtaPhiM(met,0,metphi,0);
 	TLorentzVector mymet=myrawmet;
@@ -782,9 +804,17 @@ int main(int argc, char** argv) {
 	}
 	
 	//KK: Added njet and mjj variables affected by JES
-	if (tes==100){
+	if (tes==100 && var1_2==mjj){
 	  njets = nombrejets[k];
 	  var1_2 = massejets[k]; //KK for now not available in trees
+	}
+
+	if (tes==1 && var1_2==normMELA){ 
+	  if (text) {std::cout << "------------------------------ var1_2 is replaced to MELA ------------------------------" << std::endl;text=false;}
+	  if (k==8) var1_2=ME_sm_VBF_UncMet_DOWN/(ME_sm_VBF_UncMet_DOWN+45*ME_bkg_UncMet_DOWN);
+	  if (k==9) var1_2=ME_sm_VBF_UncMet_UP/(ME_sm_VBF_UncMet_UP+45*ME_bkg_UncMet_UP);
+	  if (k==10) var1_2=ME_sm_VBF_ClusteredMet_DOWN/(ME_sm_VBF_ClusteredMet_DOWN+45*ME_bkg_ClusteredMet_DOWN);
+	  if (k==11) var1_2=ME_sm_VBF_ClusteredMet_UP/(ME_sm_VBF_ClusteredMet_UP+45*ME_bkg_ClusteredMet_UP);
 	}
 
 	if (mytau1.Pt() < 40 || mytau2.Pt() < 40 ) continue;
@@ -812,6 +842,7 @@ int main(int argc, char** argv) {
 	if (njets==1 || (njets>=2 && (!(Higgs.Pt()>100 && std::abs(myjet1.Eta()-myjet2.Eta())>2.5)))) is_boosted=true; 
 	if (njets>=2 && Higgs.Pt()>100 && std::abs(myjet1.Eta()-myjet2.Eta())>2.5) is_VBF=true;
 	if (njets==2) is_2jets=true;
+	//if (!is_0jet && !is_boosted) std::cout << "NN is survived! " << NN_disc << std::endl;
 
 	// Z mumu SF 
 	// https://github.com/truggles/Z_to_TauTau_13TeV/blob/SM-HTT-2016/analysis2IsoJetsAndDups.py#L1193-L1211
