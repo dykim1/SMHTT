@@ -863,33 +863,16 @@ public :
    Float_t         type1_pfMetEt;
    Float_t         type1_pfMetPhi;
 
-   //Float_t         type1_pfMet_shiftedPhi_ElectronEnDown;
-   //Float_t         type1_pfMet_shiftedPhi_ElectronEnUp;
    Float_t         type1_pfMet_shiftedPhi_JetEnDown;
    Float_t         type1_pfMet_shiftedPhi_JetEnUp;
    Float_t         type1_pfMet_shiftedPhi_JetResDown;
    Float_t         type1_pfMet_shiftedPhi_JetResUp;
-   //Float_t         type1_pfMet_shiftedPhi_MuonEnDown;
-   //Float_t         type1_pfMet_shiftedPhi_MuonEnUp;
-   //Float_t         type1_pfMet_shiftedPhi_PhotonEnDown;
-   //Float_t         type1_pfMet_shiftedPhi_PhotonEnUp;
-   //Float_t         type1_pfMet_shiftedPhi_TauEnDown;
-   //Float_t         type1_pfMet_shiftedPhi_TauEnUp;
-
    Float_t         type1_pfMet_shiftedPhi_UnclusteredEnDown;
    Float_t         type1_pfMet_shiftedPhi_UnclusteredEnUp;
-   //Float_t         type1_pfMet_shiftedPt_ElectronEnDown;
-   //Float_t         type1_pfMet_shiftedPt_ElectronEnUp;
    Float_t         type1_pfMet_shiftedPt_JetEnDown;
    Float_t         type1_pfMet_shiftedPt_JetEnUp;
    Float_t         type1_pfMet_shiftedPt_JetResDown;
    Float_t         type1_pfMet_shiftedPt_JetResUp;
-   //Float_t         type1_pfMet_shiftedPt_MuonEnDown;
-   //Float_t         type1_pfMet_shiftedPt_MuonEnUp;
-   //Float_t         type1_pfMet_shiftedPt_PhotonEnDown;
-   //Float_t         type1_pfMet_shiftedPt_PhotonEnUp;
-   //Float_t         type1_pfMet_shiftedPt_TauEnDown;
-   //Float_t         type1_pfMet_shiftedPt_TauEnUp;
    Float_t         type1_pfMet_shiftedPt_UnclusteredEnDown;
    Float_t         type1_pfMet_shiftedPt_UnclusteredEnUp;
    Float_t         vbfDeta;

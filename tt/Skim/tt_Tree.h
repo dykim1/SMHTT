@@ -47,8 +47,8 @@ float mjj_JESDown, jdeta_JESDown,mjj_JESUp,jdeta_JESUp;
 int njetingap, njetingap20, nbtag, njets, njetspt20, nbtagL;
 int njetingap_JESDown, njetingap20_JESDown, njets_JESDown, njetspt20_JESDown;
 int njetingap_JESUp, njetingap20_JESUp, njets_JESUp, njetspt20_JESUp;
-float jmass_1, jpt_1, jpx_1, jpy_1, jpz_1, jeta_1, jphi_1, jrawf_1, jmva_1, jpfid_1, jpuid_1, jcsv_1;
-float jmass_2, jpx_2, jpy_2, jpz_2, jpt_2, jeta_2, jphi_2, jrawf_2, jmva_2, jpfid_2, jpuid_2, jcsv_2;
+float jmass_1, jpt_1, jpx_1, jpy_1, jpz_1, jeta_1, jphi_1, jrawf_1, jmva_1, jpfid_1, jpuid_1, jcsv_1, jpt_1_JESUp, jpt_1_JESDown;
+float jmass_2, jpx_2, jpy_2, jpz_2, jpt_2, jeta_2, jphi_2, jrawf_2, jmva_2, jpfid_2, jpuid_2, jcsv_2, jpt_2_JESUp, jpt_2_JESDown;
 float bpt_1, beta_1, bphi_1, bpfid_1, bpuid_1, bcsv_1, bflavor_1;
 float bpt_2, beta_2, bphi_2, bpfid_2, bpuid_2, bcsv_2, bflavor_2;
 float met, metphi, mvaMet, mvaMetphi, pzetavis, pzetamiss, mvacov00, mvacov01, mvacov11, mvacov10;
@@ -60,10 +60,6 @@ float extratau_veto, pt_top1, pt_top2, genweight, dphi_12, dphi_mumet, dphi_taum
 float aMCatNLO_weight, numGenJets;
 float met_px, met_py;
 float metSig, metcov00, metcov01, metcov10,metcov11, metcov00_v2, metcov01_v2, metcov10_v2,metcov11_v2;
-float met_JESDown,met_UESDown;
-float met_JESUp,met_UESUp,met_MESUp;
-float metphi_JERDown,metphi_JESDown,metphi_UESDown,metphi_MESDown,metphi_EESDown,metphi_TESDown,metphi_PESDown;
-float metphi_JERUp,metphi_JESUp,metphi_UESUp,metphi_MESUp,metphi_EESUp,metphi_TESUp,metphi_PESUp;
 float genDR_2;
 float byVLooseIsolationRerunMVArun2v1DBoldDMwLT_1, byVTightIsolationRerunMVArun2v1DBoldDMwLT_1, byLooseIsolationRerunMVArun2v1DBoldDMwLT_1, byMediumIsolationRerunMVArun2v1DBoldDMwLT_1, byTightIsolationRerunMVArun2v1DBoldDMwLT_1, byVVTightIsolationRerunMVArun2v1DBoldDMwLT_1,byIsolationRerunMVA3oldDMwLTraw_1;
 float byVLooseIsolationRerunMVArun2v1DBoldDMwLT_2, byVTightIsolationRerunMVArun2v1DBoldDMwLT_2, byLooseIsolationRerunMVArun2v1DBoldDMwLT_2, byMediumIsolationRerunMVArun2v1DBoldDMwLT_2, byTightIsolationRerunMVArun2v1DBoldDMwLT_2, byVVTightIsolationRerunMVArun2v1DBoldDMwLT_2,byIsolationRerunMVA3oldDMwLTraw_2;
@@ -76,11 +72,11 @@ float passDoubleMu;
 float passDoubleTau35, matchDoubleTau35_1, matchDoubleTau35_2,filterDoubleTau35_1,filterDoubleTau35_2,passDoubleTauCmbIso35,matchDoubleTauCmbIso35_1,matchDoubleTauCmbIso35_2,filterDoubleTauCmbIso35_1,filterDoubleTauCmbIso35_2;
 float genM,genpT,genpX,genpY,vispX,vispY, b_vispX;
 float genEta, genPhi, genHTT, genMass;
-float type1_pfMet_shiftedPt_UnclusteredEnUp,type1_pfMet_shiftedPt_UnclusteredEnDown,type1_pfMet_shiftedPhi_UnclusteredEnUp,type1_pfMet_shiftedPhi_UnclusteredEnDown,type1_pfMet_shiftedPt_JetEnUp,type1_pfMet_shiftedPt_JetEnDown,type1_pfMet_shiftedPhi_JetEnUp,type1_pfMet_shiftedPhi_JetEnDown;
+float met_UESUp, met_UESDown, metphi_UESUp, metphi_UESDown, met_JESUp,met_JESDown, metphi_JESUp, metphi_JESDown, met_TESUp,met_TESDown, metphi_TESUp, metphi_TESDown;
 float t1GenCharge,t1GenDecayMode,t1GenEnergy,t1GenEta,t1GenIsPrompt,t1GenJetEta,t1GenJetPt,t1GenMotherEnergy,t1GenMotherEta,t1GenMotherPdgId,t1GenMotherPhi,t1GenMotherPt,t1GenPdgId,t1GenPhi,t1GenPt,t1GenStatus,t1ZTTGenDR,t1ZTTGenEta,t1ZTTGenMatching,t1ZTTGenPhi,t1ZTTGenPt;
 float t2GenCharge,t2GenDecayMode,t2GenEnergy,t2GenEta,t2GenIsPrompt,t2GenJetEta,t2GenJetPt,t2GenMotherEnergy,t2GenMotherEta,t2GenMotherPdgId,t2GenMotherPhi,t2GenMotherPt,t2GenPdgId,t2GenPhi,t2GenPt,t2GenStatus,t2ZTTGenDR,t2ZTTGenEta,t2ZTTGenMatching,t2ZTTGenPhi,t2ZTTGenPt;
 
-RecoilCorrector recoilPFMetCorrector("SMH_mutau/RecoilCorrections/data/TypeI-PFMet_Run2016BtoH.root");
+RecoilCorrector recoilPFMetCorrector("TypeI-PFMet_Run2016BtoH.root");
 
 void fillTree(TTree *Run_Tree, HTauTauTree_tt *tree, int entry_tree, int recoil, bool ismc){
     tree->GetEntry(entry_tree);
@@ -325,6 +321,7 @@ void fillTree(TTree *Run_Tree, HTauTauTree_tt *tree, int entry_tree, int recoil,
     }
 
     // configure met systematics
+    /*
     type1_pfMet_shiftedPt_UnclusteredEnUp = tree->type1_pfMet_shiftedPt_UnclusteredEnUp;
     type1_pfMet_shiftedPt_UnclusteredEnDown = tree->type1_pfMet_shiftedPt_UnclusteredEnDown;
     type1_pfMet_shiftedPhi_UnclusteredEnUp = tree->type1_pfMet_shiftedPhi_UnclusteredEnUp;
@@ -333,12 +330,27 @@ void fillTree(TTree *Run_Tree, HTauTauTree_tt *tree, int entry_tree, int recoil,
     type1_pfMet_shiftedPt_JetEnDown = tree->type1_pfMet_shiftedPt_JetEnDown;
     type1_pfMet_shiftedPhi_JetEnUp = tree->type1_pfMet_shiftedPhi_JetEnUp;
     type1_pfMet_shiftedPhi_JetEnDown = tree->type1_pfMet_shiftedPhi_JetEnDown;
+    */
+    met_UESUp =  tree->type1_pfMet_shiftedPt_UnclusteredEnUp; 
+    met_UESDown = tree->type1_pfMet_shiftedPt_UnclusteredEnDown;  
+    metphi_UESUp = tree->type1_pfMet_shiftedPhi_UnclusteredEnUp;
+    metphi_UESDown = tree->type1_pfMet_shiftedPhi_UnclusteredEnDown; 
+    met_JESUp = tree->type1_pfMet_shiftedPt_JetEnUp; 
+    met_JESDown = tree->type1_pfMet_shiftedPt_JetEnDown;  
+    metphi_JESUp = tree->type1_pfMet_shiftedPhi_JetEnUp;
+    metphi_JESDown = tree->type1_pfMet_shiftedPhi_JetEnDown;  
 
     TLorentzVector mymet_UESUp, mymet_UESDown, mymet_JESUp, mymet_JESDown;
+    /*
     mymet_UESUp   .SetPtEtaPhiM(type1_pfMet_shiftedPt_UnclusteredEnUp  , 0, type1_pfMet_shiftedPhi_UnclusteredEnUp  , 0);
     mymet_UESDown .SetPtEtaPhiM(type1_pfMet_shiftedPt_UnclusteredEnDown, 0, type1_pfMet_shiftedPhi_UnclusteredEnDown, 0);
     mymet_JESUp   .SetPtEtaPhiM(type1_pfMet_shiftedPt_JetEnDown        , 0, type1_pfMet_shiftedPhi_JetEnUp          , 0);
     mymet_JESDown .SetPtEtaPhiM(type1_pfMet_shiftedPt_JetEnUp          , 0, type1_pfMet_shiftedPhi_JetEnDown        , 0);
+    */
+    mymet_UESUp   .SetPtEtaPhiM(met_UESUp  , 0, metphi_UESUp  , 0);
+    mymet_UESDown .SetPtEtaPhiM(met_UESDown, 0, metphi_UESDown, 0);
+    mymet_JESUp   .SetPtEtaPhiM(met_JESUp  , 0, metphi_JESUp  , 0);
+    mymet_JESDown .SetPtEtaPhiM(met_JESDown, 0, metphi_JESDown, 0);
 
     float pfmetcorr_ex_UESUp(mymet_UESUp.Px())    , pfmetcorr_ey_UESUp(mymet_UESUp.Py()),
           pfmetcorr_ex_UESDown(mymet_UESDown.Px()), pfmetcorr_ey_UESDown(mymet_UESDown.Py()),
@@ -581,6 +593,10 @@ void fillTree(TTree *Run_Tree, HTauTauTree_tt *tree, int entry_tree, int recoil,
     jphi_2=tree->j2phi;
     jcsv_1=tree->j1csv;
     jcsv_2=tree->j2csv;
+    jpt_1_JESUp=tree->j1ptUp;
+    jpt_1_JESDown=tree->j1ptDown;
+    jpt_2_JESUp=tree->j2ptUp;
+    jpt_2_JESDown=tree->j2ptDown;
 
     bpt_1=tree->jb1pt;
     bpt_2=tree->jb2pt;

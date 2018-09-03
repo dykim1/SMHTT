@@ -101,7 +101,6 @@ int main(int argc, char** argv) {
     Run_Tree->Branch("t1GenStatus",       &t1GenStatus);
     Run_Tree->Branch("t1ZTTGenDR",        &t1ZTTGenDR);
     Run_Tree->Branch("t1ZTTGenEta",       &t1ZTTGenEta);
-    //Run_Tree->Branch("t1ZTTGenMatching",&t1ZTTGenMatching,"t1ZTTGenMatching/F");
     Run_Tree->Branch("t1ZTTGenPhi",       &t1ZTTGenPhi);
     Run_Tree->Branch("t1ZTTGenPt",        &t1ZTTGenPt);
 
@@ -123,7 +122,6 @@ int main(int argc, char** argv) {
     Run_Tree->Branch("t2GenStatus",       &t2GenStatus);
     Run_Tree->Branch("t2ZTTGenDR",        &t2ZTTGenDR);
     Run_Tree->Branch("t2ZTTGenEta",       &t2ZTTGenEta);
-    //Run_Tree->Branch("t2ZTTGenMatching",&t2ZTTGenMatching,"t2ZTTGenMatching/F");
     Run_Tree->Branch("t2ZTTGenPhi",       &t2ZTTGenPhi);
     Run_Tree->Branch("t2ZTTGenPt",        &t2ZTTGenPt);
 
@@ -230,11 +228,15 @@ int main(int argc, char** argv) {
     Run_Tree->Branch("jeta_1", &jeta_1);
     Run_Tree->Branch("jphi_1", &jphi_1);
     Run_Tree->Branch("jcsv_1", &jcsv_1);
+    Run_Tree->Branch("jpt_1_JESUp",  &jpt_1_JESUp);
+    Run_Tree->Branch("jpt_1_JESDown",  &jpt_1_JESDown);
 
     Run_Tree->Branch("jpt_2",  &jpt_2 );
     Run_Tree->Branch("jeta_2", &jeta_2);
     Run_Tree->Branch("jphi_2", &jphi_2);
     Run_Tree->Branch("jcsv_2", &jcsv_2);
+    Run_Tree->Branch("jpt_2_JESUp",  &jpt_2_JESUp);
+    Run_Tree->Branch("jpt_2_JESDown",  &jpt_2_JESDown);
 
     Run_Tree->Branch("bpt_1",  &bpt_1 );
     Run_Tree->Branch("beta_1", &beta_1);
@@ -259,14 +261,14 @@ int main(int argc, char** argv) {
     Run_Tree->Branch("filterDoubleTauCmbIso35_1", &filterDoubleTauCmbIso35_1);
     Run_Tree->Branch("filterDoubleTauCmbIso35_2", &filterDoubleTauCmbIso35_2);
 
-    Run_Tree->Branch("type1_pfMet_shiftedPt_UnclusteredEnUp", &type1_pfMet_shiftedPt_UnclusteredEnUp);
-    Run_Tree->Branch("type1_pfMet_shiftedPt_UnclusteredEnDown", &type1_pfMet_shiftedPt_UnclusteredEnDown);
-    Run_Tree->Branch("type1_pfMet_shiftedPhi_UnclusteredEnUp", &type1_pfMet_shiftedPhi_UnclusteredEnUp);
-    Run_Tree->Branch("type1_pfMet_shiftedPhi_UnclusteredEnDown", &type1_pfMet_shiftedPhi_UnclusteredEnDown);
-    Run_Tree->Branch("type1_pfMet_shiftedPt_JetEnUp", &type1_pfMet_shiftedPt_JetEnUp);
-    Run_Tree->Branch("type1_pfMet_shiftedPt_JetEnDown", &type1_pfMet_shiftedPt_JetEnDown);
-    Run_Tree->Branch("type1_pfMet_shiftedPhi_JetEnUp", &type1_pfMet_shiftedPhi_JetEnUp);
-    Run_Tree->Branch("type1_pfMet_shiftedPhi_JetEnDown", &type1_pfMet_shiftedPhi_JetEnDown);
+    Run_Tree->Branch("met_UESUp", &met_UESUp);
+    Run_Tree->Branch("met_UESDown", &met_UESDown);
+    Run_Tree->Branch("metphi_UESUp", &metphi_UESUp);
+    Run_Tree->Branch("metphi_UESDown", &metphi_UESDown);
+    Run_Tree->Branch("met_JESUp", &met_JESUp);
+    Run_Tree->Branch("met_JESDown", &met_JESDown);
+    Run_Tree->Branch("metphi_JESUp", &metphi_JESUp);
+    Run_Tree->Branch("metphi_JESDown", &metphi_JESDown);
 
     Run_Tree->Branch("mjj", &mjj);
     Run_Tree->Branch("mjj_JESUp", &mjj_JESUp);
