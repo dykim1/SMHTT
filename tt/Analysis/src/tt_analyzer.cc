@@ -92,18 +92,29 @@ int main(int argc, char** argv) {
 
     std::cout.setf(std::ios::fixed, std::ios::floatfield);
     std::cout.precision(10);
-    arbre->SetBranchAddress("jpt_1", &jpt_1);
-    arbre->SetBranchAddress("jeta_1", &jeta_1);
-    arbre->SetBranchAddress("jphi_1", &jphi_1);
-    arbre->SetBranchAddress("jcsv_1", &jcsv_1);
-    arbre->SetBranchAddress("jpt_2", &jpt_2);
-    arbre->SetBranchAddress("jeta_2", &jeta_2);
-    arbre->SetBranchAddress("jphi_2", &jphi_2);
-    arbre->SetBranchAddress("jcsv_2", &jcsv_2);
+
+    // event
     arbre->SetBranchAddress("run", &run);
     arbre->SetBranchAddress("lumi", &lumi);
     arbre->SetBranchAddress("evt", &evt);
     arbre->SetBranchAddress("npv", &npv);
+    arbre->SetBranchAddress("npu",&npu);
+    arbre->SetBranchAddress("genpT",&genpT);
+    arbre->SetBranchAddress("genM",&genM);
+    arbre->SetBranchAddress("numGenJets",&numGenJets);
+    arbre->SetBranchAddress("amcatNLO_weight", &amcatNLO_weight);
+    // triggers
+    arbre->SetBranchAddress("passDoubleTau35", &passDoubleTau35);
+    arbre->SetBranchAddress("matchDoubleTau35_1", &matchDoubleTau35_1);
+    arbre->SetBranchAddress("matchDoubleTau35_2", &matchDoubleTau35_2);
+    arbre->SetBranchAddress("filterDoubleTau35_1", &filterDoubleTau35_1);
+    arbre->SetBranchAddress("filterDoubleTau35_2", &filterDoubleTau35_2);
+    arbre->SetBranchAddress("passDoubleTauCmbIso35", &passDoubleTauCmbIso35);
+    arbre->SetBranchAddress("matchDoubleTauCmbIso35_1", &matchDoubleTauCmbIso35_1);
+    arbre->SetBranchAddress("matchDoubleTauCmbIso35_2", &matchDoubleTauCmbIso35_2);
+    arbre->SetBranchAddress("filterDoubleTauCmbIso35_1", &filterDoubleTauCmbIso35_1);
+    arbre->SetBranchAddress("filterDoubleTauCmbIso35_2", &filterDoubleTauCmbIso35_2);
+    // taus
     arbre->SetBranchAddress("px_1", &px_1);
     arbre->SetBranchAddress("py_1", &py_1);
     arbre->SetBranchAddress("pz_1", &pz_1);
@@ -122,6 +133,10 @@ int main(int argc, char** argv) {
     arbre->SetBranchAddress("iso_2", &iso_2);
     arbre->SetBranchAddress("m_2", &m_2);
     arbre->SetBranchAddress("phi_2", &phi_2);
+    arbre->SetBranchAddress("t1_decayMode",&t1_decayMode);
+    arbre->SetBranchAddress("t2_decayMode",&t2_decayMode);
+    arbre->SetBranchAddress("gen_match_1",&gen_match_1);
+    arbre->SetBranchAddress("gen_match_2",&gen_match_2);
     arbre->SetBranchAddress("byVLooseIsolationMVArun2v1DBoldDMwLT_1",&byVLooseIsolationMVArun2v1DBoldDMwLT_1);
     arbre->SetBranchAddress("byLooseIsolationMVArun2v1DBoldDMwLT_1",&byLooseIsolationMVArun2v1DBoldDMwLT_1);
     arbre->SetBranchAddress("byMediumIsolationMVArun2v1DBoldDMwLT_1",&byMediumIsolationMVArun2v1DBoldDMwLT_1);
@@ -146,26 +161,28 @@ int main(int argc, char** argv) {
     arbre->SetBranchAddress("againstElectronVTightMVA6_2",&againstElectronVTightMVA6_2);
     arbre->SetBranchAddress("againstMuonLoose3_2",&againstMuonLoose3_2);
     arbre->SetBranchAddress("againstMuonTight3_2",&againstMuonTight3_2);
-    
-    arbre->SetBranchAddress("passDoubleTau35", &passDoubleTau35);
-    arbre->SetBranchAddress("matchDoubleTau35_1", &matchDoubleTau35_1);
-    arbre->SetBranchAddress("matchDoubleTau35_2", &matchDoubleTau35_2);
-    arbre->SetBranchAddress("filterDoubleTau35_1", &filterDoubleTau35_1);
-    arbre->SetBranchAddress("filterDoubleTau35_2", &filterDoubleTau35_2);
-    arbre->SetBranchAddress("passDoubleTauCmbIso35", &passDoubleTauCmbIso35);
-    arbre->SetBranchAddress("matchDoubleTauCmbIso35_1", &matchDoubleTauCmbIso35_1);
-    arbre->SetBranchAddress("matchDoubleTauCmbIso35_2", &matchDoubleTauCmbIso35_2);
-    arbre->SetBranchAddress("filterDoubleTauCmbIso35_1", &filterDoubleTauCmbIso35_1);
-    arbre->SetBranchAddress("filterDoubleTauCmbIso35_2", &filterDoubleTauCmbIso35_2);
-    
-    
-    arbre->SetBranchAddress("met", &met);
-    arbre->SetBranchAddress("metphi", &metphi);
+    // jets
+    arbre->SetBranchAddress("jpt_1", &jpt_1);
+    arbre->SetBranchAddress("jeta_1", &jeta_1);
+    arbre->SetBranchAddress("jphi_1", &jphi_1);
+    arbre->SetBranchAddress("jcsv_1", &jcsv_1);
+    arbre->SetBranchAddress("jpt_2", &jpt_2);
+    arbre->SetBranchAddress("jeta_2", &jeta_2);
+    arbre->SetBranchAddress("jphi_2", &jphi_2);
+    arbre->SetBranchAddress("jcsv_2", &jcsv_2);
     arbre->SetBranchAddress("njets", &njets);
+    arbre->SetBranchAddress("njets_JESDown", &njets_JESDown);
+    arbre->SetBranchAddress("njets_JESUp", &njets_JESUp);
+    // bjets
     arbre->SetBranchAddress("nbtag", &nbtag);
     arbre->SetBranchAddress("nbtagL", &nbtagL);
-    arbre->SetBranchAddress("jpt_1", &jpt_1);
-    arbre->SetBranchAddress("amcatNLO_weight", &amcatNLO_weight);
+    arbre->SetBranchAddress("bpt_1",&bpt_1);
+    arbre->SetBranchAddress("bpt_2",&bpt_2);
+    arbre->SetBranchAddress("bflavor_1",&bflavor_1);
+    arbre->SetBranchAddress("bflavor_2",&bflavor_2);
+    // met
+    arbre->SetBranchAddress("met", &met);
+    arbre->SetBranchAddress("metphi", &metphi);
     arbre->SetBranchAddress("metphi_JESDown", &metphi_JESDown);
     arbre->SetBranchAddress("metphi_JESUp", &metphi_JESUp);
     arbre->SetBranchAddress("met_JESDown", &met_JESDown);
@@ -174,26 +191,11 @@ int main(int argc, char** argv) {
     arbre->SetBranchAddress("metphi_UESUp", &metphi_UESUp);
     arbre->SetBranchAddress("met_UESDown", &met_UESDown);
     arbre->SetBranchAddress("met_UESUp", &met_UESUp);
-    arbre->SetBranchAddress("njets_JESDown", &njets_JESDown);
-    arbre->SetBranchAddress("njets_JESUp", &njets_JESUp);
-    
-    arbre->SetBranchAddress("t1_decayMode",&t1_decayMode);
-    arbre->SetBranchAddress("t2_decayMode",&t2_decayMode);
-    arbre->SetBranchAddress("gen_match_1",&gen_match_1);
-    arbre->SetBranchAddress("gen_match_2",&gen_match_2);
-    arbre->SetBranchAddress("npu",&npu);
-    arbre->SetBranchAddress("genpT",&genpT);
-    arbre->SetBranchAddress("genM",&genM);
+    // top
     arbre->SetBranchAddress("pt_top1",&pt_top1);
     arbre->SetBranchAddress("pt_top2",&pt_top2);
-    arbre->SetBranchAddress("numGenJets",&numGenJets);
-    arbre->SetBranchAddress("bpt_1",&bpt_1);
-    arbre->SetBranchAddress("bpt_2",&bpt_2);
-    arbre->SetBranchAddress("bflavor_1",&bflavor_1);
-    arbre->SetBranchAddress("bflavor_2",&bflavor_2);
-    
+    // svFit
     arbre->SetBranchAddress("m_sv",&m_sv);
-    //KK
     arbre->SetBranchAddress("m_sv_DOWN", &m_sv_DOWN);
     arbre->SetBranchAddress("m_sv_UP", &m_sv_UP);
     arbre->SetBranchAddress("pt_sv", &pt_sv);
@@ -207,20 +209,18 @@ int main(int argc, char** argv) {
     arbre->SetBranchAddress("pt_sv_UncMet_UP", &pt_sv_UncMet_UP);
     arbre->SetBranchAddress("pt_sv_ClusteredMet_DOWN", &pt_sv_ClusteredMet_DOWN);
     arbre->SetBranchAddress("pt_sv_ClusteredMet_UP", &pt_sv_ClusteredMet_UP);
-    //D.Kim
+    // MELA
     arbre->SetBranchAddress("ME_sm_VBF",&ME_sm_VBF); // What we actually use.
     arbre->SetBranchAddress("ME_sm_ggH",&ME_sm_ggH);
     arbre->SetBranchAddress("ME_bkg",&ME_bkg); // What we actually use.
     arbre->SetBranchAddress("Dbkg_VBF",&Dbkg_VBF);
     arbre->SetBranchAddress("Dbkg_ggH",&Dbkg_ggH);  
-
     arbre->SetBranchAddress("ME_sm_VBF_DOWN",&ME_sm_VBF_DOWN); 
     arbre->SetBranchAddress("ME_sm_VBF_UP",&ME_sm_VBF_UP); 
     arbre->SetBranchAddress("ME_sm_VBF_UncMet_DOWN",&ME_sm_VBF_UncMet_DOWN); 
     arbre->SetBranchAddress("ME_sm_VBF_UncMet_UP",&ME_sm_VBF_UncMet_UP); 
     arbre->SetBranchAddress("ME_sm_VBF_ClusteredMet_DOWN",&ME_sm_VBF_ClusteredMet_DOWN); 
     arbre->SetBranchAddress("ME_sm_VBF_ClusteredMet_UP",&ME_sm_VBF_ClusteredMet_UP); 
-
     arbre->SetBranchAddress("ME_bkg_DOWN",&ME_bkg_DOWN); 
     arbre->SetBranchAddress("ME_bkg_UP",&ME_bkg_UP); 
     arbre->SetBranchAddress("ME_bkg_UncMet_DOWN",&ME_bkg_UncMet_DOWN); 
@@ -228,8 +228,6 @@ int main(int argc, char** argv) {
     arbre->SetBranchAddress("ME_bkg_ClusteredMet_DOWN",&ME_bkg_ClusteredMet_DOWN); 
     arbre->SetBranchAddress("ME_bkg_ClusteredMet_UP",&ME_bkg_ClusteredMet_UP); 
 
-
-    arbre->SetBranchAddress("NN_disc",&NN_disc);
 
     
     //float bins0[] = {0, 40, 60, 70, 80, 90, 100, 110, 120, 130, 150, 200, 250}; //VBF
@@ -274,10 +272,6 @@ int main(int argc, char** argv) {
     //float bins0[] = {0,30,60,90,120,150,180,210,240,270,300,330,360,390};
     //float bins1[] = {0,30,60,90,120,150,180,210,240,270,300,330,360,390};
 
-    std::cout<<"bins0 : "<<bins0<<std::endl;
-    std::cout<<"size of bins0 : "<<sizeof(bins0)<<std::endl;
-    std::cout<<"size of Float_t : "<<sizeof(Float_t)<<std::endl;
-    
     int  binnum0 = sizeof(bins0)/sizeof(Float_t) - 1;
     int  binnum1 = sizeof(bins1)/sizeof(Float_t) - 1;
 
