@@ -1,17 +1,18 @@
-#include "Python.h" // D.Kim
-#include <typeinfo>
-#include <TH2.h>
-#include <TStyle.h>
-#include <TCanvas.h>
-#include <TGraph.h>
-#include <TGraphAsymmErrors.h>
-#include "TMultiGraph.h"
 #include <iostream>
 #include <vector>
 #include <string>
 #include <sstream>
 #include <utility>
 #include <stdio.h>
+#include "Python.h"
+#include <typeinfo>
+// ROOT
+#include <TH2.h>
+#include <TStyle.h>
+#include <TCanvas.h>
+#include <TGraph.h>
+#include <TGraphAsymmErrors.h>
+#include "TMultiGraph.h"
 #include <TF1.h>
 #include <TDirectoryFile.h>
 #include <TRandom3.h>
@@ -24,14 +25,16 @@
 #include "THStack.h"
 #include "TPaveLabel.h"
 #include "TFile.h"
-#include "myHelper.h"
-#include "tt_Tree.h"
-#include "ScaleFactor.h"
-#include "LumiReweightingStandAlone.h"
-#include "btagSF.h"
 #include "RooWorkspace.h"
 #include "RooRealVar.h"
 #include "RooFunctor.h"
+// my includes
+#include "../include/myHelper.h"
+#include "../include/tt_Tree.h"
+#include "../include/ScaleFactor.h"
+#include "../include/LumiReweightingStandAlone.h"
+#include "../include/btagSF.h"
+
 
 int main(int argc, char** argv) {
     
@@ -53,25 +56,25 @@ int main(int argc, char** argv) {
     std::cout.precision(11);
     
     //Declaration of files with scale factors
-    TFile *f_Trk=new TFile("Tracking_EfficienciesAndSF_BCDEFGH.root");
-    TGraph *h_Trk=(TGraph*) f_Trk->Get("ratio_eff_eta3_dr030e030_corr");
+    TFile *f_Trk=new TFile("weightROOTs/Tracking_EfficienciesAndSF_BCDEFGH.root");
+    TGraph *h_Trk=(TGraph*) f_Trk->Get("weightROOTs/ratio_eff_eta3_dr030e030_corr");
     
     reweight::LumiReWeighting* LumiWeights_12;
-    LumiWeights_12 = new reweight::LumiReWeighting("MC_Moriond17_PU25ns_V1.root", "Data_Pileup_2016_271036-284044_80bins.root", "pileup", "pileup");
+    LumiWeights_12 = new reweight::LumiReWeighting("weightROOTs/MC_Moriond17_PU25ns_V1.root", "weightROOTs/Data_Pileup_2016_271036-284044_80bins.root", "pileup", "pileup");
     
-    TFile *fZ=new TFile("zpt_weights_2016_BtoH.root");
+    TFile *fZ=new TFile("weightROOTs/zpt_weights_2016_BtoH.root");
     TH2F *histZ=(TH2F*) fZ->Get("zptmass_histo");
     
-    TFile fw("htt_scalefactors_v16_3.root");
+    TFile fw("weightROOTs/htt_scalefactors_v16_3.root");
     RooWorkspace *w = (RooWorkspace*)fw.Get("w");
     fw.Close();
     
-    TFile fw2("htt_scalefactors_sm_moriond_v1.root");
+    TFile fw2("weightROOTs/htt_scalefactors_sm_moriond_v1.root");
     RooWorkspace *w2 = (RooWorkspace*)fw2.Get("w");
     fw2.Close();
-    
+
     // D.Kim
-    const char *scriptDirectoryName = "./scripts/";
+    const char *scriptDirectoryName = "./../python/";
     Py_Initialize();
     PyObject *sysPath = PySys_GetObject((char *)"path");
     PyObject *path = PyString_FromString(scriptDirectoryName);
