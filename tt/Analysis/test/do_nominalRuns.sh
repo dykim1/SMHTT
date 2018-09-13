@@ -13,38 +13,38 @@
  ./tt_analyzer.exe myntuples/Sep03_v2/data_H.root outputs_nominal/data_H.root data_obs data_obs 0
  hadd -f outputs_nominal/data.root outputs_nominal/data_*.root
  # 2. Signals
- ./tt_analyzer.exe myntuples/Sep03_v2/VBF125.root outputs_nominal/VBF125.root VBF125  VBF125 0
+ ./tt_analyzer.exe myntuples/Sep03_v2/VBF125.root outputs_nominal/VBF125.root VBF125 VBF125 0
  ./tt_analyzer.exe myntuples/Sep03_v2/ggH125.root outputs_nominal/ggH125.root ggH125 ggH125 0
  ./tt_analyzer.exe myntuples/Sep03_v2/WplusH125.root outputs_nominal/WplusH125.root WplusH125 WH125 0
  ./tt_analyzer.exe myntuples/Sep03_v2/WminusH125.root outputs_nominal/WminusH125.root WminusH125 WH125 0
  hadd -f outputs_nominal/WH125.root outputs_nominal/WplusH125.root outputs_nominal/WminusH125.root
- ./tt_analyzer.exe myntuples/Sep03_v2/ZH125.root outputs_nominal/ZH125.root ZH125  ZH125 0
+ ./tt_analyzer.exe myntuples/Sep03_v2/ZH125.root outputs_nominal/ZH125.root ZH125 ZH125 0
  # 3. DY
- ./tt_analyzer.exe myntuples/Sep03_v2/DY.root outputs_nominal/ZTT0.root ZTT ZTT 0
- ./tt_analyzer.exe myntuples/Sep03_v2/DY1.root outputs_nominal/ZTT1.root ZTT ZTT 0
- ./tt_analyzer.exe myntuples/Sep03_v2/DY2.root outputs_nominal/ZTT2.root ZTT ZTT 0
- ./tt_analyzer.exe myntuples/Sep03_v2/DY3.root outputs_nominal/ZTT3.root ZTT ZTT 0
- ./tt_analyzer.exe myntuples/Sep03_v2/DY4.root outputs_nominal/ZTT4.root ZTT ZTT 0
+ ./tt_analyzer.exe myntuples/Sep03_v2/DY.root outputs_nominal/ZTT0.root DY ZTT 0
+ ./tt_analyzer.exe myntuples/Sep03_v2/DY1.root outputs_nominal/ZTT1.root DY ZTT 0
+ ./tt_analyzer.exe myntuples/Sep03_v2/DY2.root outputs_nominal/ZTT2.root DY ZTT 0
+ ./tt_analyzer.exe myntuples/Sep03_v2/DY3.root outputs_nominal/ZTT3.root DY ZTT 0
+ ./tt_analyzer.exe myntuples/Sep03_v2/DY4.root outputs_nominal/ZTT4.root DY ZTT 0
  hadd -f outputs_nominal/ZTT.root outputs_nominal/ZTT0.root outputs_nominal/ZTT1.root outputs_nominal/ZTT2.root outputs_nominal/ZTT3.root outputs_nominal/ZTT4.root
- ./tt_analyzer.exe myntuples/Sep03_v2/DY.root outputs_nominal/ZL0.root ZL ZL 0
- ./tt_analyzer.exe myntuples/Sep03_v2/DY1.root outputs_nominal/ZL1.root ZL ZL 0
- ./tt_analyzer.exe myntuples/Sep03_v2/DY2.root outputs_nominal/ZL2.root ZL ZL 0
- ./tt_analyzer.exe myntuples/Sep03_v2/DY3.root outputs_nominal/ZL3.root ZL ZL 0
- ./tt_analyzer.exe myntuples/Sep03_v2/DY4.root outputs_nominal/ZL4.root ZL  ZL 0
+ ./tt_analyzer.exe myntuples/Sep03_v2/DY.root outputs_nominal/ZL0.root DY ZL 0
+ ./tt_analyzer.exe myntuples/Sep03_v2/DY1.root outputs_nominal/ZL1.root DY ZL 0
+ ./tt_analyzer.exe myntuples/Sep03_v2/DY2.root outputs_nominal/ZL2.root DY ZL 0
+ ./tt_analyzer.exe myntuples/Sep03_v2/DY3.root outputs_nominal/ZL3.root DY ZL 0
+ ./tt_analyzer.exe myntuples/Sep03_v2/DY4.root outputs_nominal/ZL4.root DY  ZL 0
  hadd -f outputs_nominal/ZL.root outputs_nominal/ZL0.root outputs_nominal/ZL1.root outputs_nominal/ZL2.root outputs_nominal/ZL3.root outputs_nominal/ZL4.root
- ./tt_analyzer.exe myntuples/Sep03_v2/DY.root outputs_nominal/ZJ0.root ZJ ZJ 0
- ./tt_analyzer.exe myntuples/Sep03_v2/DY1.root outputs_nominal/ZJ1.root ZJ ZJ 0
- ./tt_analyzer.exe myntuples/Sep03_v2/DY2.root outputs_nominal/ZJ2.root ZJ ZJ 0
- ./tt_analyzer.exe myntuples/Sep03_v2/DY3.root outputs_nominal/ZJ3.root ZJ ZJ 0
- ./tt_analyzer.exe myntuples/Sep03_v2/DY4.root outputs_nominal/ZJ4.root ZJ ZJ 0
+ ./tt_analyzer.exe myntuples/Sep03_v2/DY.root outputs_nominal/ZJ0.root DY ZJ 0
+ ./tt_analyzer.exe myntuples/Sep03_v2/DY1.root outputs_nominal/ZJ1.root DY ZJ 0
+ ./tt_analyzer.exe myntuples/Sep03_v2/DY2.root outputs_nominal/ZJ2.root DY ZJ 0
+ ./tt_analyzer.exe myntuples/Sep03_v2/DY3.root outputs_nominal/ZJ3.root DY ZJ 0
+ ./tt_analyzer.exe myntuples/Sep03_v2/DY4.root outputs_nominal/ZJ4.root DY ZJ 0
  hadd -f outputs_nominal/ZJ.root outputs_nominal/ZJ0.root outputs_nominal/ZJ1.root outputs_nominal/ZJ2.root outputs_nominal/ZJ3.root outputs_nominal/ZJ4.root
  # 4. EWKZ
  ./tt_analyzer.exe myntuples/Sep03_v2/EWKZ2l.root outputs_nominal/EWKZ2l.root EWKZLL EWKZ 0
  ./tt_analyzer.exe myntuples/Sep03_v2/EWKZ2nu.root outputs_nominal/EWKZ2nu.root EWKZNuNu EWKZ 0
  hadd -f outputs_nominal/EWKZ.root outputs_nominal/EWKZ2l.root outputs_nominal/EWKZ2nu.root
  # 5. TT
- ./tt_analyzer.exe myntuples/Sep03_v2/TT.root outputs_nominal/TTT.root TTT TTT 0
- ./tt_analyzer.exe myntuples/Sep03_v2/TT.root outputs_nominal/TTJ.root TTJ TTJ 0
+ ./tt_analyzer.exe myntuples/Sep03_v2/TT.root outputs_nominal/TTT.root TT TTT 0
+ ./tt_analyzer.exe myntuples/Sep03_v2/TT.root outputs_nominal/TTJ.root TT TTJ 0
  ./tt_analyzer.exe myntuples/Sep03_v2/W.root outputs_nominal/W0.root W W 0
  ./tt_analyzer.exe myntuples/Sep03_v2/W1.root outputs_nominal/W1.root W W 0
  ./tt_analyzer.exe myntuples/Sep03_v2/W2.root outputs_nominal/W2.root W W 0

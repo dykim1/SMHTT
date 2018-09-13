@@ -33,6 +33,7 @@
 #include "../include/tt_Tree.h"
 #include "../include/ScaleFactor.h"
 #include "../include/LumiReweightingStandAlone.h"
+#include "../include/lumiMap.h"
 #include "../include/btagSF.h"
 
 
@@ -83,65 +84,11 @@ int main(int argc, char** argv) {
     // The line below breaks the code
     PyObject* compute_sf = PyObject_GetAttrString(fitFunctions,"compute_SF");
 
-    //Normalization os MC samples
-    float xs=1.0; float weight=1.0; float luminosity=35870.0;
-
-    // D.Kim : updated from Cécile's mt analysis code.
-    if (sample=="ZL" or sample=="ZTT" or sample=="ZJ" or sample=="ZLL"){ xs=5765.4; weight=luminosity*xs/ngen;}
-    else if (sample=="TT" or sample=="TTT" or sample=="TTJ") {xs=831.76; weight=luminosity*xs/ngen;}
-    else if (sample=="W") {xs=61526.7; weight=luminosity*xs/ngen;}
-    else if (sample=="QCD") {xs=720648000*0.00042; weight=luminosity*xs/ngen;}
-    else if (sample=="data_obs"){weight=1.0;}
-    else if (sample=="WZ1L1Nu2Q") {xs=10.71; weight=luminosity*xs/ngen;}
-    else if (sample=="WZ1L3Nu") {xs=3.05; weight=luminosity*xs/ngen;}
-    else if (sample=="WZJets") {xs=5.26; weight=luminosity*xs/ngen;}
-    else if (sample=="WZLLLNu") {xs=4.708; weight=luminosity*xs/ngen;}
-    else if (sample=="WZ2L2Q") {xs=5.595; weight=luminosity*xs/ngen;}
-    else if (sample=="WW1L1Nu2Q") {xs=49.997; weight=luminosity*xs/ngen;}
-    else if (sample=="ZZ4L") {xs=1.212; weight=luminosity*xs/ngen;}
-    else if (sample=="ZZ2L2Q") {xs=3.22; weight=luminosity*xs/ngen;}
-    else if (sample=="VV2L2Nu") {xs=11.95; weight=luminosity*xs/ngen;}
-    else if (sample=="ST_tW_antitop") {xs=35.6; weight=luminosity*xs/ngen;}
-    else if (sample=="ST_tW_top") {xs=35.6; weight=luminosity*xs/ngen;}
-    else if (sample=="ST_t_antitop") {xs=26.23; weight=luminosity*xs/ngen;}
-    else if (sample=="ST_t_top") {xs=44.07; weight=luminosity*xs/ngen;}
-    else if (sample=="ggh") {xs=48.58*0.0627; weight=luminosity*xs/ngen;}
-    else if (sample=="VBF") {xs=3.782*0.0627; weight=luminosity*xs/ngen;}
-    else if (sample=="ggH125") {xs=48.58*0.0627; weight=luminosity*xs/ngen;}
-    else if (sample=="VBF125") {xs=3.782*0.0627; weight=luminosity*xs/ngen;}
-    else if (sample=="ggH120") {xs=52.22*0.0698; weight=luminosity*xs/ngen;}
-    else if (sample=="VBF120") {xs=3.935*0.0698; weight=luminosity*xs/ngen;}
-    else if (sample=="ggH130") {xs=45.31*0.0541; weight=luminosity*xs/ngen;}
-    else if (sample=="VBF130") {xs=3.637*0.0541; weight=luminosity*xs/ngen;}
-    else if (sample=="ggH110") {xs=57.90*0.0791; weight=luminosity*xs/ngen;}
-    else if (sample=="VBF110") {xs=4.434*0.0791; weight=luminosity*xs/ngen;}
-    else if (sample=="ggH140") {xs=36.0*0.0360; weight=luminosity*xs/ngen;}
-    else if (sample=="VBF140") {xs=3.492*0.0360; weight=luminosity*xs/ngen;}
-    else if (sample=="ggH_WW125") {xs=48.58*0.2137*0.3258; weight=luminosity*xs/ngen;}
-    else if (sample=="VBF_WW125") {xs=3.782*0.2137*0.3258; weight=luminosity*xs/ngen;}
-    else if (sample=="WplusH120") {xs=0.9558*0.0698; weight=luminosity*xs/ngen;}
-    else if (sample=="WplusH125") {xs=0.840*0.0627; weight=luminosity*xs/ngen;}
-    else if (sample=="WplusH130") {xs=0.7414*0.0541; weight=luminosity*xs/ngen;}
-    else if (sample=="WplusH110") {xs=1.335*0.0791; weight=luminosity*xs/ngen;}
-    else if (sample=="WplusH140") {xs=0.6308*0.0360; weight=luminosity*xs/ngen;}
-    else if (sample=="WminusH120") {xs=0.6092*0.0698; weight=luminosity*xs/ngen;}
-    else if (sample=="WminusH125") {xs=0.5328*0.0627; weight=luminosity*xs/ngen;}
-    else if (sample=="WminusH130") {xs=0.4676*0.0541; weight=luminosity*xs/ngen;}
-    else if (sample=="WminusH110") {xs=0.8587*0.0791; weight=luminosity*xs/ngen;}
-    else if (sample=="WminusH140") {xs=0.394*0.0360; weight=luminosity*xs/ngen;}
-    else if (sample=="ZH120") {xs=0.9939*0.0698; weight=luminosity*xs/ngen;}
-    else if (sample=="ZH125") {xs=0.8839*0.0627; weight=luminosity*xs/ngen;}
-    else if (sample=="ZH130") {xs=0.7899*0.0541; weight=luminosity*xs/ngen;}
-    else if (sample=="ZH110") {xs=1.309*0.0791; weight=luminosity*xs/ngen;}
-    else if (sample=="ZH140") {xs=0.6514*0.0360; weight=luminosity*xs/ngen;}
-    else if (sample=="WGLNu") {xs=489.0; weight=luminosity*xs/ngen;}
-    else if (sample=="WGstarMuMu") {xs=2.793; weight=luminosity*xs/ngen;}
-    else if (sample=="WGstarEE") {xs=3.526; weight=luminosity*xs/ngen;}
-    else if (sample=="EWKWminus") {xs=20.25; weight=luminosity*xs/ngen;}
-    else if (sample=="EWKWplus") {xs=25.62; weight=luminosity*xs/ngen;}
-    else if (sample=="EWKZLL" or sample=="EWKZLL_TT" or sample=="EWKZLL_J" or sample=="EWKZLL_L" or sample=="EWKZLL_LL") {xs=3.987; weight=luminosity*xs/ngen;}
-    else if (sample=="EWKZNuNu" or sample=="EWKZNuNu_TT" or sample=="EWKZNuNu_J" or sample=="EWKZNuNu_L" or sample=="EWKZNuNu_LL") {xs=10.01; weight=luminosity*xs/ngen;}
-    else std::cout<<"Attention!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<std::endl;
+    float weight = 1.0;
+    // Lumi weight  
+    float w_lumi = lumiWeight(sample, ngen);
+    if (w_lumi==0) std::cout << std::endl << "!!!!!!!!!!!!!!!!!!!!!!!! ATTENTION - can't find lumi weight. Check the sample. !!!!!!!!!!!!!!!!!!!!!!!!" << std::endl << std::endl;
+    weight = w_lumi;
 
     std::cout.setf(std::ios::fixed, std::ios::floatfield);
     std::cout.precision(10);
@@ -740,9 +687,9 @@ int main(int argc, char** argv) {
       if (gen_match_1==5 || gen_match_2==5) isZTT=true;
       if (gen_match_1<6&&gen_match_2<6&&!(gen_match_1==5&&gen_match_2==5)) isZL=true;
       if (gen_match_2==6 || gen_match_1==6) isZJ=true;
-      if ((sample=="ZTT") && !isZTT) continue;
-      if ((sample=="ZL") && !isZL) continue;
-      if ((sample=="ZJ") && !isZJ) continue;
+      if ((name=="ZTT") && !isZTT) continue;
+      if ((name=="ZL") && !isZL) continue;
+      if ((name=="ZJ") && !isZJ) continue;
 
       // TT & VV : line 895~897
       if (!(gen_match_1==5 && gen_match_2==5) && (name=="VVT"|| name=="TTT")) continue;
